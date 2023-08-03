@@ -22,9 +22,9 @@
     "pnp": false
   },
   "config": {
-    "customUrl": "//pug.wowjob.dev",
+    "customUrl": "https://u7-ui.netlify.app/",
     "githubUrl": "http://github.com/marianzburlea/u7-sass-ui.git",
-    "deployToGithubIo": true,
+    "deployToGithubIo": false,
     "directory": {
       "development": "tmp",
       "production": "dist",
