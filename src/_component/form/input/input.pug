@@ -1,0 +1,44 @@
+//- form
+.flex
+  .jw-input__wrapper
+    label.jw-input__label(
+      for="input-name"
+    ) Label*
+
+    button.jw-input__icon
+      span(
+        id="input-name-description"
+        class="jw-input__icon-description"
+      ) We have designed forms with accessibility in mind.
+
+    
+    input.jw-input__text(
+      id="input-name"
+      type="text"
+      placeholder="interesting text"
+      role="textbox"
+      aria-describedby="input-name-description"
+      aria-required="true"
+    )
+
+  .jw-input__wrapper
+    label.jw-input__label(
+      for="input-with-error"
+    ) Label*
+
+    button.jw-input__icon
+      span(
+        id="input-with-error-description"
+        class="jw-input__icon-description"
+      ) We have designed forms with accessibility in mind.
+
+    
+    input.jw-input__text(
+      id="input-with-error"
+      type="text"
+      role="textbox"
+      placeholder="must be three (3)"
+      aria-describedby="input-with-error-description"
+      aria-required="true"
+      pattern="[A-Za-z]{3}"
+    )

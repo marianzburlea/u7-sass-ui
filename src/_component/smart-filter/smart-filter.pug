@@ -1,0 +1,154 @@
+-
+  var mainFilter = ['fresh', 'tropical', 'fruity', 'spicy', 'smoky', 'creamy']
+  var characteristicsFilter = ['fizzy', 'on the rocks', 'tall',]
+  var sortbyFilter = ['latest', 'most popular', 'trending',]
+
+.smart-filter
+  label.smart-filter__title(
+    for="smart-filter-profile-toggle"
+  ) Smart filter
+
+  // smart filter profile toggle
+  input.smart-filter__profile-toggle(
+    type="checkbox"
+    checked
+    id="smart-filter-profile-toggle"
+    aria-label="Toggle profile settings on or off"
+  )
+
+
+  label.smart-filter__profile-label(
+    for="smart-filter-profile-toggle"
+  )
+
+  // Main Profile
+  // smart filter main profile
+  input.smart-filter__main-filter(
+    type="checkbox"
+    checked
+    data-type="select-all"
+    id=`select-all-profile`
+  )
+  
+
+  each item, key in mainFilter
+    input.smart-filter__main-filter(
+      type="checkbox"
+      checked
+      data-type="profile"
+      id=`main-checkbox-profile-${key}`
+    )
+
+  // smart filter main anonymous
+  input.smart-filter__main-filter(
+    type="checkbox"
+    checked
+    data-type="select-all"
+    id=`select-all-anonymous`
+  )
+
+  each item, key in mainFilter
+    input.smart-filter__main-filter(
+      type="checkbox"
+      checked
+      data-type="anonymous"
+      id=`main-checkbox-anonymous-${key}`
+    )
+
+
+
+  // characteristics Profile
+  // smart filter characteristics profile
+  each item, key in characteristicsFilter
+    input.smart-filter__characteristics-filter(
+      type="checkbox"
+      checked
+      data-type="profile"
+      id=`characteristics-checkbox-profile-${key}`
+    )
+
+  // smart filter characteristics anonymous
+  each item, key in characteristicsFilter
+    input.smart-filter__characteristics-filter(
+      type="checkbox"
+      checked
+      data-type="anonymous"
+      id=`characteristics-checkbox-anonymous-${key}`
+    )
+
+
+  // sortby Profile
+  // smart filter sortby profile
+  each item, key in sortbyFilter
+    input.smart-filter__sortby-filter(
+      type="radio"
+      checked
+      data-type="profile"
+      name=`sortby-checkbox-profile`
+      id=`sortby-checkbox-profile-${key}`
+    )
+
+  // smart filter sortby anonymous
+  each item, key in sortbyFilter
+    input.smart-filter__sortby-filter(
+      type="radio"
+      checked
+      data-type="anonymous"
+      name=`sortby-checkbox-anonymous`
+      id=`sortby-checkbox-anonymous-${key}`
+    )
+
+
+  h1.smart-filter__title--h1 Top menu
+  .smart-filter__top-wrapper
+
+    .smart-filter__profile-wrapper
+      each item, key in mainFilter
+        label.smart-filter__label--profile(
+          for=`main-checkbox-profile-${key}`
+        ) #{item}
+
+      label.smart-filter__label--profile(
+        for=`select-all-profile`
+      ) All
+
+    .smart-filter__anonymous-wrapper
+      each item, key in mainFilter
+        label.smart-filter__label--anonymous(
+          for=`main-checkbox-anonymous-${key}`
+        ) #{item} an
+
+      label.smart-filter__label--anonymous(
+        for=`select-all-anonymous`
+      ) All
+
+  .smart-filter__characteristics-wrapper
+    h2 Characteristics
+    .smart-filter__profile-wrapper-characteristics
+      each item, key in characteristicsFilter
+        label.smart-filter__label--profile(
+          for=`characteristics-checkbox-profile-${key}`
+        ) #{item}
+
+    .smart-filter__anonymous-wrapper-characteristics
+      each item, key in characteristicsFilter
+        label.smart-filter__label--anonymous(
+          for=`characteristics-checkbox-anonymous-${key}`
+        ) #{item} an
+
+
+  .smart-filter__sortby-wrapper
+    h2 Sort by
+    .smart-filter__profile-wrapper-sortby
+      each item, key in sortbyFilter
+        label.smart-filter__label--profile(
+          for=`sortby-checkbox-profile-${key}`
+        ) #{item}
+
+    .smart-filter__anonymous-wrapper-sortby
+      each item, key in sortbyFilter
+        label.smart-filter__label--anonymous(
+          for=`sortby-checkbox-anonymous-${key}`
+        ) #{item} an
+
+

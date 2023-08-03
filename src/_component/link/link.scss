@@ -1,0 +1,15 @@
+.link {
+  outline: 8px solid transparent;
+  transition: 250ms;
+  display: inline-block;
+  outline-offset: -1px;
+  line-height: 1.5;
+  height: 1.5rem;
+  padding: 0 0.5rem;
+  position: relative;
+  width: fit-content;
+
+  &:focus {
+    outline: 8px solid $blaze-orange;
+  }
+}

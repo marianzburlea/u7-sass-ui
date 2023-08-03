@@ -1,0 +1,13 @@
+.grid-list__wrapper
+  each i, l in Array(23)
+    div
+    div
+    h1 Grid with #{l + 1} item#{l ? 's': ''}
+    .grid-list
+      each _, key in Array.from({ length: l + 1 }, (_, i) => i + 1)
+        if key === 7
+          .grid-list__promo promo card
+        if key === 17
+          .grid-list__promo promo card
+        .grid-list__product
+
