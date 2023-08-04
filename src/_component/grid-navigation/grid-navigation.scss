@@ -1,0 +1,54 @@
+@for $i from 1 through 30 {
+  #mjr-#{$i}:checked {
+    & ~ [for='mjr-#{$i}'] {
+      background-color: $sciene-blue;
+    }
+
+    & ~ .grid-list__wrapper:nth-of-type(#{$i}) {
+      display: flex;
+    }
+  }
+}
+
+.grid-list__wrapper {
+  grid-column: 1/-1;
+  display: none;
+}
+
+.grid-navigation {
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    column-gap: 0.125rem;
+    row-gap: 1rem;
+    width: fit-content;
+  }
+
+  flex-wrap: wrap;
+  display: flex;
+  gap: 0.25rem;
+
+  &__input {
+    display: none;
+  }
+
+  &__button {
+    width: 1.5rem;
+    aspect-ratio: 1;
+    font-size: 0.75rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $blaze-orange;
+    color: $white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 250ms;
+
+    &:hover {
+      color: $black;
+      transform: scale(1.25);
+    }
+  }
+}

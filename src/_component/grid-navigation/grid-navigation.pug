@@ -1,0 +1,14 @@
+-
+  var collection = Array.from({length: 30}, (_, k) => k + 1)
+each item in collection
+  input(
+    type="radio"
+    name="mjr"
+    id=`mjr-${item}`
+    checked=item === 1
+  ).grid-navigation__input
+
+each item in collection
+  label.grid-navigation__button(
+    for=`mjr-${item}`
+  )= item

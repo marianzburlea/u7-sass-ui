@@ -1,15 +1,15 @@
 .grid-list {
-  border: 10px double black;
-
   display: grid;
-  gap: 1rem;
+  gap: 1rem; // 16px
+  column-gap: 1.25rem; // 20px
+  row-gap: 3.25rem; // 52px
   width: fit-content;
   counter-set: whom;
+  grid-template-columns: repeat(2, 1fr);
 
   &__promo {
-    grid-column: 1/-1;
     background-color: $sciene-blue;
-    height: 6rem;
+    height: 19.375rem; // 310px
     font-size: 2rem;
     color: $white;
 
@@ -17,18 +17,16 @@
     justify-content: center;
     align-items: center;
 
-    &:nth-of-type(1) {
-      grid-row: 4/5;
-    }
-
-    &:nth-of-type(2) {
-      grid-row: 10/11;
+    &__wrapper {
+      grid-column: 1/-1;
+      padding: 0.5rem 0;
+      order: 1;
     }
   }
 
   &__product {
-    width: 17.5rem; // 280px
-    height: 28.75rem; // 460px
+    width: 10.1875rem; // 163px
+    height: 10.8125rem; // 173px
     background-color: $orange;
     counter-increment: whom;
     position: relative;
@@ -42,19 +40,39 @@
       justify-content: center;
       align-items: center;
     }
+
+    &:nth-of-type(9),
+    &:nth-of-type(10) {
+      order: 2;
+    }
   }
 
   &__wrapper {
     display: flex;
-    gap: 1rem;
+    gap: 3.25rem; // 52px
     flex-direction: column;
-    background: #ededed;
   }
 }
 
 //                            768px
 @media screen and (min-width: 48rem) {
   .grid-list {
+    &__product {
+      width: 17.5rem; // 280px
+      height: 28.75rem; // 460px
+    }
+  }
+}
+
+//                            1024px
+@media screen and (min-width: 64rem) {
+  .grid-list {
+    &__product:nth-of-type(8),
+    &__product:nth-of-type(9),
+    &__product:nth-of-type(10) {
+      order: 2;
+    }
+
     &:has(.grid-list__product:nth-of-type(2)) {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -89,30 +107,6 @@
 
       & .grid-list__product:nth-of-type(7) {
         grid-row: 2/4;
-        grid-column: 3/4;
-        height: 100%;
-        background-color: $blaze-orange;
-      }
-    }
-
-    &:has(.grid-list__product:nth-of-type(15)) {
-      & .grid-list__product:nth-of-type(12) {
-        grid-row: span 2;
-        height: 100%;
-        background-color: $blaze-orange;
-      }
-    }
-
-    &:has(.grid-list__product:nth-of-type(16)) {
-      & .grid-list__product:nth-of-type(12) {
-        grid-row: inherit;
-        background-color: $orange;
-      }
-    }
-
-    &:has(.grid-list__product:nth-of-type(18)) {
-      & .grid-list__product:nth-of-type(17) {
-        grid-row: 7/9;
         grid-column: 3/4;
         height: 100%;
         background-color: $blaze-orange;

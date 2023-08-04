@@ -1,13 +1,29 @@
-.grid-list__wrapper
-  each i, l in Array(23)
-    div
-    div
-    h1 Grid with #{l + 1} item#{l ? 's': ''}
-    .grid-list
-      each _, key in Array.from({ length: l + 1 }, (_, i) => i + 1)
-        if key === 7
-          .grid-list__promo promo card
-        if key === 17
-          .grid-list__promo promo card
-        .grid-list__product
+
+.grid-navigation__wrapper
+  include ../grid-navigation/grid-navigation
+
+  each gridListWrapper in Array.from({ length: 30 }, (_, k) => k + 1)
+    .grid-list__wrapper
+      - 
+        var fullGridList = ~~((gridListWrapper) / 10)
+        var fullGridListReminder = ~~((gridListWrapper) % 10)
+
+      //- generate full lists
+      each repeatGridList in Array.from({ length: fullGridList }, (_, k) => k + 1)
+        .grid-list
+          each numberOfProducts in Array.from({ length: 10 }, (_, i) => i + 1)
+            .grid-list__product
+
+          .grid-list__promo__wrapper
+            .grid-list__promo promo card #{i}
+      
+      //- generate reminder lists
+      if fullGridListReminder !== 0
+        .grid-list
+          each numberOfProducts in Array.from({ length: fullGridListReminder }, (_, i) => i + 1)
+            .grid-list__product
+
+          if fullGridListReminder > 7
+            .grid-list__promo__wrapper
+              .grid-list__promo promo card #{i}
 
