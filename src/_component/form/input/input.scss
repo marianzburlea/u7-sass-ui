@@ -83,12 +83,12 @@
     }
 
     &:active {
-      border: 2px solid $sciene-blue;
+      border: 2px solid $science-blue;
     }
 
     &:focus-visible {
       outline: 8px solid $blaze-orange;
-      border: 2px solid $sciene-blue;
+      border: 2px solid $science-blue;
     }
 
     &:not(:valid) {

@@ -1,0 +1,26 @@
+-
+  var itemList = [
+    { id: 111, label: 'Fruity' },
+    { id: 112, label: 'Peaty' },
+    { id: 113, label: 'Sweet' },
+    { id: 114, label: 'Spicy' },
+    { id: 115, label: 'Malty' },
+    { id: 116, label: 'Nutty' },
+    { id: 117, label: 'Smokey' }
+  ]
+
+.hero-carousel 
+  h1.hero-carousel__title Accessible Hero Carousel - Smart UI
+
+  each item in itemList
+    input.hero-carousel__item-selector(
+      type="checkbox"
+      id=`hero-carousel-${item.id}`
+    )
+  
+  .hero-carousel__item-list 
+    each item in itemList 
+      label.hero-carousel__item(
+        for=`hero-carousel-${item.id}`
+      )= item.label
+

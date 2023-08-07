@@ -1,7 +1,7 @@
 @for $i from 1 through 30 {
   #mjr-#{$i}:checked {
     & ~ [for='mjr-#{$i}'] {
-      background-color: $sciene-blue;
+      background-color: $science-blue;
     }
 
     & ~ .grid-list__wrapper:nth-of-type(#{$i}) {

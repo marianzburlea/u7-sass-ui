@@ -1,0 +1,12 @@
+.hero-carousel {
+  &__item {
+    border: 0.25rem solid $science-blue;
+    padding: 1rem;
+    width: 7rem;
+    aspect-ratio: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}
