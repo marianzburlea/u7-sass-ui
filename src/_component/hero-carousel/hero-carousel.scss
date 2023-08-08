@@ -1,12 +1,426 @@
 .hero-carousel {
+  --item-width: 17.5rem; // 280px
+  --list-gap: 5rem;
+  --item-height: 20.9375rem; // 335px
+  --item-rotation: 12deg;
+  font-family: 'Oswald', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  counter-set: selected;
+  position: relative;
+  padding: 2rem 0;
+  overflow: hidden;
+
+  &__link {
+    &-primary,
+    &-secondary {
+      width: 17.5rem; // 280px
+      height: 3.5rem; // 56px
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    &-primary {
+      color: $pearl-lusta;
+      background-color: $black;
+    }
+
+    &-secondary {
+      color: $black;
+    }
+  }
+
+  &__selected {
+    &::before {
+      content: counter(selected);
+    }
+  }
+
+  &:has(
+      .hero-carousel__item-selector:checked
+        ~ .hero-carousel__item-selector:checked
+    ) {
+    & .hero-carousel__item-selector:not(:checked) {
+      display: none;
+
+      & ~ .hero-carousel__item-grid .hero-carousel__item {
+        border: 0.5rem solid $dusty-gray;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__nav {
+    position: relative;
+
+    &--left,
+    &--right {
+      position: absolute;
+      top: 10rem;
+      font-size: 3rem;
+      width: 3.2rem;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 0;
+      transition: 250ms;
+      z-index: 10;
+
+      cursor: pointer;
+
+      &:focus-visible {
+        outline: 0.5rem solid $blaze-orange;
+      }
+
+      & > span {
+        pointer-events: none;
+      }
+    }
+
+    &--left {
+      left: -14rem;
+    }
+
+    &--right {
+      right: -14rem;
+    }
+  }
+
+  &__title,
+  &__info,
+  &__selected {
+    position: relative;
+    order: -1;
+    background-color: hsla(0, 0%, 100%, 0.75);
+    padding: 1rem 2rem;
+  }
+
+  &__background {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    object-position: center;
+    width: 100vw;
+    height: 100%;
+    opacity: 0;
+
+    left: 100vw;
+    transition: 150ms ease-in;
+    // @for $i from 1 through 7 {
+    //   &:nth-child(#{$i}) {
+    //     left: #{($i - 1) * 50%};
+    //   }
+    // }
+
+    &-effect {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(
+        to bottom,
+        $pearl-lusta-transparent,
+        $pearl-lusta
+      );
+      // &::after {
+      //   content: '';
+      // }
+    }
+
+    &-list {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 700%;
+      z-index: -1;
+    }
+  }
+
   &__item {
-    border: 0.25rem solid $science-blue;
-    padding: 1rem;
-    width: 7rem;
-    aspect-ratio: 1;
+    border: 0.5rem solid $science-blue;
+    width: var(--item-width);
+    height: var(--item-height);
+
     display: inline-flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    transition: 150ms ease-out;
+
+    position: absolute;
+
+    background-image: var(--bg);
+    background-size: cover;
+    background-position: center;
+
+    box-shadow: 1px 0 0.75rem #000;
+
+    top: 0;
+
+    &:nth-child(7n + 1) {
+      left: calc(
+        (var(--item-width) * 0) + var(--list-gap) * 0 - var(--item-width) / 2
+      );
+      top: calc(var(--list-gap) * 0);
+      transform: rotate(calc(var(--item-rotation) * 0));
+    }
+
+    &:nth-child(7n + 2) {
+      left: calc(
+        (var(--item-width) * 1) + var(--list-gap) * 1 - var(--item-width) / 2
+      );
+      top: calc(var(--list-gap) * 0.5);
+      transform: rotate(calc(var(--item-rotation) * 1)) scale(0.8);
+    }
+
+    &:nth-child(7n + 3) {
+      left: calc(
+        (var(--item-width) * 2) + var(--list-gap) * 2 - var(--item-width) / 2
+      );
+      top: calc(var(--list-gap) * 1.8);
+      transform: rotate(calc(var(--item-rotation) * 2)) scale(0.8);
+    }
+
+    &:nth-child(7n + 4) {
+      left: calc(
+        (var(--item-width) * 3) + var(--list-gap) * 3 - var(--item-width) / 2
+      );
+      top: calc(var(--list-gap) * 4);
+      transform: rotate(calc(var(--item-rotation) * 3)) scale(0.8);
+    }
+
+    &:nth-child(7n + 5) {
+      left: calc(
+        (var(--item-width) * -3) + var(--list-gap) * -3 - var(--item-width) / 2
+      );
+      top: calc(var(--list-gap) * 4);
+      transform: rotate(calc(var(--item-rotation) * -3)) scale(0.8);
+    }
+
+    &:nth-child(7n + 6) {
+      left: calc(
+        (var(--item-width) * -2) + var(--list-gap) * -2 - var(--item-width) / 2
+      );
+      top: calc(var(--list-gap) * 1.8);
+      transform: rotate(calc(var(--item-rotation) * -2)) scale(0.8);
+    }
+
+    &:nth-child(7n + 7) {
+      left: calc(
+        (var(--item-width) * -1) + var(--list-gap) * -1 - var(--item-width) / 2
+      );
+      top: calc(var(--list-gap) * 0.5);
+      transform: rotate(calc(var(--item-rotation) * -1)) scale(0.8);
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      width: 100%;
+      // overflow: hidden;
+      padding: 2.5rem 0;
+      position: relative;
+    }
+
+    &-list {
+      width: 100%;
+      display: flex;
+      gap: var(--list-gap);
+      grid-column-start: 2;
+      position: relative;
+      height: var(--item-height);
+    }
+
+    &-title {
+      display: inline-block;
+      line-height: 3rem;
+      background-color: hsla(0, 0%, 100%, 0.75);
+      font-size: 2rem;
+      padding: 0 1rem;
+    }
+
+    &-selector {
+      @include hide-visually();
+    }
+
+    &-checked {
+      position: absolute;
+      left: 4rem;
+      top: 1.125rem;
+      color: $white;
+      text-transform: uppercase;
+      height: 2rem;
+      line-height: 2rem;
+      padding: 0 1rem;
+      background-color: hsla(0, 0%, 0%, 0.75);
+    }
+
+    &-check {
+      width: 2rem;
+      aspect-ratio: 1;
+      border: 0.25rem solid $white;
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &ed .hero-carousel__item-checked--on {
+        opacity: 0;
+        margin: 0;
+        transition: 150ms;
+        margin-left: -1rem;
+      }
+
+      &::before {
+        content: '';
+        width: 1rem;
+        aspect-ratio: 1;
+        display: inline-block;
+        background-color: $white;
+        transform: scale(0);
+        transition: 250ms;
+      }
+    }
+  }
+
+  @for $i from 1 through 10 {
+    #hero-carousel-#{$i} {
+      &[data-last-focused],
+      &:focus-visible {
+        &
+          ~ .hero-carousel__background-list
+          .hero-carousel__background:nth-child(#{$i}) {
+          left: 0;
+          opacity: 1;
+        }
+
+        & ~ .hero-carousel__item-grid {
+          & [for='hero-carousel-#{$i}'] {
+            border-color: $blaze-orange;
+            border-width: 0.5rem;
+          }
+
+          & .hero-carousel__item {
+            &:nth-child(7n + #{($i + 0) % 7}) {
+              left: calc(
+                (var(--item-width) * 0) +
+                  var(--list-gap) *
+                  0 -
+                  var(--item-width) /
+                  2
+              );
+              top: calc(var(--list-gap) * 0);
+              transform: rotate(calc(var(--item-rotation) * 0));
+            }
+
+            &:nth-child(7n + #{($i + 1) % 7}) {
+              left: calc(
+                (var(--item-width) * 1) +
+                  var(--list-gap) *
+                  1 -
+                  var(--item-width) /
+                  2
+              );
+              top: calc(var(--list-gap) * 0.5);
+              transform: rotate(calc(var(--item-rotation) * 1)) scale(0.8);
+            }
+
+            &:nth-child(7n + #{($i + 2) % 7}) {
+              left: calc(
+                (var(--item-width) * 2) +
+                  var(--list-gap) *
+                  2 -
+                  var(--item-width) /
+                  2
+              );
+              top: calc(var(--list-gap) * 1.8);
+              transform: rotate(calc(var(--item-rotation) * 2)) scale(0.8);
+            }
+
+            &:nth-child(7n + #{($i + 3) % 7}) {
+              left: calc(
+                (var(--item-width) * 3) +
+                  var(--list-gap) *
+                  3 -
+                  var(--item-width) /
+                  2
+              );
+              top: calc(var(--list-gap) * 4);
+              transform: rotate(calc(var(--item-rotation) * 3)) scale(0.8);
+            }
+
+            &:nth-child(7n + #{($i + 4) % 7}) {
+              left: calc(
+                (var(--item-width) * -3) +
+                  var(--list-gap) *
+                  -3 -
+                  var(--item-width) /
+                  2
+              );
+              top: calc(var(--list-gap) * 4);
+              transform: rotate(calc(var(--item-rotation) * -3)) scale(0.8);
+            }
+
+            &:nth-child(7n + #{($i + 5) % 7}) {
+              left: calc(
+                (var(--item-width) * -2) +
+                  var(--list-gap) *
+                  -2 -
+                  var(--item-width) /
+                  2
+              );
+              top: calc(var(--list-gap) * 1.8);
+              transform: rotate(calc(var(--item-rotation) * -2)) scale(0.8);
+            }
+
+            &:nth-child(7n + #{($i + 6) % 7}) {
+              left: calc(
+                (var(--item-width) * -1) +
+                  var(--list-gap) *
+                  -1 -
+                  var(--item-width) /
+                  2
+              );
+              top: calc(var(--list-gap) * 0.5);
+              transform: rotate(calc(var(--item-rotation) * -1)) scale(0.8);
+            }
+          }
+        }
+      }
+
+      &:checked {
+        counter-increment: selected;
+
+        & ~ .hero-carousel__item-grid [for='hero-carousel-#{$i}'] {
+          border-color: $thunderbird;
+          border-width: 0.5rem;
+          pointer-events: all;
+
+          & > .hero-carousel__item-check {
+            &::before {
+              transform: scale(1);
+            }
+
+            &ed .hero-carousel__item-checked--on {
+              opacity: 1;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
   }
 }

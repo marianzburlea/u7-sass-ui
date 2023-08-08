@@ -1,3 +1,6 @@
+// https://fonts.google.com/specimen/Oswald?preview.text=FRUITY&preview.size=62&preview.text_type=custom&query=os
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
 @font-face {
   font-family: 'Johnnie Walker Regular';
   src: url('#{$baseUrl}asset/font/johnnie-walker-regular/JWJohnnieWeb-Regular.eot?#iefix');
@@ -41,8 +44,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.jw-information-bubble {
+.jw-checkmark {
   &:before {
-    content: $jw-information-bubble;
+    content: $jw-checkmark;
+  }
+}
+.jw-circle-left {
+  &:before {
+    content: $jw-circle-left;
+  }
+}
+.jw-circle-right {
+  &:before {
+    content: $jw-circle-right;
+  }
+}
+.jw-info {
+  &:before {
+    content: $jw-info;
   }
 }

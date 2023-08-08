@@ -1,26 +1,76 @@
 -
   var itemList = [
-    { id: 111, label: 'Fruity' },
-    { id: 112, label: 'Peaty' },
-    { id: 113, label: 'Sweet' },
-    { id: 114, label: 'Spicy' },
-    { id: 115, label: 'Malty' },
-    { id: 116, label: 'Nutty' },
-    { id: 117, label: 'Smokey' }
+    {id: 1, dataId: 111, label: 'Fruity' },
+    {id: 2, dataId: 112, label: 'Peaty' },
+    {id: 3, dataId: 113, label: 'Sweet' },
+    {id: 4, dataId: 114, label: 'Spicy' },
+    {id: 5, dataId: 115, label: 'Malty' },
+    {id: 6, dataId: 116, label: 'Nutty' },
+    {id: 7, dataId: 117, label: 'Smokey' }
   ]
 
-.hero-carousel 
-  h1.hero-carousel__title Accessible Hero Carousel - Smart UI
+form.hero-carousel 
+  h1.hero-carousel__title WHAT FLAVOURS ARE YOU FEELING?
+  p.hero-carousel__info Please select up to 2 flavours
 
   each item in itemList
     input.hero-carousel__item-selector(
       type="checkbox"
       id=`hero-carousel-${item.id}`
+      name=`hero-carousel-${item.id}`
+      data-id=`hero-carousel-${item.dataId}`
+      value=item.dataId
+      autofocus=item.id === 1
     )
-  
-  .hero-carousel__item-list 
-    each item in itemList 
-      label.hero-carousel__item(
-        for=`hero-carousel-${item.id}`
-      )= item.label
+  .hero-carousel__background-list 
+    each item in itemList
+      img.hero-carousel__background(
+        alt=`hero carousel image ${item.id}`
+        src=`https://picsum.photos/id/${item.id}/800/600.webp`
+        loading="lazy"
+      )
+    .hero-carousel__background-effect
 
+  .hero-carousel__selected
+    span #{' '} of 2
+
+  .hero-carousel__nav
+    button.hero-carousel__nav--left(
+      type="button"
+      data-direction="left"
+    )
+      span.jw-circle-left
+    button.hero-carousel__nav--right(
+      type="button"
+      data-direction="right"
+    )
+      span.jw-circle-right
+
+
+  .hero-carousel__item-grid 
+
+    .hero-carousel__item-list 
+      each item in itemList 
+        label.hero-carousel__item(
+          for=`hero-carousel-${item.id}`
+          style=`--bg: url('https://picsum.photos/id/${item.id}/200/300.webp')`
+        )
+          span.hero-carousel__item-title= `${item.label} ${item.id}`
+          .hero-carousel__item-check
+          .hero-carousel__item-checked
+            span select
+            span.hero-carousel__item-checked--on ed
+
+  p.hero-carousel__info Ranges from light and floral, like crisp pears, to the earthy freshness of pine and moss.
+
+  button.hero-carousel__link-primary(
+    href="#"
+    title="Next"
+    type="submit"
+    name="next"
+  ) Next
+
+  a.hero-carousel__link-secondary(
+    href="#"
+    title="Skip"
+  ) Skip

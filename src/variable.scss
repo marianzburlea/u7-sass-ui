@@ -7,6 +7,7 @@ $blaze-orange: #ff6b00;
 $science-blue: #0957c3;
 $thunderbird: #d91a17;
 $dusty-gray: #999;
+$pearl-lusta-transparent: hsla(46, 83%, 93%, 0%);
 $pearl-lusta: #fcf5df;
 $light-gray: #d8d8d8; // rename
 $white: #fff;
@@ -16,4 +17,7 @@ $black: #000;
 $icomoon-font-family: 'jw' !default;
 $icomoon-font-path: 'asset/font' !default;
 
-$jw-information-bubble: '\e900';
+$jw-checkmark: '\e900';
+$jw-circle-left: '\e901';
+$jw-circle-right: '\e902';
+$jw-info: '\e903';
