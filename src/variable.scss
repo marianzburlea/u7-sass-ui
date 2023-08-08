@@ -15,7 +15,7 @@ $black: #000;
 
 // font
 $icomoon-font-family: 'jw' !default;
-$icomoon-font-path: 'asset/font' !default;
+$icomoon-font-path: '#{$baseUrl}asset/font' !default;
 
 $jw-checkmark: '\e900';
 $jw-circle-left: '\e901';
