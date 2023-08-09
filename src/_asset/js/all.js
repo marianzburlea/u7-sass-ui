@@ -20,19 +20,83 @@ heroForm.addEventListener('focusin', function (e) {
   }
 })
 
+var checkboxList = Array.from(
+  document.querySelectorAll('.hero-carousel > input[type="checkbox"]')
+)
+
+var backgroundList = heroForm.querySelector('.hero-carousel__background-list')
+
+if (checkboxList.length < 7) {
+  var selectedLabelContainer = heroForm.querySelector(
+    '.hero-carousel__item-selected-list'
+  )
+  var selectedLabelList = heroForm.querySelectorAll(
+    '.hero-carousel__item-selected-list > .hero-carousel__item-remove'
+  )
+  var itemListContainer = heroForm.querySelector('.hero-carousel__item-list')
+  var itemList = heroForm.querySelectorAll(
+    '.hero-carousel__item-list > .hero-carousel__item'
+  )
+
+  Array.from({ length: 7 - checkboxList.length }, function (_, k) {
+    var key = k % checkboxList.length
+
+    // newCheckbox
+    var newCheckbox = document.createElement('input')
+    newCheckbox.type = 'checkbox'
+    newCheckbox.id = 'hero-carousel-' + (checkboxList.length + k + 1)
+    newCheckbox.name = 'hero-carousel-' + (checkboxList.length + k + 1)
+    newCheckbox.className = 'hero-carousel__item-selector'
+    newCheckbox.setAttribute(
+      'data-id',
+      checkboxList[key].getAttribute('data-id')
+    )
+    heroForm.insertBefore(newCheckbox, backgroundList)
+
+    // new selected item
+    var newSelectedLabel = document.createElement('label')
+    newSelectedLabel.setAttribute(
+      'for',
+      'hero-carousel-' + (checkboxList.length + k + 1)
+    )
+    newSelectedLabel.textContent = selectedLabelList[key].textContent
+    newSelectedLabel.className = 'hero-carousel__item-remove'
+    newSelectedLabel.setAttribute(
+      'style',
+      selectedLabelList[key].getAttribute('style')
+    )
+    selectedLabelContainer.appendChild(newSelectedLabel)
+
+    // new clickable label item
+    var newSelectableLabel = document.createElement('label')
+    newSelectableLabel.setAttribute(
+      'for',
+      'hero-carousel-' + (checkboxList.length + k + 1)
+    )
+    newSelectableLabel.innerHTML = itemList[key].innerHTML
+    newSelectableLabel.className = 'hero-carousel__item'
+    newSelectableLabel.setAttribute(
+      'style',
+      itemList[key].getAttribute('style')
+    )
+    itemListContainer.appendChild(newSelectableLabel)
+  })
+}
+
 var heroNavigation = document.querySelector('.hero-carousel__nav')
 
 heroNavigation.addEventListener('click', function (e) {
+  var checkboxList = Array.from(
+    document.querySelectorAll('.hero-carousel > input[type="checkbox"]')
+  )
+
   if (e.target.type === 'button') {
     var direction = e.target.dataset.direction
 
     // Get all checkboxes within .hero-carousel
-    var checkboxes = Array.from(
-      document.querySelectorAll('.hero-carousel input[type="checkbox"]')
-    )
 
     // Find the currently focused checkbox
-    var currentFocusedIndex = checkboxes.findIndex((checkbox) =>
+    var currentFocusedIndex = checkboxList.findIndex((checkbox) =>
       checkbox.hasAttribute('data-last-focused')
     )
 
@@ -40,22 +104,22 @@ heroNavigation.addEventListener('click', function (e) {
       // If the first checkbox is currently focused, go to the last checkbox. Otherwise, go to the previous checkbox.
       var newFocusedIndex =
         currentFocusedIndex === 0
-          ? checkboxes.length - 1
+          ? checkboxList.length - 1
           : currentFocusedIndex - 1
     } else if (direction === 'right') {
       // If the last checkbox is currently focused, go to the first checkbox. Otherwise, go to the next checkbox.
       var newFocusedIndex =
-        currentFocusedIndex === checkboxes.length - 1
+        currentFocusedIndex === checkboxList.length - 1
           ? 0
           : currentFocusedIndex + 1
     }
 
-    // checkboxes[newFocusedIndex].focus()
-    checkboxes[newFocusedIndex].setAttribute('data-last-focused', true)
+    // checkboxList[newFocusedIndex].focus()
+    checkboxList[newFocusedIndex].setAttribute('data-last-focused', true)
 
     // Remove the focus attribute from the previously focused checkbox
-    checkboxes[currentFocusedIndex] &&
-      checkboxes[currentFocusedIndex].removeAttribute('data-last-focused')
+    checkboxList[currentFocusedIndex] &&
+      checkboxList[currentFocusedIndex].removeAttribute('data-last-focused')
   }
 })
 // filter
