@@ -64,3 +64,9 @@
     content: $jw-info;
   }
 }
+
+.jw-cross {
+  &:before {
+    content: $jw-cross;
+  }
+}

@@ -4,8 +4,12 @@
   column-gap: 1.25rem; // 20px
   row-gap: 3.25rem; // 52px
   width: fit-content;
-  counter-set: whom;
+  // counter-set: whom;
   grid-template-columns: repeat(2, 1fr);
+
+  .results-summary {
+    grid-column: 1/-1;
+  }
 
   &__promo {
     background-color: $science-blue;
@@ -16,6 +20,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 
     &__wrapper {
       grid-column: 1/-1;
@@ -28,17 +35,23 @@
     width: 10.1875rem; // 163px
     height: 10.8125rem; // 173px
     background-color: $orange;
-    counter-increment: whom;
+    // counter-increment: whom;
     position: relative;
 
-    &::before {
-      position: absolute;
-      inset: 0;
-      content: counter(whom);
-      font-size: 4rem;
+    // &::before {
+    //   position: absolute;
+    //   inset: 0;
+    //   content: counter(whom);
+    //   font-size: 4rem;
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    // }
+
+    & > a:last-child {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      gap: 1.25rem;
     }
 
     &:nth-of-type(9),

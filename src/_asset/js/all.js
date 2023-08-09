@@ -1,4 +1,6 @@
 // flavour profile
+// https://jwt-u7dev-alb.analogfolk.com/rpc/filter/BuildProfile/?taxonomyProfile=Cocktail&taxonomyName=Flavour&taxonomyValues=Fruity,Fresh&nextPage=/en-jwt/whisky-cocktails/profile-characteristic/&saveData=false
+
 var heroForm = document.querySelector('.hero-carousel')
 
 heroForm.addEventListener('submit', function (e) {

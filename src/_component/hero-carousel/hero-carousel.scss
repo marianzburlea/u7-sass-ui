@@ -223,6 +223,28 @@
       transform: scale(1.1);
     }
 
+    &-description,
+    &-remove {
+      display: none;
+    }
+
+    &-remove {
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: hsla(0, 0%, 100%, 0.75);
+      font-size: 1.5rem;
+      line-height: 3rem;
+      height: 3rem;
+      padding-inline: 1rem;
+    }
+
+    &-selected-list {
+      display: flex;
+      gap: 1rem;
+    }
+
     &-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -300,6 +322,12 @@
     #hero-carousel-#{$i} {
       &[data-last-focused],
       &:focus-visible {
+        &
+          ~ .hero-carousel__item-description-list
+          .hero-carousel__item-description:nth-child(#{$i}) {
+          display: initial;
+        }
+
         &
           ~ .hero-carousel__background-list
           .hero-carousel__background:nth-child(#{$i}) {
@@ -403,6 +431,12 @@
 
       &:checked {
         counter-increment: selected;
+
+        &
+          ~ .hero-carousel__item-selected-list
+          .hero-carousel__item-remove:nth-child(#{$i}) {
+          display: flex;
+        }
 
         & ~ .hero-carousel__item-grid [for='hero-carousel-#{$i}'] {
           border-color: $thunderbird;
