@@ -14,6 +14,9 @@ form.hero-carousel
   h1.hero-carousel__title WHAT FLAVOURS ARE YOU FEELING?
   p.hero-carousel__info Please select up to 2 flavours
 
+  // list of input type checkbox - START
+  // id: 1, 2, 3 ... 7
+  // data-id: the id from the database, it gets picked up in the form submit event
   each item in itemList
     input.hero-carousel__item-selector(
       type="checkbox"
@@ -23,6 +26,9 @@ form.hero-carousel
       value=item.dataId
       autofocus=item.id === 1
     )
+  // list of input type checkbox - END
+
+  // list of background images - START
   .hero-carousel__background-list 
     each item in itemList
       img.hero-carousel__background(
@@ -31,6 +37,7 @@ form.hero-carousel
         loading="lazy"
       )
     .hero-carousel__background-effect
+  // list of background images - END
 
   .hero-carousel__selected
     span #{' '} of 2
@@ -48,6 +55,10 @@ form.hero-carousel
       span.jw-circle-right
 
 
+  // list of label tags that REMOVES from selection a selected flavour - START
+  // the for attribute must match the id attribute of the input type checkbox
+  // example: 1, 2, 3, ... 7
+  // style=`--bg: url('YOUR IMAGE PATH IN HERE')
   .hero-carousel__item-selected-list
     each item in itemList 
       label.hero-carousel__item-remove(
@@ -56,7 +67,12 @@ form.hero-carousel
       )
         span= `${item.label} ${item.id}`
         .jw-cross
+  // list of label tags that check or uncheck the visually hidden inputs - END
 
+  // list of label tags that check or uncheck the visually hidden inputs - START
+  // the for attribute must match the id attribute of the input type checkbox
+  // example: 1, 2, 3, ... 7
+  // style=`--bg: url('YOUR IMAGE PATH IN HERE')
   .hero-carousel__item-grid 
 
     .hero-carousel__item-list 
@@ -70,10 +86,13 @@ form.hero-carousel
           .hero-carousel__item-checked
             span select
             span.hero-carousel__item-checked--on ed
+  // list of label tags that check or uncheck the visually hidden inputs - END
 
+  // list of descriptions that show when an input of type checkbox becomes focused - START
   .hero-carousel__item-description-list
     each item in itemList 
       p.hero-carousel__item-description= item.description
+  // list of descriptions that show when an input of type checkbox becomes focused - END
 
   button.hero-carousel__link-primary(
     href="#"
