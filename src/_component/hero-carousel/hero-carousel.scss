@@ -73,6 +73,9 @@
       transition: 250ms;
       z-index: 10;
 
+      // fix bleeding css
+      padding: 0;
+
       cursor: pointer;
 
       &:focus-visible {
@@ -223,6 +226,13 @@
       transform: scale(1.1);
     }
 
+    &-description-list ~ a {
+      width: 17.5rem; // 280px
+      height: 3.5rem; // 56px
+      padding: 0;
+      margin: 0;
+    }
+
     &-description,
     &-remove {
       display: none;
@@ -279,13 +289,17 @@
     &-checked {
       position: absolute;
       left: 4rem;
-      top: 1.125rem;
+      top: 1.025rem;
       color: $white;
       text-transform: uppercase;
       height: 2rem;
       line-height: 2rem;
-      padding: 0 1rem;
-      background-color: hsla(0, 0%, 0%, 0.75);
+      background-color: hsla(0, 0%, 0%, 0.6);
+
+      & > span {
+        padding: 0 !important;
+        line-height: 2rem !important;
+      }
     }
 
     &-check {
@@ -299,12 +313,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      filter: invert(1);
 
-      &ed .hero-carousel__item-checked--on {
-        opacity: 0;
-        margin: 0;
-        transition: 150ms;
-        margin-left: -1rem;
+      &ed {
+        padding: 0 1rem;
+
+        & .hero-carousel__item-checked--on {
+          opacity: 0;
+          margin: 0;
+          transition: 150ms;
+          margin-left: -1rem;
+        }
       }
 
       &::before {
@@ -347,8 +366,7 @@
               left: calc(
                 (var(--item-width) * 0) +
                   var(--list-gap) *
-                  0 -
-                  var(--item-width) /
+                  0 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0);
@@ -359,8 +377,7 @@
               left: calc(
                 (var(--item-width) * 1) +
                   var(--list-gap) *
-                  1 -
-                  var(--item-width) /
+                  1 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0.5);
@@ -371,8 +388,7 @@
               left: calc(
                 (var(--item-width) * 2) +
                   var(--list-gap) *
-                  2 -
-                  var(--item-width) /
+                  2 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 1.8);
@@ -383,8 +399,7 @@
               left: calc(
                 (var(--item-width) * 3) +
                   var(--list-gap) *
-                  3 -
-                  var(--item-width) /
+                  3 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 4);
@@ -395,8 +410,7 @@
               left: calc(
                 (var(--item-width) * -3) +
                   var(--list-gap) *
-                  -3 -
-                  var(--item-width) /
+                  -3 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 4);
@@ -407,8 +421,7 @@
               left: calc(
                 (var(--item-width) * -2) +
                   var(--list-gap) *
-                  -2 -
-                  var(--item-width) /
+                  -2 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 1.8);
@@ -419,8 +432,7 @@
               left: calc(
                 (var(--item-width) * -1) +
                   var(--list-gap) *
-                  -1 -
-                  var(--item-width) /
+                  -1 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0.5);
