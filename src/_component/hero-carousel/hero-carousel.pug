@@ -22,8 +22,8 @@ form.hero-carousel
       type="checkbox"
       id=`hero-carousel-${item.id}`
       name=`hero-carousel-${item.id}`
-      data-id=`hero-carousel-${item.dataId}`
-      value=item.dataId
+      data-id=item.dataId
+      value=item.label
       autofocus=item.id === 1
     )
   // list of input type checkbox - END
@@ -96,6 +96,7 @@ form.hero-carousel
 
   button.hero-carousel__link-primary(
     href="#"
+    id="hero-form-submit"
     title="Next"
     type="submit"
     name="next"
