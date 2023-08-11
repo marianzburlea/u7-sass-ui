@@ -6,10 +6,10 @@ var heroFormPostURL = 'http://localhost:3000/api/profile-flavour'
 
 if (heroForm) {
   heroForm
-    .querySelector('#hero-form-submit')
+    .querySelector('#hero-form-submit :first-child')
     .addEventListener('click', function (e) {
       e.preventDefault()
-      var formData = new FormData(e.target)
+      var formData = new FormData(heroForm)
       var data = {}
       formData.forEach(function (value, key) {
         data[key] = value
@@ -22,6 +22,7 @@ if (heroForm) {
       })
 
       fetch(heroFormPostURL, {
+        method: 'post',
         headers: {
           'content-type': 'application/json',
         },
@@ -40,7 +41,7 @@ if (heroForm) {
 
   heroForm.addEventListener('focusin', function (e) {
     var lastFocusedElem = document.querySelector(
-      '.hero-carousel input[type="checkbox"][data-last-focused]',
+      '.hero-carousel input[type="checkbox"][data-last-focused]'
     )
 
     if (e.target.type === 'checkbox') {
@@ -50,27 +51,27 @@ if (heroForm) {
   })
 
   var checkboxList = Array.from(
-    document.querySelectorAll('.hero-carousel > input[type="checkbox"]'),
+    document.querySelectorAll('.hero-carousel > input[type="checkbox"]')
   )
 
   var backgroundList = heroForm.querySelector('.hero-carousel__background-list')
 
   if (checkboxList.length < 7) {
     var selectedLabelContainer = heroForm.querySelector(
-      '.hero-carousel__item-selected-list',
+      '.hero-carousel__item-selected-list'
     )
     var descriptionContainer = heroForm.querySelector(
-      '.hero-carousel__item-description-list',
+      '.hero-carousel__item-description-list'
     )
     var descriptionList = heroForm.querySelectorAll(
-      '.hero-carousel__item-description-list > .hero-carousel__item-description',
+      '.hero-carousel__item-description-list > .hero-carousel__item-description'
     )
     var selectedLabelList = heroForm.querySelectorAll(
-      '.hero-carousel__item-selected-list > .hero-carousel__item-remove',
+      '.hero-carousel__item-selected-list > .hero-carousel__item-remove'
     )
     var itemListContainer = heroForm.querySelector('.hero-carousel__item-list')
     var itemList = heroForm.querySelectorAll(
-      '.hero-carousel__item-list > .hero-carousel__item',
+      '.hero-carousel__item-list > .hero-carousel__item'
     )
 
     Array.from({ length: 7 - checkboxList.length }, function (_, k) {
@@ -84,7 +85,7 @@ if (heroForm) {
       newCheckbox.className = 'hero-carousel__item-selector'
       newCheckbox.setAttribute(
         'data-id',
-        checkboxList[key].getAttribute('data-id'),
+        checkboxList[key].getAttribute('data-id')
       )
       heroForm.insertBefore(newCheckbox, backgroundList)
 
@@ -92,13 +93,13 @@ if (heroForm) {
       var newSelectedLabel = document.createElement('label')
       newSelectedLabel.setAttribute(
         'for',
-        'hero-carousel-' + (checkboxList.length + k + 1),
+        'hero-carousel-' + (checkboxList.length + k + 1)
       )
       newSelectedLabel.textContent = selectedLabelList[key].textContent
       newSelectedLabel.className = 'hero-carousel__item-remove'
       newSelectedLabel.setAttribute(
         'style',
-        selectedLabelList[key].getAttribute('style'),
+        selectedLabelList[key].getAttribute('style')
       )
       selectedLabelContainer.appendChild(newSelectedLabel)
 
@@ -106,13 +107,13 @@ if (heroForm) {
       var newSelectableLabel = document.createElement('label')
       newSelectableLabel.setAttribute(
         'for',
-        'hero-carousel-' + (checkboxList.length + k + 1),
+        'hero-carousel-' + (checkboxList.length + k + 1)
       )
       newSelectableLabel.innerHTML = itemList[key].innerHTML
       newSelectableLabel.className = 'hero-carousel__item'
       newSelectableLabel.setAttribute(
         'style',
-        itemList[key].getAttribute('style'),
+        itemList[key].getAttribute('style')
       )
       itemListContainer.appendChild(newSelectableLabel)
 
@@ -128,7 +129,7 @@ if (heroForm) {
 
   heroNavigation.addEventListener('click', function (e) {
     var checkboxList = Array.from(
-      document.querySelectorAll('.hero-carousel > input[type="checkbox"]'),
+      document.querySelectorAll('.hero-carousel > input[type="checkbox"]')
     )
 
     if (e.target.type === 'button' && e.target.dataset.direction) {

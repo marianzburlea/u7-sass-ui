@@ -94,15 +94,22 @@ form.hero-carousel
       p.hero-carousel__item-description= item.description
   // list of descriptions that show when an input of type checkbox becomes focused - END
 
-  button.hero-carousel__link-primary(
-    href="#"
-    id="hero-form-submit"
-    title="Next"
-    type="submit"
-    name="next"
-  ) Next
+  #hero-form-submit
+    button.hero-carousel__link-primary(
+      href="#"
+      title="Next"
+      type="submit"
+      name="next"
+    ) Next
 
-  a.hero-carousel__link-secondary(
-    href="#"
-    title="Skip"
-  ) Skip
+  .hero-form__link-wrapper
+    a.hero-carousel__link-secondary(
+      href="#"
+      title="previous"
+    ) Previous
+
+  .hero-form__link-wrapper
+    a.hero-carousel__link-secondary(
+      href="#"
+      title="Skip"
+    ) Skip
