@@ -6,37 +6,41 @@ var heroFormPostURL = 'http://localhost:3000/api/profile-flavour'
 
 if (heroForm) {
   heroForm
-    .querySelector('#hero-form-submit :first-child')
-    .addEventListener('click', function (e) {
-      e.preventDefault()
-      var formData = new FormData(heroForm)
-      var data = {}
-      formData.forEach(function (value, key) {
-        data[key] = value
-      })
-      var postData = Object.keys(data).map(function (key) {
-        return {
-          id: document.getElementById(key).dataset.id,
-          label: data[key],
-        }
-      })
+    .querySelectorAll(
+      '.hero-form__link--next :first-child, .hero-form__link--previous :first-child'
+    )
+    .forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault()
+        var formData = new FormData(heroForm)
+        var data = {}
+        formData.forEach(function (value, key) {
+          data[key] = value
+        })
+        var postData = Object.keys(data).map(function (key) {
+          return {
+            id: document.getElementById(key).dataset.id,
+            label: data[key],
+          }
+        })
 
-      fetch(heroFormPostURL, {
-        method: 'post',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify(postData),
+        fetch(heroFormPostURL, {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(postData),
+        })
+          .then(function (res) {
+            return res.json()
+          })
+          .then(function (res) {
+            window.location.assign = res.data.nextPage
+          })
+          .catch(function (error) {
+            console.log('Failed request: ' + error.message)
+          })
       })
-        .then(function (res) {
-          return res.json()
-        })
-        .then(function (res) {
-          window.location.assign = res.data.nextPage
-        })
-        .catch(function (error) {
-          console.log('Failed request: ' + error.message)
-        })
     })
 
   heroForm.addEventListener('focusin', function (e) {
