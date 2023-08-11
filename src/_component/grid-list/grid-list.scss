@@ -12,7 +12,7 @@
   }
 
   &__promo {
-    background-color: $science-blue;
+    // background-color: $science-blue;
     height: 22rem; // 310px
     font-size: 2rem;
     // color: $white;
@@ -34,7 +34,7 @@
   &__product {
     width: 10.1875rem; // 163px
     height: 10.8125rem; // 173px
-    background-color: $orange;
+    // background-color: $orange;
     // counter-increment: whom;
     position: relative;
     order: -3;
@@ -108,7 +108,7 @@
       & .grid-list__product:first-child {
         grid-row: span 2;
         height: 100%;
-        background-color: $blaze-orange;
+        // background-color: $blaze-orange;
       }
     }
 
@@ -116,7 +116,7 @@
       & .grid-list__product:first-child {
         grid-row: initial;
         height: 100%;
-        background-color: $orange;
+        // background-color: $orange;
       }
     }
 
@@ -124,14 +124,14 @@
       & .grid-list__product:first-child {
         grid-row: span 2;
         height: 100%;
-        background-color: $blaze-orange;
+        // background-color: $blaze-orange;
       }
 
       & .grid-list__product:nth-of-type(7) {
         grid-row: 2/4;
         grid-column: 3/4;
         height: 100%;
-        background-color: $blaze-orange;
+        // background-color: $blaze-orange;
       }
     }
 

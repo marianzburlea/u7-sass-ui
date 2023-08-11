@@ -13,28 +13,6 @@
   padding: 2rem 0;
   overflow: hidden;
 
-  &__link {
-    &-primary,
-    &-secondary {
-      width: 17.5rem; // 280px
-      height: 3.5rem; // 56px
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    &-primary {
-      color: $pearl-lusta;
-      background-color: $black;
-    }
-
-    &-secondary {
-      color: $black;
-    }
-  }
-
   &__selected {
     &::before {
       content: counter(selected);
@@ -366,7 +344,8 @@
               left: calc(
                 (var(--item-width) * 0) +
                   var(--list-gap) *
-                  0 - var(--item-width) /
+                  0 -
+                  var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0);
@@ -377,7 +356,8 @@
               left: calc(
                 (var(--item-width) * 1) +
                   var(--list-gap) *
-                  1 - var(--item-width) /
+                  1 -
+                  var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0.5);
@@ -388,7 +368,8 @@
               left: calc(
                 (var(--item-width) * 2) +
                   var(--list-gap) *
-                  2 - var(--item-width) /
+                  2 -
+                  var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 1.8);
@@ -399,7 +380,8 @@
               left: calc(
                 (var(--item-width) * 3) +
                   var(--list-gap) *
-                  3 - var(--item-width) /
+                  3 -
+                  var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 4);
@@ -410,7 +392,8 @@
               left: calc(
                 (var(--item-width) * -3) +
                   var(--list-gap) *
-                  -3 - var(--item-width) /
+                  -3 -
+                  var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 4);
@@ -421,7 +404,8 @@
               left: calc(
                 (var(--item-width) * -2) +
                   var(--list-gap) *
-                  -2 - var(--item-width) /
+                  -2 -
+                  var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 1.8);
@@ -432,7 +416,8 @@
               left: calc(
                 (var(--item-width) * -1) +
                   var(--list-gap) *
-                  -1 - var(--item-width) /
+                  -1 -
+                  var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0.5);
@@ -468,6 +453,33 @@
           }
         }
       }
+    }
+  }
+}
+
+.hero-form {
+  &__link {
+    &--next :first-child,
+    &--previous :first-child,
+    &--skip :first-child {
+      width: 17.5rem; // 280px
+      height: 3.5rem; // 56px
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    &--next :first-child {
+      color: $pearl-lusta;
+      background-color: $black;
+    }
+
+    &--previous :first-child,
+    &--skip :first-child {
+      color: $black;
     }
   }
 }
