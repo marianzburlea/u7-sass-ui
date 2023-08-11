@@ -17,12 +17,20 @@ if (heroForm) {
         formData.forEach(function (value, key) {
           data[key] = value
         })
-        var postData = Object.keys(data).map(function (key) {
+        var taxonomyValues = Object.keys(data).map(function (key) {
           return {
             id: document.getElementById(key).dataset.id,
             label: data[key],
           }
         })
+
+        var postData = {
+          taxonomyProfile: heroForm.getAttribute('data-profile'),
+          taxonomyName: heroForm.getAttribute('data-taxonomy'),
+          saveData: heroForm.getAttribute('data-savedata'),
+          taxonomyValues: taxonomyValues,
+          nextPage: e.target.getAttribute('href'),
+        }
 
         fetch(heroFormPostURL, {
           method: 'post',
@@ -91,6 +99,7 @@ if (heroForm) {
         'data-id',
         checkboxList[key].getAttribute('data-id')
       )
+      newCheckbox.setAttribute('value', checkboxList[key].getAttribute('value'))
       heroForm.insertBefore(newCheckbox, backgroundList)
 
       // new selected item
