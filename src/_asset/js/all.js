@@ -66,15 +66,49 @@ if (heroForm) {
 
   heroForm.addEventListener('click', function (e) {
     if (e.target.type === 'checkbox') {
-      const howManySelected = heroForm.querySelectorAll(
+      var howManySelected = heroForm.querySelectorAll(
         '.hero-carousel__item-selector:checked'
       ).length
-      const maxItems = +heroForm.dataset.maxitems
+      var maxItems = +heroForm.dataset.maxitems
 
       e.target.focus()
       if (howManySelected > maxItems && e.target.checked) {
         e.preventDefault()
       }
+    } else if (e.target.type === 'button' && e.target.dataset.direction) {
+      var checkboxList = Array.from(
+        heroForm.querySelectorAll('.hero-carousel > input[type="checkbox"]')
+      )
+      var direction = e.target.dataset.direction
+
+      // Get all checkboxes within .hero-carousel
+
+      // Find the currently focused checkbox
+      var currentFocusedIndex = checkboxList.findIndex(function (checkbox) {
+        return checkbox.hasAttribute('data-last-focused')
+      })
+
+      if (direction === 'left') {
+        // If the first checkbox is currently focused, go to the last checkbox. Otherwise, go to the previous checkbox.
+        var newFocusedIndex =
+          currentFocusedIndex === 0
+            ? checkboxList.length - 1
+            : currentFocusedIndex - 1
+      } else if (direction === 'right') {
+        // If the last checkbox is currently focused, go to the first checkbox. Otherwise, go to the next checkbox.
+        var newFocusedIndex =
+          currentFocusedIndex === checkboxList.length - 1
+            ? 0
+            : currentFocusedIndex + 1
+      }
+
+      // checkboxList[newFocusedIndex].focus()
+      checkboxList[newFocusedIndex] &&
+        checkboxList[newFocusedIndex].setAttribute('data-last-focused', true)
+
+      // Remove the focus attribute from the previously focused checkbox
+      checkboxList[currentFocusedIndex] &&
+        checkboxList[currentFocusedIndex].removeAttribute('data-last-focused')
     }
   })
 
@@ -174,8 +208,6 @@ if (heroForm) {
 
       // new background items
       var newBackground = document.createElement('img')
-      console.log('key')
-      console.log(key, backgroundList)
       newBackground.alt = backgroundList[key].getAttribute('alt')
       newBackground.src = backgroundList[key].src
       newBackground.className = 'hero-carousel__background'
@@ -186,46 +218,46 @@ if (heroForm) {
     })
   }
 
-  var heroNavigation = document.querySelector('.hero-carousel__nav')
+  var startX
+  var dist
+  var threshold = 100 // Minimum distance swiped for action
 
-  heroNavigation.addEventListener('click', function (e) {
-    var checkboxList = Array.from(
-      document.querySelectorAll('.hero-carousel > input[type="checkbox"]')
-    )
+  heroForm.addEventListener(
+    'touchstart',
+    function (e) {
+      var touchObj = e.changedTouches[0]
+      startX = touchObj.pageX
+      e.preventDefault()
+    },
+    false
+  )
 
-    if (e.target.type === 'button' && e.target.dataset.direction) {
-      var direction = e.target.dataset.direction
+  heroForm.addEventListener(
+    'touchmove',
+    function (e) {
+      e.preventDefault() // Prevent scrolling while swiping
+    },
+    false
+  )
 
-      // Get all checkboxes within .hero-carousel
+  heroForm.addEventListener(
+    'touchend',
+    function (e) {
+      var touchObj = e.changedTouches[0]
+      dist = touchObj.pageX - startX
 
-      // Find the currently focused checkbox
-      var currentFocusedIndex = checkboxList.findIndex(function (checkbox) {
-        return checkbox.hasAttribute('data-last-focused')
-      })
+      if (Math.abs(dist) >= threshold) {
+        var direction = dist > 0 ? 'left' : 'right'
 
-      if (direction === 'left') {
-        // If the first checkbox is currently focused, go to the last checkbox. Otherwise, go to the previous checkbox.
-        var newFocusedIndex =
-          currentFocusedIndex === 0
-            ? checkboxList.length - 1
-            : currentFocusedIndex - 1
-      } else if (direction === 'right') {
-        // If the last checkbox is currently focused, go to the first checkbox. Otherwise, go to the next checkbox.
-        var newFocusedIndex =
-          currentFocusedIndex === checkboxList.length - 1
-            ? 0
-            : currentFocusedIndex + 1
+        var navigationButton = heroForm.querySelector(
+          'button[data-direction="' + direction + '"]'
+        )
+        navigationButton && navigationButton.click()
       }
-
-      // checkboxList[newFocusedIndex].focus()
-      checkboxList[newFocusedIndex] &&
-        checkboxList[newFocusedIndex].setAttribute('data-last-focused', true)
-
-      // Remove the focus attribute from the previously focused checkbox
-      checkboxList[currentFocusedIndex] &&
-        checkboxList[currentFocusedIndex].removeAttribute('data-last-focused')
-    }
-  })
+      e.preventDefault()
+    },
+    false
+  )
 
   document
     .querySelector('.hero-carousel__current')

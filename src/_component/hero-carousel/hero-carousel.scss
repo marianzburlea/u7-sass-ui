@@ -1,7 +1,9 @@
 .hero-carousel {
-  --item-width: 17.5rem; // 280px
+  --item-width: 14.25rem; // 228px
+  --item-width-tablet: 17.5rem; // 280px
   --list-gap: 5rem;
-  --item-height: 20.9375rem; // 335px
+  --item-height: 17rem; // 272px
+  --item-height-tablet: 20.9375rem; // 335px
   --item-rotation: 12deg;
   display: flex;
   flex-direction: column;
@@ -41,6 +43,7 @@
 
   &__nav {
     position: relative;
+    display: none;
 
     &--left,
     &--right {
@@ -58,6 +61,7 @@
       z-index: 10;
       background-color: $black;
       color: $white;
+      font-family: '#{$jw-icon-font-family}' !important;
 
       // fix bleeding css
       padding: 0;
@@ -76,10 +80,18 @@
 
     &--left {
       left: -14rem;
+
+      &:before {
+        content: $jw-icon-chevron-left;
+      }
     }
 
     &--right {
       right: -14rem;
+
+      &:before {
+        content: $jw-icon-chevron-right;
+      }
     }
   }
 
@@ -529,6 +541,17 @@
 
 //                            768px
 @media screen and (min-width: 48rem) {
+  .hero-carousel {
+    &__nav {
+      display: block;
+    }
+
+    &__item {
+      width: var(--item-width-tablet);
+      height: var(--item-height-tablet);
+    }
+  }
+
   .hero-form {
     &__link {
       &--next :first-child,
