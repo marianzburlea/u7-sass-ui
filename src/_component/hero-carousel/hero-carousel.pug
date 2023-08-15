@@ -62,7 +62,9 @@ form.hero-carousel(
         span= `${item.label} ${item.id}`
         .jw-icon-cross
   // list of label tags that check or uncheck the visually hidden inputs - END
-  .hero-carousel__current of 
+  .hero-carousel__current(
+    data-howmany="0"
+  ) of 
 
   // list of label tags that check or uncheck the visually hidden inputs - START
   // the for attribute must match the id attribute of the input type checkbox

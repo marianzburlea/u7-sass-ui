@@ -8,7 +8,6 @@
   align-items: center;
   gap: 0.75rem;
   counter-set: selected;
-  counter-set: howMany;
   position: relative;
   padding-top: 3rem;
   overflow: hidden;
@@ -24,7 +23,7 @@
     }
 
     &::after {
-      content: counter(howMany);
+      content: attr(data-howmany);
     }
   }
 
@@ -37,21 +36,6 @@
 
     &::before {
       content: '(' counter(selected);
-    }
-  }
-
-  &:has(
-      .hero-carousel__item-selector:checked
-        ~ .hero-carousel__item-selector:checked
-    ) {
-    & .hero-carousel__item-selector:not(:checked) {
-      display: none;
-
-      & ~ .hero-carousel__item-grid .hero-carousel__item {
-        // border: 0.5rem solid $dusty-gray;
-        border: 0;
-        pointer-events: none;
-      }
     }
   }
 
@@ -88,10 +72,6 @@
       &:focus-visible {
         outline: 0.5rem solid $blaze-orange;
       }
-
-      & > span {
-        pointer-events: none;
-      }
     }
 
     &--left {
@@ -108,7 +88,6 @@
   &__selected {
     position: relative;
     order: -1;
-    // padding: 0 2rem;
     margin: 0;
   }
 
@@ -141,13 +120,6 @@
 
     left: 100vw;
     transition: 150ms ease-in;
-    // @for $i from 1 through 7 {
-    //   &:nth-child(#{$i}) {
-    //     left: #{($i - 1) * 50%};
-    //   }
-    // }
-
-    counter-increment: howMany;
 
     &-effect {
       position: absolute;
@@ -157,9 +129,6 @@
         $pearl-lusta-transparent,
         $pearl-lusta
       );
-      // &::after {
-      //   content: '';
-      // }
     }
 
     &-list {
@@ -173,7 +142,6 @@
   }
 
   &__item {
-    // border: 0.5rem solid $science-blue;
     border: 0;
     width: var(--item-width);
     height: var(--item-height);
@@ -302,8 +270,6 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       width: 100%;
-      // overflow: hidden;
-      // padding: 2.5rem 0;
       position: relative;
     }
 
@@ -380,7 +346,6 @@
         width: 1rem;
         aspect-ratio: 1;
         display: inline-block;
-        // background-color: $white;
         transform: scale(0);
         transition: 250ms;
       }
@@ -412,9 +377,6 @@
 
         & ~ .hero-carousel__item-grid {
           & [for='hero-carousel-#{$i}'] {
-            border-color: $blaze-orange;
-            // border-width: 0.5rem;
-            // border-width: 0.5rem;
             border-width: 0;
           }
 
@@ -516,10 +478,7 @@
         }
 
         & ~ .hero-carousel__item-grid [for='hero-carousel-#{$i}'] {
-          border-color: $thunderbird;
-          // border-width: 0.5rem;
           border-width: 0;
-          pointer-events: all;
 
           & > .hero-carousel__item-check {
             background-color: $black;

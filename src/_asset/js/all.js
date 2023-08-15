@@ -64,6 +64,20 @@ if (heroForm) {
       })
     })
 
+  heroForm.addEventListener('click', function (e) {
+    if (e.target.type === 'checkbox') {
+      const howManySelected = heroForm.querySelectorAll(
+        '.hero-carousel__item-selector:checked'
+      ).length
+      const maxItems = +heroForm.dataset.maxitems
+
+      e.target.focus()
+      if (howManySelected > maxItems && e.target.checked) {
+        e.preventDefault()
+      }
+    }
+  })
+
   heroForm.addEventListener('focusin', function (e) {
     var lastFocusedElem = document.querySelector(
       '.hero-carousel input[type="checkbox"][data-last-focused]'
@@ -212,6 +226,13 @@ if (heroForm) {
         checkboxList[currentFocusedIndex].removeAttribute('data-last-focused')
     }
   })
+
+  document
+    .querySelector('.hero-carousel__current')
+    .setAttribute(
+      'data-howmany',
+      heroForm.querySelectorAll('.hero-carousel__item-selector').length
+    )
 }
 
 // filter
