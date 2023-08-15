@@ -3,7 +3,6 @@
   --list-gap: 5rem;
   --item-height: 20.9375rem; // 335px
   --item-rotation: 12deg;
-  font-family: 'Oswald', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,6 +11,7 @@
   position: relative;
   padding: 2rem 0;
   overflow: hidden;
+  font-family: 'Johnnie Walker Sans Headline', serif;
 
   &__selected {
     &::before {
@@ -50,9 +50,16 @@
       border: 0;
       transition: 250ms;
       z-index: 10;
+      background-color: $black;
+      color: $white;
 
       // fix bleeding css
       padding: 0;
+
+      &:hover {
+        background-color: $orange;
+        color: $black;
+      }
 
       cursor: pointer;
 
@@ -79,8 +86,19 @@
   &__selected {
     position: relative;
     order: -1;
-    background-color: hsla(0, 0%, 100%, 0.75);
-    padding: 1rem 2rem;
+    padding: 0 2rem;
+  }
+
+  &__info {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: Johnnie Walker Serif !important;
+  }
+
+  &__title {
+    font-size: 3.5rem;
+    height: 3rem;
+    line-height: 3rem;
   }
 
   &__background {
@@ -124,7 +142,8 @@
   }
 
   &__item {
-    border: 0.5rem solid $science-blue;
+    // border: 0.5rem solid $science-blue;
+    border: 0;
     width: var(--item-width);
     height: var(--item-height);
 
@@ -211,6 +230,14 @@
       margin: 0;
     }
 
+    &-description {
+      font-size: 1rem;
+      line-height: 1.5;
+      font-family: 'Johnnie Walker Serif Book', serif;
+
+      text-align: center;
+    }
+
     &-description,
     &-remove {
       display: none;
@@ -226,6 +253,11 @@
       line-height: 3rem;
       height: 3rem;
       padding-inline: 1rem;
+      font-family: 'Johnnie Walker Sans Headline', serif;
+
+      & .jw-icon-cross {
+        font-size: 1rem;
+      }
     }
 
     &-selected-list {
@@ -254,10 +286,14 @@
 
     &-title {
       display: inline-block;
-      line-height: 3rem;
-      background-color: hsla(0, 0%, 100%, 0.75);
-      font-size: 2rem;
+      line-height: 4rem;
+      background-color: hsla(0, 0%, 0%, 0.75);
+      font-size: 3.5rem;
       padding: 0 1rem;
+      color: $white;
+
+      font-family: 'Johnnie Walker Sans Headline', serif;
+      mix-blend-mode: difference;
     }
 
     &-selector {
@@ -284,6 +320,7 @@
       width: 2rem;
       aspect-ratio: 1;
       border: 0.25rem solid $white;
+      background-color: transparent;
       position: absolute;
       left: 1rem;
       top: 1rem;
@@ -291,7 +328,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      filter: invert(1);
+      mix-blend-mode: difference;
 
       &ed {
         padding: 0 1rem;
@@ -305,7 +342,8 @@
       }
 
       &::before {
-        content: '';
+        font-family: #{$jw-icon-font-family};
+        content: $jw-icon-checkmark;
         width: 1rem;
         aspect-ratio: 1;
         display: inline-block;
@@ -323,7 +361,9 @@
         &
           ~ .hero-carousel__item-description-list
           .hero-carousel__item-description:nth-child(#{$i}) {
-          display: initial;
+          display: inline-block;
+          max-width: 280px;
+          width: 100%;
         }
 
         &
@@ -336,7 +376,9 @@
         & ~ .hero-carousel__item-grid {
           & [for='hero-carousel-#{$i}'] {
             border-color: $blaze-orange;
-            border-width: 0.5rem;
+            // border-width: 0.5rem;
+            // border-width: 0.5rem;
+            border-width: 0;
           }
 
           & .hero-carousel__item {
@@ -344,8 +386,7 @@
               left: calc(
                 (var(--item-width) * 0) +
                   var(--list-gap) *
-                  0 -
-                  var(--item-width) /
+                  0 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0);
@@ -356,8 +397,7 @@
               left: calc(
                 (var(--item-width) * 1) +
                   var(--list-gap) *
-                  1 -
-                  var(--item-width) /
+                  1 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0.5);
@@ -368,8 +408,7 @@
               left: calc(
                 (var(--item-width) * 2) +
                   var(--list-gap) *
-                  2 -
-                  var(--item-width) /
+                  2 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 1.8);
@@ -380,8 +419,7 @@
               left: calc(
                 (var(--item-width) * 3) +
                   var(--list-gap) *
-                  3 -
-                  var(--item-width) /
+                  3 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 4);
@@ -392,8 +430,7 @@
               left: calc(
                 (var(--item-width) * -3) +
                   var(--list-gap) *
-                  -3 -
-                  var(--item-width) /
+                  -3 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 4);
@@ -404,8 +441,7 @@
               left: calc(
                 (var(--item-width) * -2) +
                   var(--list-gap) *
-                  -2 -
-                  var(--item-width) /
+                  -2 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 1.8);
@@ -416,8 +452,7 @@
               left: calc(
                 (var(--item-width) * -1) +
                   var(--list-gap) *
-                  -1 -
-                  var(--item-width) /
+                  -1 - var(--item-width) /
                   2
               );
               top: calc(var(--list-gap) * 0.5);
@@ -438,12 +473,16 @@
 
         & ~ .hero-carousel__item-grid [for='hero-carousel-#{$i}'] {
           border-color: $thunderbird;
-          border-width: 0.5rem;
+          // border-width: 0.5rem;
+          border-width: 0;
           pointer-events: all;
 
           & > .hero-carousel__item-check {
+            background-color: $white;
+
             &::before {
               transform: scale(1);
+              color: $white;
             }
 
             &ed .hero-carousel__item-checked--on {
@@ -463,7 +502,7 @@
     &--previous :first-child,
     &--skip :first-child {
       width: 17.5rem; // 280px
-      height: 3.5rem; // 56px
+      height: 3.75rem; // 60px
 
       display: flex;
       justify-content: center;
@@ -472,14 +511,27 @@
       text-decoration: none;
     }
 
+    &--previous :first-child,
     &--next :first-child {
-      color: $pearl-lusta;
+      color: $white;
       background-color: $black;
     }
 
-    &--previous :first-child,
     &--skip :first-child {
       color: $black;
+    }
+  }
+}
+
+//                            768px
+@media screen and (min-width: 48rem) {
+  .hero-form {
+    &__link {
+      &--next :first-child,
+      &--previous :first-child,
+      &--skip :first-child {
+        width: 30rem; // 480px
+      }
     }
   }
 }

@@ -2,8 +2,9 @@
 // https://jwt-u7dev-alb.analogfolk.com/rpc/filter/BuildProfile/?taxonomyProfile=Cocktail&taxonomyName=Flavour&taxonomyValues=Fruity,Fresh&nextPage=/en-jwt/whisky-cocktails/profile-characteristic/&saveData=false
 
 var heroForm = document.querySelector('.hero-carousel')
-var heroFormPostURL = 'http://localhost:3000/api/profile-flavour'
+var heroFormPostURL = '/rpc/filter/BuildProfile/'
 
+// check if hero form exists
 if (heroForm) {
   heroForm
     .querySelectorAll(
@@ -17,9 +18,10 @@ if (heroForm) {
         formData.forEach(function (value, key) {
           data[key] = value
         })
+
         var taxonomyValues = Object.keys(data).map(function (key) {
           return {
-            id: document.getElementById(key).dataset.id,
+            id: 'document.getElementById(key).dataset.id',
             label: data[key],
           }
         })
@@ -44,7 +46,7 @@ if (heroForm) {
           })
           .then(function (res) {
             if (res.result) {
-              window.location.assign = res.data.nextPage
+              window.location.assign = res.nextPage
             }
           })
           .catch(function (error) {
@@ -110,7 +112,7 @@ if (heroForm) {
         'for',
         'hero-carousel-' + (checkboxList.length + k + 1),
       )
-      newSelectedLabel.textContent = selectedLabelList[key].textContent
+      newSelectedLabel.innerHTML = selectedLabelList[key].innerHTML
       newSelectedLabel.className = 'hero-carousel__item-remove'
       newSelectedLabel.setAttribute(
         'style',
