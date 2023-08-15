@@ -167,6 +167,10 @@
       left: 0;
       width: 700%;
       z-index: -1;
+
+      & img {
+        counter-increment: howMany;
+      }
     }
   }
 
@@ -325,7 +329,6 @@
     }
 
     &-selector {
-      counter-increment: howMany;
       @include hide-visually();
 
       &:checked ~ .hero-carousel__info-wrapper .hero-carousel__selected {
@@ -504,6 +507,14 @@
           }
         }
       }
+
+      // &[data-last-focused] {
+      //   &
+      //     ~ .hero-carousel__item-selected-list
+      //     .hero-carousel__item-remove:nth-child(#{$i}) {
+      //     display: flex;
+      //   }
+      // }
 
       &:checked {
         counter-increment: selected;
