@@ -16,12 +16,36 @@
 }
 
 @font-face {
-  font-family: '#{$icomoon-font-family}';
-  src: url('#{$baseUrl}#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?1bezz3')
+  font-family: 'Johnnie Walker Sans Headline';
+  src: url('#{$baseUrl}asset/font/johnnie-walker-sans/JohnnieWalkerWeb-Headline.eot?#iefix');
+  src: url('#{$baseUrl}asset/font/johnnie-walker-sans/JohnnieWalkerWeb-Headline.eot?#iefix')
+      format('eot'),
+    url('#{$baseUrl}asset/font/johnnie-walker-sans/JohnnieWalkerWeb-Headline.woff2')
+      format('woff2'),
+    url('#{$baseUrl}asset/font/johnnie-walker-sans/JohnnieWalkerWeb-Headline.woff')
+      format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Johnnie Walker Serif Book';
+  src: url('#{$baseUrl}asset/font/johnnie-walker-serif/JohnnieWalkerSerifWeb-Book.eot?#iefix');
+  src: url('#{$baseUrl}asset/font/johnnie-walker-serif/JohnnieWalkerSerifWeb-Book.eot?#iefix')
+      format('eot'),
+    url('#{$baseUrl}asset/font/johnnie-walker-serif/JohnnieWalkerSerifWeb-Book.woff2')
+      format('woff2'),
+    url('#{$baseUrl}asset/font/johnnie-walker-serif/JohnnieWalkerSerifWeb-Book.woff')
+      format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: '#{$jw-icon-font-family}';
+  src: url('#{$baseUrl}#{$jw-icon-font-path}/#{$jw-icon-font-family}.ttf?1bezz3')
       format('truetype'),
-    url('#{$baseUrl}#{$icomoon-font-path}/#{$icomoon-font-family}.woff?1bezz3')
+    url('#{$baseUrl}#{$jw-icon-font-path}/#{$jw-icon-font-family}.woff?1bezz3')
       format('woff'),
-    url('#{$baseUrl}#{$icomoon-font-path}/#{$icomoon-font-family}.svg?1bezz3##{$icomoon-font-family}')
+    url('#{$baseUrl}#{$jw-icon-font-path}/#{$jw-icon-font-family}.svg?1bezz3##{$jw-icon-font-family}')
       format('svg');
   font-weight: normal;
   font-style: normal;
@@ -31,7 +55,7 @@
 [class^='jw-'],
 [class*=' jw-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: '#{$icomoon-font-family}' !important;
+  font-family: '#{$jw-icon-font-family}' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -44,29 +68,41 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.jw-checkmark {
+.jw-icon-chevron-left {
   &:before {
-    content: $jw-checkmark;
-  }
-}
-.jw-circle-left {
-  &:before {
-    content: $jw-circle-left;
-  }
-}
-.jw-circle-right {
-  &:before {
-    content: $jw-circle-right;
-  }
-}
-.jw-info {
-  &:before {
-    content: $jw-info;
+    content: $jw-icon-chevron-left;
   }
 }
 
-.jw-cross {
+.jw-icon-chevron-right {
   &:before {
-    content: $jw-cross;
+    content: $jw-icon-chevron-right;
+  }
+}
+
+.jw-icon-checkmark {
+  &:before {
+    content: $jw-icon-checkmark;
+  }
+}
+.jw-icon-circle-left {
+  &:before {
+    content: $jw-icon-circle-left;
+  }
+}
+.jw-icon-circle-right {
+  &:before {
+    content: $jw-icon-circle-right;
+  }
+}
+.jw-icon-info {
+  &:before {
+    content: $jw-icon-info;
+  }
+}
+
+.jw-icon-cross {
+  &:before {
+    content: $jw-icon-cross;
   }
 }

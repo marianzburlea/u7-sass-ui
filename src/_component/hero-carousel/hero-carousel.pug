@@ -3,7 +3,7 @@
     { id: 1, dataId: 111, label: 'Fruity', description: 'Ranges from light and floral, like crisp pears, to the earthy freshness of pine and moss.' },
     { id: 2, dataId: 112, label: 'Peaty', description: 'Distinctive earthy and organic character, reminiscent of a wet mossy terrain or recently turned soil.' },
     { id: 3, dataId: 113, label: 'Sweet', description: 'Evokes flavors of honey, vanilla, or caramel, reminiscent of a sugary treat or dessert.' },
-    //- { id: 4, dataId: 114, label: 'Spicy', description: 'Hints of pepper, cloves, or cinnamon that tingle the palate, offering warmth and complexity.' },
+    { id: 4, dataId: 114, label: 'Spicy', description: 'Hints of pepper, cloves, or cinnamon that tingle the palate, offering warmth and complexity.' },
     //- { id: 5, dataId: 115, label: 'Malty', description: 'Brings forward the rich, grainy flavors typical of malted barley, like toasted bread or cereal.' },
     //- { id: 6, dataId: 116, label: 'Nutty', description: 'Emulates flavors of almonds, walnuts, or hazelnuts, giving a deep, earthy profile.' },
     //- { id: 7, dataId: 117, label: 'Smokey', description: 'Characterized by a lingering aroma and flavor of wood smoke, as if from a campfire or burning embers.' }
@@ -17,7 +17,6 @@ form.hero-carousel(
   data-maxitems="2"
 )
   h1.hero-carousel__title WHAT FLAVOURS ARE YOU FEELING?
-  p.hero-carousel__info Please select up to 2 flavours
 
   // list of input type checkbox - START
   // id: 1, 2, 3 ... 7
@@ -38,26 +37,16 @@ form.hero-carousel(
     each item in itemList
       img.hero-carousel__background(
         alt=`hero carousel image ${item.id}`
-        src=`https://picsum.photos/id/${item.id}/800/600.webp`
+        src=`https://picsum.photos/id/${(item.id+100)}/800/600.webp`
         loading="lazy"
       )
     .hero-carousel__background-effect
   // list of background images - END
 
-  .hero-carousel__selected
-    span #{' '} of 2
+  .hero-carousel__info-wrapper
+    p.hero-carousel__info Please select up to 2 flavours
+    .hero-carousel__selected /2#{')'}
 
-  .hero-carousel__nav
-    button.hero-carousel__nav--left(
-      type="button"
-      data-direction="left"
-    )
-      span.jw-circle-left
-    button.hero-carousel__nav--right(
-      type="button"
-      data-direction="right"
-    )
-      span.jw-circle-right
 
 
   // list of label tags that REMOVES from selection a selected flavour - START
@@ -71,8 +60,9 @@ form.hero-carousel(
         style=`--bg: url('https://picsum.photos/id/${item.id}/200/300.webp')`
       )
         span= `${item.label} ${item.id}`
-        .jw-cross
+        .jw-icon-cross
   // list of label tags that check or uncheck the visually hidden inputs - END
+  .hero-carousel__current of 
 
   // list of label tags that check or uncheck the visually hidden inputs - START
   // the for attribute must match the id attribute of the input type checkbox
@@ -84,7 +74,7 @@ form.hero-carousel(
       each item in itemList 
         label.hero-carousel__item(
           for=`hero-carousel-${item.id}`
-          style=`--bg: url('https://picsum.photos/id/${item.id}/200/300.webp')`
+          style=`--bg: url('https://picsum.photos/id/${item.id+50}/200/300.webp')`
         )
           span.hero-carousel__item-title= `${item.label} ${item.id}`
           .hero-carousel__item-check
@@ -116,3 +106,16 @@ form.hero-carousel(
       href="#"
       title="Skip"
     ) Skip
+
+  .hero-carousel__nav
+    button.hero-carousel__nav--left(
+      type="button"
+      data-direction="left"
+    )
+      span.jw-icon-chevron-left
+    button.hero-carousel__nav--right(
+      type="button"
+      data-direction="right"
+    )
+      span.jw-icon-chevron-right
+
