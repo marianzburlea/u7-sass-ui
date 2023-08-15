@@ -19,10 +19,19 @@ if (heroForm) {
           data[key] = value
         })
 
-        var taxonomyValues = Object.keys(data).map(function (key) {
+        var taxonomyValuesIdMap = {}
+
+        Object.keys(data).forEach(function (key) {
+          taxonomyValuesIdMap[document.getElementById(key).dataset.id] =
+            data[key]
+        })
+
+        var taxonomyValues = Object.keys(taxonomyValuesIdMap).map(function (
+          objectKey
+        ) {
           return {
-            id: 'document.getElementById(key).dataset.id',
-            label: data[key],
+            id: objectKey,
+            label: taxonomyValuesIdMap[objectKey],
           }
         })
 

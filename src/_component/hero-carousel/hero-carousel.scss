@@ -147,6 +147,8 @@
     //   }
     // }
 
+    counter-increment: howMany;
+
     &-effect {
       position: absolute;
       inset: 0;
@@ -167,10 +169,6 @@
       left: 0;
       width: 700%;
       z-index: -1;
-
-      & img {
-        counter-increment: howMany;
-      }
     }
   }
 
@@ -507,14 +505,6 @@
           }
         }
       }
-
-      // &[data-last-focused] {
-      //   &
-      //     ~ .hero-carousel__item-selected-list
-      //     .hero-carousel__item-remove:nth-child(#{$i}) {
-      //     display: flex;
-      //   }
-      // }
 
       &:checked {
         counter-increment: selected;
