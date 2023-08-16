@@ -201,10 +201,10 @@ if (heroForm) {
       itemListContainer.appendChild(newSelectableLabel)
 
       // new description items
-      var newDescription = document.createElement('p')
-      newDescription.textContent = descriptionList[key].textContent
-      newDescription.className = 'hero-carousel__item-description'
-      descriptionContainer.appendChild(newDescription)
+      // var newDescription = document.createElement('p')
+      // newDescription.textContent = descriptionList[key].textContent
+      // newDescription.className = 'hero-carousel__item-description'
+      // descriptionContainer.appendChild(newDescription)
 
       // new background items
       var newBackground = document.createElement('img')
@@ -222,58 +222,67 @@ if (heroForm) {
   var dist
   var threshold = 100 // Minimum distance swiped for action
 
-  heroForm.addEventListener(
-    'touchstart',
-    function (e) {
-      var touchObj = e.changedTouches[0]
-      startX = touchObj.pageX
-      // e.preventDefault()
-    },
-    false
-  )
+  heroForm
+    .querySelectorAll('label.hero-carousel__item')
+    .forEach(function (label) {
+      label.addEventListener(
+        'touchstart',
+        function (e) {
+          var touchObj = e.changedTouches[0]
+          startX = touchObj.pageX
+          e.preventDefault()
+        },
+        false
+      )
 
-  heroForm.addEventListener(
-    'touchmove',
-    function (e) {
-      // e.preventDefault() // Prevent scrolling while swiping
-    },
-    false
-  )
+      label.addEventListener(
+        'touchmove',
+        function (e) {
+          e.preventDefault() // Prevent scrolling while swiping
+        },
+        false
+      )
 
-  heroForm.addEventListener(
-    'touchend',
-    function (e) {
-      var touchObj = e.changedTouches[0]
-      dist = touchObj.pageX - startX
+      label.addEventListener(
+        'touchend',
+        function (e) {
+          var touchObj = e.changedTouches[0]
+          dist = touchObj.pageX - startX
 
-      if (Math.abs(dist) >= threshold) {
-        var direction = dist > 0 ? 'left' : 'right'
+          if (Math.abs(dist) >= threshold) {
+            e.preventDefault()
+            var direction = dist > 0 ? 'left' : 'right'
 
-        var navigationButton = heroForm.querySelector(
-          'button[data-direction="' + direction + '"]'
-        )
-        navigationButton && navigationButton.click()
-        // e.preventDefault()
-      } else if (e.target.tagName === 'LABEL') {
-        e.preventDefault()
-        var howManySelected = heroForm.querySelectorAll(
-          '.hero-carousel__item-selector:checked'
-        ).length
-        var maxItems = +heroForm.dataset.maxitems
-        // e.target.focus()
+            var navigationButton = heroForm.querySelector(
+              'button[data-direction="' + direction + '"]'
+            )
+            navigationButton && navigationButton.click()
+          } else {
+            var selectedCheboxList = Array.from(
+              heroForm.querySelectorAll('.hero-carousel__item-selector:checked')
+            )
+            var selectedCheboxForList = selectedCheboxList.map(function (el) {
+              return el.getAttribute('id')
+            })
+            var howManySelected = selectedCheboxList.length
+            var maxItems = +heroForm.dataset.maxitems
+            // e.target.focus()
 
-        if (howManySelected < maxItems) {
-          var forValue = e.target.getAttribute('for')
-          console.log(forValue)
-          var checkbox = heroForm.querySelector('#' + forValue)
-          console.log(checkbox)
-          console.log(checkbox.checked)
-          checkbox.checked = !checkbox.checked
-        }
-      }
-    },
-    false
-  )
+            var forValue = label.getAttribute('for')
+
+            if (
+              howManySelected < maxItems ||
+              selectedCheboxForList.includes(forValue)
+            ) {
+              var checkbox = heroForm.querySelector('#' + forValue)
+              checkbox.checked = !checkbox.checked
+              document.getElementById(forValue).focus()
+            }
+          }
+        },
+        false
+      )
+    })
 
   document
     .querySelector('.hero-carousel__current')

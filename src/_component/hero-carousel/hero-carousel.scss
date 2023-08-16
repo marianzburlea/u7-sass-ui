@@ -250,7 +250,7 @@
       text-align: center;
       pointer-events: none;
       width: var(--item-width);
-      opacity: 0.2;
+      opacity: 0;
       transition: 250ms;
     }
 
@@ -513,7 +513,7 @@
         & ~ .hero-carousel__item-grid [for='hero-carousel-#{$i}'] {
           border-width: 0;
 
-          & > .hero-carousel__item-check {
+          & .hero-carousel__item-check {
             background-color: $black;
             border-color: $black;
 
