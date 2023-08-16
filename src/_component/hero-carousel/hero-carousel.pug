@@ -57,7 +57,6 @@ form.hero-carousel(
     each item in itemList 
       label.hero-carousel__item-remove(
         for=`hero-carousel-${item.id}`
-        style=`--bg: url('https://picsum.photos/id/${item.id}/200/300.webp')`
       )
         span= `${item.label} ${item.id}`
         .jw-icon-cross
