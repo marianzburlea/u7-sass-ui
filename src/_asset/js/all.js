@@ -227,7 +227,7 @@ if (heroForm) {
     function (e) {
       var touchObj = e.changedTouches[0]
       startX = touchObj.pageX
-      e.preventDefault()
+      // e.preventDefault()
     },
     false
   )
@@ -235,7 +235,7 @@ if (heroForm) {
   heroForm.addEventListener(
     'touchmove',
     function (e) {
-      e.preventDefault() // Prevent scrolling while swiping
+      // e.preventDefault() // Prevent scrolling while swiping
     },
     false
   )
@@ -253,10 +253,22 @@ if (heroForm) {
           'button[data-direction="' + direction + '"]'
         )
         navigationButton && navigationButton.click()
+        // e.preventDefault()
+      } else if (e.target.tagName === 'LABEL') {
         e.preventDefault()
-      } else {
-        if (e.target.tagName === 'LABEL') {
-          heroForm.querySelector('#' + e.target.getAttribute('for')).click()
+        var howManySelected = heroForm.querySelectorAll(
+          '.hero-carousel__item-selector:checked'
+        ).length
+        var maxItems = +heroForm.dataset.maxitems
+        // e.target.focus()
+
+        if (howManySelected < maxItems) {
+          var forValue = e.target.getAttribute('for')
+          console.log(forValue)
+          var checkbox = heroForm.querySelector('#' + forValue)
+          console.log(checkbox)
+          console.log(checkbox.checked)
+          checkbox.checked = !checkbox.checked
         }
       }
     },
