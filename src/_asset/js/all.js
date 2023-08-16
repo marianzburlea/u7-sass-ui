@@ -142,6 +142,9 @@ if (heroForm) {
     var selectedLabelContainer = heroForm.querySelector(
       '.hero-carousel__item-selected-list'
     )
+    var selectedLabelSpacer = heroForm.querySelector(
+      '.hero-carousel__item-selected-list-spacer'
+    )
     var descriptionContainer = heroForm.querySelector(
       '.hero-carousel__item-description-list'
     )
@@ -180,11 +183,11 @@ if (heroForm) {
       )
       newSelectedLabel.innerHTML = selectedLabelList[key].innerHTML
       newSelectedLabel.className = 'hero-carousel__item-remove'
-      newSelectedLabel.setAttribute(
-        'style',
-        selectedLabelList[key].getAttribute('style')
-      )
-      selectedLabelContainer.appendChild(newSelectedLabel)
+      // newSelectedLabel.setAttribute(
+      //   'style',
+      //   selectedLabelList[key].getAttribute('style')
+      // )
+      selectedLabelContainer.insertBefore(newSelectedLabel, selectedLabelSpacer)
 
       // new clickable label item
       var newSelectableLabel = document.createElement('label')
@@ -194,10 +197,6 @@ if (heroForm) {
       )
       newSelectableLabel.innerHTML = itemList[key].innerHTML
       newSelectableLabel.className = 'hero-carousel__item'
-      newSelectableLabel.setAttribute(
-        'style',
-        itemList[key].getAttribute('style')
-      )
       itemListContainer.appendChild(newSelectableLabel)
 
       // new description items
