@@ -1,10 +1,9 @@
 .hero-carousel {
   --item-width: 14.25rem; // 228px
-  --item-width-tablet: 17.5rem; // 280px
-  --list-gap: 5rem;
   --item-height: 17rem; // 272px
-  --item-height-tablet: 20.9375rem; // 335px
+  --list-gap: 1rem;
   --item-rotation: 12deg;
+  --multiplier-next-prev: 2.5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,9 +115,9 @@
   }
 
   &__title {
-    font-size: 3.5rem;
-    height: 3rem;
-    line-height: 3rem;
+    font-size: 2.5rem;
+    line-height: 2rem;
+    text-align: center;
   }
 
   &__background {
@@ -186,7 +185,7 @@
       left: calc(
         (var(--item-width) * 1) + var(--list-gap) * 1 - var(--item-width) / 2
       );
-      top: calc(var(--list-gap) * 0.5);
+      top: calc(var(--list-gap) * var(--multiplier-next-prev));
       transform: rotate(calc(var(--item-rotation) * 1)) scale(0.8);
     }
 
@@ -226,7 +225,7 @@
       left: calc(
         (var(--item-width) * -1) + var(--list-gap) * -1 - var(--item-width) / 2
       );
-      top: calc(var(--list-gap) * 0.5);
+      top: calc(var(--list-gap) * var(--multiplier-next-prev));
       transform: rotate(calc(var(--item-rotation) * -1)) scale(0.8);
     }
 
@@ -276,6 +275,10 @@
       gap: 1rem;
       flex-wrap: nowrap;
       height: 2.25rem;
+
+      &::before {
+        content: '';
+      }
     }
 
     &-grid {
@@ -288,7 +291,7 @@
     &-list {
       width: 100%;
       display: flex;
-      gap: var(--list-gap);
+      gap: 1rem;
       grid-column-start: 2;
       position: relative;
       height: var(--item-height);
@@ -302,6 +305,7 @@
       color: $white;
 
       font-family: 'Johnnie Walker Sans Headline', serif;
+      pointer-events: none;
     }
 
     &-selector {
@@ -321,6 +325,7 @@
       text-transform: uppercase;
       height: 2rem;
       line-height: 2rem;
+      pointer-events: none;
 
       & > span {
         padding: 0 !important;
@@ -340,6 +345,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      pointer-events: none;
 
       &ed {
         padding: 0 1rem;
@@ -413,7 +419,7 @@
                   var(--item-width) /
                   2
               );
-              top: calc(var(--list-gap) * 0.5);
+              top: calc(var(--list-gap) * var(--multiplier-next-prev));
               transform: rotate(calc(var(--item-rotation) * 1)) scale(0.8);
             }
 
@@ -473,7 +479,7 @@
                   var(--item-width) /
                   2
               );
-              top: calc(var(--list-gap) * 0.5);
+              top: calc(var(--list-gap) * var(--multiplier-next-prev));
               transform: rotate(calc(var(--item-rotation) * -1)) scale(0.8);
             }
           }
@@ -542,13 +548,24 @@
 //                            768px
 @media screen and (min-width: 48rem) {
   .hero-carousel {
+    --list-gap: 5rem;
+    --item-width: 17.5rem; // 280px
+    --item-height: 20.9375rem; // 335px
+    --multiplier-next-prev: 0.5;
+
     &__nav {
       display: block;
     }
 
     &__item {
-      width: var(--item-width-tablet);
-      height: var(--item-height-tablet);
+      &-list {
+        gap: var(--list-gap);
+      }
+    }
+
+    &__title {
+      font-size: 3.5rem;
+      line-height: 3rem;
     }
   }
 

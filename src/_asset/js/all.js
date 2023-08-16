@@ -253,8 +253,12 @@ if (heroForm) {
           'button[data-direction="' + direction + '"]'
         )
         navigationButton && navigationButton.click()
+        e.preventDefault()
+      } else {
+        if (e.target.tagName === 'LABEL') {
+          heroForm.querySelector('#' + e.target.getAttribute('for')).click()
+        }
       }
-      e.preventDefault()
     },
     false
   )
