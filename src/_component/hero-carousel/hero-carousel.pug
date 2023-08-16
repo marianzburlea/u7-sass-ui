@@ -61,6 +61,7 @@ form.hero-carousel(
       )
         span= `${item.label} ${item.id}`
         .jw-icon-cross
+    .hero-carousel__item-selected-list-spacer 1
   // list of label tags that check or uncheck the visually hidden inputs - END
   .hero-carousel__current(
     data-howmany="0"
@@ -76,19 +77,22 @@ form.hero-carousel(
       each item in itemList 
         label.hero-carousel__item(
           for=`hero-carousel-${item.id}`
-          style=`--bg: url('https://picsum.photos/id/${item.id+50}/200/300.webp')`
         )
-          span.hero-carousel__item-title= `${item.label} ${item.id}`
-          .hero-carousel__item-check
-          .hero-carousel__item-checked
-            span select
-            span.hero-carousel__item-checked--on ed
+          .hero-carousel__item-bg(
+            style=`--bg: url('https://picsum.photos/id/${item.id+50}/200/300.webp')`
+          )
+            span.hero-carousel__item-title= `${item.label} ${item.id}`
+            .hero-carousel__item-check
+            .hero-carousel__item-checked
+              span select
+              span.hero-carousel__item-checked--on ed
+          p.hero-carousel__item-description= item.description
   // list of label tags that check or uncheck the visually hidden inputs - END
 
   // list of descriptions that show when an input of type checkbox becomes focused - START
-  .hero-carousel__item-description-list
-    each item in itemList 
-      p.hero-carousel__item-description= item.description
+  //- .hero-carousel__item-description-list
+  //-   each item in itemList 
+  //-     p.hero-carousel__item-description= item.description
   // list of descriptions that show when an input of type checkbox becomes focused - END
 
   .hero-form__link--next
