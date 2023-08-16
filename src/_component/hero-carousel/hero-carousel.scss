@@ -18,6 +18,7 @@
   &__current {
     font-family: 'Johnnie Walker Sans Headline', serif;
     font-size: 2rem;
+    position: relative;
 
     &::before {
       content: '1 ';
@@ -148,7 +149,7 @@
       bottom: 0;
       left: 0;
       width: 700%;
-      z-index: -1;
+      // z-index: -1;
     }
   }
 
@@ -160,6 +161,9 @@
 
     position: absolute;
     top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
 
     &-bg {
       display: inline-flex;
@@ -281,6 +285,7 @@
       gap: 1rem;
       flex-wrap: nowrap;
       height: 2.5rem;
+      position: relative;
 
       &-spacer {
         height: 2.5rem;
@@ -581,6 +586,8 @@
     &__title {
       font-size: 3.5rem;
       line-height: 3rem;
+      position: relative;
+      z-index: 1;
     }
   }
 
@@ -590,6 +597,7 @@
       &--previous :first-child,
       &--skip :first-child {
         width: 30rem; // 480px
+        position: relative;
       }
     }
   }
