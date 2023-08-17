@@ -2,18 +2,19 @@
 // https://jwt-u7dev-alb.analogfolk.com/rpc/filter/BuildProfile/?taxonomyProfile=Cocktail&taxonomyName=Flavour&taxonomyValues=Fruity,Fresh&nextPage=/en-jwt/whisky-cocktails/profile-characteristic/&saveData=false
 
 var heroForm = document.querySelector('.hero-carousel')
+var characteristicsGrid = document.querySelector('#characteristics-grid')
 var heroFormPostURL = '/rpc/filter/BuildProfile/'
 
-// check if hero form exists
-if (heroForm) {
-  heroForm
+if (characteristicsGrid || heroForm) {
+  var currentForm = characteristicsGrid || heroForm
+  currentForm
     .querySelectorAll(
       '.hero-form__link--next :first-child, .hero-form__link--previous :first-child'
     )
     .forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault()
-        var formData = new FormData(heroForm)
+        var formData = new FormData(currentForm)
         var data = {}
         formData.forEach(function (value, key) {
           data[key] = value
@@ -36,9 +37,9 @@ if (heroForm) {
         })
 
         var postData = {
-          taxonomyProfile: heroForm.getAttribute('data-profile'),
-          taxonomyName: heroForm.getAttribute('data-taxonomy'),
-          saveData: heroForm.getAttribute('data-savedata'),
+          taxonomyProfile: currentForm.getAttribute('data-profile'),
+          taxonomyName: currentForm.getAttribute('data-taxonomy'),
+          saveData: currentForm.getAttribute('data-savedata'),
           taxonomyValues: taxonomyValues,
           nextPage: e.target.getAttribute('href'),
         }
@@ -55,7 +56,7 @@ if (heroForm) {
           })
           .then(function (res) {
             if (res.result) {
-              window.location.assign = res.nextPage
+              window.location.assign(res.nextPage)
             }
           })
           .catch(function (error) {
@@ -63,7 +64,10 @@ if (heroForm) {
           })
       })
     })
+}
 
+// check if hero form exists
+if (heroForm) {
   heroForm.addEventListener('click', function (e) {
     if (e.target.type === 'checkbox') {
       var howManySelected = heroForm.querySelectorAll(

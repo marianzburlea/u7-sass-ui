@@ -1,0 +1,182 @@
+.multi-selector {
+  --border-width: 0.125rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  &__label {
+    &,
+    &-text {
+      font-family: 'Johnnie Walker Sans Headline', serif;
+    }
+
+    &:nth-of-type(2n + 1) .multi-selector__label-line {
+      position: absolute;
+      inset: 0 0 0 25%;
+      border-right: var(--border-width) solid $black;
+      border-bottom: var(--border-width) solid $black;
+    }
+
+    &:first-of-type .multi-selector__label-line {
+      top: 25%;
+    }
+
+    &:nth-of-type(2n) .multi-selector__label-line {
+      position: absolute;
+      inset: 25% 25% 0 0;
+      border-bottom: var(--border-width) solid $black;
+    }
+
+    &:last-of-type .multi-selector__label-line {
+      border: 0;
+    }
+
+    &:nth-last-of-type(2) .multi-selector__label-line {
+      border-bottom: 0;
+      inset: 0 0 25% 25%;
+    }
+
+    font-size: 2.5rem;
+    line-height: 2rem;
+    text-transform: uppercase;
+    transition: 250ms;
+    cursor: pointer;
+    padding: 1.8rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 12.25/14.1875;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+
+    position: relative;
+
+    &::after {
+      content: 'selected';
+      font-size: 1.25rem;
+      line-height: 1.5;
+      position: absolute;
+      top: 1rem;
+      left: 3.5rem;
+      display: inline-block;
+      opacity: 0;
+    }
+
+    &::before {
+      opacity: 0;
+      font-family: #{$jw-icon-font-family};
+      content: $jw-icon-checkmark;
+      width: 2rem;
+      aspect-ratio: 1;
+      display: inline-block;
+      // transform: scale(0.5);
+      transition: 250ms;
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      color: $black;
+      background-color: $white;
+      font-size: 1rem;
+      line-height: 1;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__checkbox {
+    @include hide-visually();
+
+    &:focus-visible + .multi-selector__label {
+      border: 0.5rem solid $blaze-orange;
+    }
+
+    &:checked + .multi-selector__label {
+      color: $white;
+      background-color: $black;
+
+      &::before,
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .multi-selector {
+    &__label {
+      aspect-ratio: 26/15.25;
+      font-size: 5rem;
+      line-height: 4.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .multi-selector {
+    grid-template-columns: repeat(3, 1fr);
+
+    &__label {
+      aspect-ratio: 30/17.6;
+
+      &:nth-of-type(3n + 1) .multi-selector__label-line,
+      &:nth-of-type(3n + 2) .multi-selector__label-line {
+        position: absolute;
+        inset: 0 0 0 25%;
+        border-right: var(--border-width) solid $black;
+        border-bottom: var(--border-width) solid $black;
+      }
+
+      &:nth-of-type(3n + 2) .multi-selector__label-line {
+        inset: 25% 0 0 0;
+      }
+
+      &:nth-of-type(3n + 2) .multi-selector__label-line {
+        top: 0;
+      }
+
+      &:nth-of-type(1) .multi-selector__label-line,
+      &:nth-of-type(2) .multi-selector__label-line {
+        top: 25%;
+      }
+
+      &:nth-of-type(3n) .multi-selector__label-line {
+        position: absolute;
+        inset: 25% 25% 0 0;
+        border-right: 0;
+        border-bottom: var(--border-width) solid $black;
+      }
+
+      &:last-of-type .multi-selector__label-line {
+        border: 0;
+      }
+
+      &:nth-last-of-type(2) .multi-selector__label-line,
+      &:nth-last-of-type(3) .multi-selector__label-line {
+        border-bottom: 0;
+        inset: 0 0 25% 25%;
+      }
+    }
+  }
+}
+
+.multi-selector__nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 6.375rem 1rem;
+  column-gap: 0.75rem;
+  row-gap: 1rem;
+
+  .hero-form__link--previous {
+    justify-self: flex-end;
+    order: -1;
+  }
+
+  .hero-form__link--skip {
+    grid-column: 1/-1;
+    justify-self: center;
+  }
+}

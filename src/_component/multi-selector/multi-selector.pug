@@ -1,0 +1,94 @@
+-
+  var characteristicList = [
+    'muddled',
+    'fizzy',
+    'shanken',
+    'on the rocks',
+    'tall',
+    'buzzy',
+    //- 'smooth',
+    //- 'peaty',
+    //- 'smoky',
+    //- 'oaky',
+    //- 'aged',
+    //- 'rich',
+    //- 'spicy',
+    //- 'fruity',
+    //- 'caramel',
+    //- 'vanilla',
+    //- 'honeyed',
+    //- 'nutty',
+    //- 'malty',
+    //- 'creamy',
+    //- 'zesty',
+    //- 'floral',
+    //- 'earthy',
+    //- 'leathery',
+    //- 'chocolaty',
+    //- 'woody',
+    //- 'salty',
+    //- 'tart',
+    //- 'sherried',
+    //- 'citrusy',
+    //- 'dark fruit',
+    //- 'toffee',
+    //- 'light-bodied',
+    //- 'full-bodied',
+    //- 'warming',
+    //- 'bitter',
+    //- 'sugary',
+    //- 'bright',
+    //- 'dense',
+    //- 'tannic',
+    //- 'grainy',
+    //- 'herbal',
+    //- 'buttery',
+    //- 'spirity',
+    //- 'complex',
+    //- 'delicate',
+    //- 'briny',
+    //- 'luscious',
+    //- 'lingering',
+    //- 'velvety'
+  ]
+
+
+form.multi-selector#characteristics-grid(
+  data-savedata="False"
+  data-profile="Cocktail"
+  data-taxonomy="Characteristics"
+)
+  each characteristicLabel, key in characteristicList
+    input.multi-selector__checkbox(
+      type="checkbox"
+      id=`multi-selector-${key}`
+      name=`multi-selector-${key}`
+      value=characteristicLabel
+      aria-label=characteristicLabel
+    )
+    label.multi-selector__label(
+      for=`multi-selector-${key}`
+    )
+      span.multi-selector__label-text= characteristicLabel
+      span.multi-selector__label-line
+
+.multi-selector__nav
+  .hero-form__link--next
+    a(
+      href="#"
+      title="next"
+    ) Next
+
+  .hero-form__link--previous
+    a(
+      href="#"
+      title="previous"
+    ) Previous
+
+  .hero-form__link--skip
+    a(
+      href="#"
+      title="Skip"
+    ) Skip
+
+

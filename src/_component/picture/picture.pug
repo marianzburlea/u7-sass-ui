@@ -1,9 +1,42 @@
-.picture__wrapper
-  a.picture__link(
-    href="https://google.com"
-    title="a very nice image to visit"
-  )
-    img.picture__image(
-      src="https://picsum.photos/seed/picsum/200/300"
-      alt="a good detailed description of this image"
-    )
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Document
+  body 
+    h1 responsive 
+
+    div
+      picture
+        // WebP sources
+        source(
+          media="(max-width: 480px)"
+          srcset="https://picsum.photos/id/225/200/300.webp"
+          type="image/webp"
+        )
+        source(
+          media="(max-width: 768px)"
+          srcset="https://picsum.photos/id/225/400/600.webp"
+          type="image/webp"
+        )
+        source(
+          srcset="https://picsum.photos/id/225/800/1200.webp"
+          type="image/webp"
+        )
+
+        // JPEG sources as fallback
+        source(
+          media="(max-width: 480px)"
+          srcset="https://picsum.photos/id/225/200/300.jpg"
+          type="image/jpeg"
+        )
+        source(
+          media="(max-width: 768px)"
+          srcset="https://picsum.photos/id/225/400/600.jpg"
+          type="image/jpeg"
+        )
+        img(
+          src="https://picsum.photos/id/225/800/1200.jpg"
+          alt="Description"
+        )
