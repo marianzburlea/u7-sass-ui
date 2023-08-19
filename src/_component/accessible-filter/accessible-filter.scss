@@ -245,13 +245,18 @@ $howManyCheckboxes: 10;
     ~ .accessible-filter__hero-checkbox-input--selectable:checked
     ~ .accessible-filter__hero-checkbox-input--selectable:checked
     ~ .accessible-filter__hero
-    img.accessible-filter__hero-image:not(:first-child),
+    img.accessible-filter__hero-image,
   #toggle-input-type:checked
     ~ .accessible-filter__hero-checkbox-input--locked:checked
     ~ .accessible-filter__hero-checkbox-input--locked:checked
     ~ .accessible-filter__hero
-    img.accessible-filter__hero-image:not(:first-child) {
-    opacity: 0 !important;
+    img.accessible-filter__hero-image {
+    &:not(:last-child) {
+      opacity: 0 !important;
+    }
+    &:last-child {
+      opacity: 1 !important;
+    }
   }
 
   &__hero {
@@ -397,6 +402,30 @@ $howManyCheckboxes: 10;
       &:checked ~ main {
         &
           label.accessible-filter__hero-filter-label--selectable[for='selectable-filter-#{$i}'] {
+          &::before {
+            background-color: $black;
+            border-color: $black;
+          }
+
+          &::after {
+            color: $white;
+            transform: scale(1);
+          }
+        }
+      }
+    }
+
+    #locked-filter-#{$i} {
+      &:focus-visible ~ main {
+        &
+          label.accessible-filter__hero-filter-label--locked[for='locked-filter-#{$i}'] {
+          outline: 0.5rem solid $blaze-orange;
+        }
+      }
+
+      &:checked ~ main {
+        &
+          label.accessible-filter__hero-filter-label--locked[for='locked-filter-#{$i}'] {
           &::before {
             background-color: $black;
             border-color: $black;

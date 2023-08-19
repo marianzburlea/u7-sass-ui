@@ -1,5 +1,6 @@
 -
   var heroDefault = { dataId: 11111, label: 'all', image: 'https://picsum.photos/id/200/800/600.webp' }
+  var heroMultiple = { dataId: 11111, label: 'all', image: 'https://picsum.photos/id/400/800/600.webp' }
   var heroCheckboxList = [
     { lockedChecked: false, dataId: 12345, label: 'fresh',    image: 'https://picsum.photos/id/520/800/600.webp' },
     { lockedChecked: false, dataId: 23444, label: 'tropical', image: 'https://picsum.photos/id/521/800/600.webp' },
@@ -11,17 +12,19 @@
 
   var heroFilterList = [
     { lockedChecked: false, dataId: 999333, label: 'fizzy' },
-    { lockedChecked: false, dataId: 999444, label: 'on the rocks' },
+    { lockedChecked: true, dataId: 999444, label: 'on the rocks' },
     { lockedChecked: false, dataId: 999555, label: 'tall' },
   ]
 
   var heroSortList = [
-    { lockedChecked: false, dataId: 999333, label: 'latest' },
-    { lockedChecked: false, dataId: 999444, label: 'most popular' },
-    { lockedChecked: false, dataId: 999555, label: 'trending' },
+    { dataId: 999333, label: 'latest' },
+    { dataId: 999444, label: 'most popular' },
+    { dataId: 999555, label: 'trending' },
   ]
 
-.accessible-filter
+form.accessible-filter(
+  asdasd="adsdas"
+)
   // show ALL items
   input.accessible-filter__hero-checkbox-input(
     type="checkbox"
@@ -97,6 +100,9 @@
           data-for=`selectable-input-${key}`
           loading="lazy"
         )
+      img.accessible-filter__hero-image(
+        src=heroMultiple.image
+      )
 
     .accessible-filter__hero-checkbox-hero-wrapper
       h1.accessible-filter__hero-checkbox-list-title FRESH cocktails
