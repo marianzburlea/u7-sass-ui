@@ -82,7 +82,9 @@
     .accessible-filter__side 
       .accessible-filter__side-header
         .accessible-filter__side-header-title my Flavour Profile 
-        .accessible-filter__side-header-toggle
+        label.accessible-filter__side-header-toggle(
+          for=`toggle-input-type`
+        )
         .accessible-filter__side-header-info
           | Based on your #{' '}
           span Flavor Profile

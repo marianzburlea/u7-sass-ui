@@ -38,6 +38,7 @@ $howManyCheckboxes: 10;
         background-color: $dusty-gray;
         position: relative;
         transition: 250ms;
+        cursor: pointer;
 
         &::before {
           content: '';
