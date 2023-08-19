@@ -16,19 +16,66 @@ $howManyCheckboxes: 10;
 
   // SIDE
   &__side {
-    width: 17.5rem;
+    width: 100%;
+    display: flex;
+    gap: 3.75rem;
+    flex-direction: column;
 
     &-action {
       display: grid;
       // grid-template-columns: auto 1fr;
       gap: 1rem;
 
-      &-title {
+      #toggle-accessible-filter:checked {
+        & ~ label.accessible-filter__side-action--title {
+          &::before {
+            transform: rotate(-90deg);
+          }
+        }
+
+        & ~ .accessible-filter__hero-filter-label--selectable,
+        & ~ .accessible-filter__hero-filter-label--locked {
+          display: none;
+        }
+
+        &
+          ~ .accessible-filter__side-action--title:not(
+            [for='toggle-accessible-filter']
+          ),
+        & ~ .accessible-filter__hero-filter-label--selectable,
+        & ~ .accessible-sort-by__hero-sort-label--selectable,
+        & ~ .accessible-filter__hero-filter-label--locked {
+          display: none;
+        }
+      }
+
+      &--title {
         font-family: 'Johnnie Walker Sans Headline';
         font-size: 1.25rem;
         line-height: 1.25rem;
         text-transform: uppercase;
         grid-column: 1/-1;
+        margin: 0;
+        position: relative;
+        cursor: pointer;
+
+        &:first-child {
+          border-bottom: 0.125rem solid $black;
+          padding-block: 1rem;
+          cursor: pointer;
+        }
+
+        &[for='toggle-accessible-filter'] {
+          &::before {
+            position: absolute;
+            right: 0;
+            font-family: '#{$jw-icon-font-family}' !important;
+            content: $jw-icon-chevron-left;
+            font-size: 0.875rem;
+            transform: rotate(90deg);
+            transition: 250ms;
+          }
+        }
       }
     }
 

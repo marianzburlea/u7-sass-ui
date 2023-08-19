@@ -133,7 +133,15 @@
           span Flavor Profile
           | , we'll display cocktails that are a good match for you.
       .accessible-filter__side-action
-        h3.accessible-filter__side-action--title filter
+        input.accessible-filter__side-action--title(
+          id="toggle-accessible-filter"
+          type="checkbox"
+          checked
+          aria-label="toggle filter visible or hidden"
+        )
+        label.accessible-filter__side-action--title(
+          for="toggle-accessible-filter"
+        ) filter
         h3.accessible-filter__side-action--title characteristics
         // selectable item list of characteristics
         each heroFilter, key in heroFilterList
