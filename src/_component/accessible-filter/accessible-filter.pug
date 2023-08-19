@@ -86,18 +86,6 @@
       id=`selectable-sort-${key}`
     )
 
-  // locked item list of sorting
-  each heroSortBy, key in heroSortList
-    input.accessible-sort-by__hero-sort-by-input--locked(
-      type="radio"
-      name="sort-by"
-      data-id=heroSortBy.dataId
-      data-type="locked"
-      onclick="return false"
-      id=`locked-sort-by-${key}`
-      checked=heroSortBy.lockedChecked
-    )
-
   .accessible-filter__hero
     .accessible-filter__hero-image-wrapper
       img.accessible-filter__hero-image(
@@ -174,11 +162,5 @@
             for=`selectable-sort-${key}`
           )= heroSortBy.label
 
-        // locked item list of sorting
-        each heroSortBy, key in heroSortList
-          label.accessible-sort-by__hero-sort-by-label--locked(
-            data-id=heroSortBy.dataId
-            data-type="locked"
-            for=`locked-sort-by-${key}`
-          )= heroSortBy.label
-    .accessible-filter__main rezultate
+    .accessible-filter__main
+      div RESULTS

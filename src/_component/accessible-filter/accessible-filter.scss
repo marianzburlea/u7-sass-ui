@@ -167,6 +167,7 @@ $howManyCheckboxes: 10;
 
   #toggle-input-type {
     & ~ input[data-type='locked'],
+    & ~ main .accessible-filter__hero-filter-label--locked,
     &
       ~ .accessible-filter__hero
       .accessible-filter__hero-checkbox-list--locked {
@@ -175,6 +176,7 @@ $howManyCheckboxes: 10;
 
     &:checked {
       & ~ input[data-type='locked'],
+      & ~ main .accessible-filter__hero-filter-label--locked,
       &
         ~ .accessible-filter__hero
         .accessible-filter__hero-checkbox-list--locked {
@@ -182,6 +184,7 @@ $howManyCheckboxes: 10;
       }
 
       & ~ input[data-type='selectable'],
+      & ~ main .accessible-filter__hero-filter-label--selectable,
       &
         ~ .accessible-filter__hero
         .accessible-filter__hero-checkbox-list--selectable {
@@ -213,6 +216,10 @@ $howManyCheckboxes: 10;
     position: relative;
     padding: 2.5rem 1.5rem;
     transition: 250ms;
+
+    &-sort-label--selectable::after {
+      border-radius: 50%;
+    }
 
     &-image {
       width: 100%;
@@ -323,6 +330,102 @@ $howManyCheckboxes: 10;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+      }
+    }
+  }
+
+  .accessible-sort-by__hero-sort-label--selectable::before {
+    border-radius: 50%;
+  }
+
+  @for $i from 0 through $howManyCheckboxes {
+    #selectable-filter-#{$i} {
+      &:focus-visible ~ main {
+        &
+          label.accessible-filter__hero-filter-label--selectable[for='selectable-filter-#{$i}'] {
+          outline: 0.5rem solid $blaze-orange;
+        }
+      }
+
+      &:checked ~ main {
+        &
+          label.accessible-filter__hero-filter-label--selectable[for='selectable-filter-#{$i}'] {
+          &::before {
+            background-color: $black;
+            border-color: $black;
+          }
+
+          &::after {
+            color: $white;
+            transform: scale(1);
+          }
+        }
+      }
+    }
+
+    #selectable-sort-#{$i} {
+      &:focus-visible ~ main {
+        &
+          label.accessible-sort-by__hero-sort-label--selectable[for='selectable-sort-#{$i}'] {
+          outline: 0.5rem solid $blaze-orange;
+        }
+      }
+
+      &:checked ~ main {
+        &
+          label.accessible-sort-by__hero-sort-label--selectable[for='selectable-sort-#{$i}'] {
+          &::before {
+            background-color: $black;
+            border-color: $black;
+          }
+
+          &::after {
+            color: $white;
+            transform: scale(1);
+          }
+        }
+      }
+    }
+  }
+
+  .accessible-filter__hero-filter-label,
+  .accessible-sort-by__hero-sort-label {
+    &--selectable,
+    &--locked {
+      padding-inline: 2rem;
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      width: fit-content;
+
+      &::before,
+      &::after {
+        position: absolute;
+        content: '';
+        top: 0.125rem;
+        width: 1rem;
+        aspect-ratio: 1;
+        transition: 250ms;
+      }
+
+      &::before {
+        content: '';
+        border: 1px solid $light-gray;
+        background: $white;
+        left: 0;
+      }
+
+      &::after {
+        font-family: '#{$jw-icon-font-family}' !important;
+        font-size: 0.625rem;
+        content: $jw-icon-checkmark;
+        inset: 0;
+        top: 0.125rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0);
       }
     }
   }

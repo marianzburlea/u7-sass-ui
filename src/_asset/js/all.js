@@ -16,7 +16,7 @@ if (accessibleFilter) {
       )
 
       if (label) {
-        label.scrollIntoView()
+        label.scrollIntoView({ block: 'center' })
       }
     }
   })
