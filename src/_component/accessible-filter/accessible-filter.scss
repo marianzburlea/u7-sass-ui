@@ -18,6 +18,20 @@ $howManyCheckboxes: 10;
   &__side {
     width: 17.5rem;
 
+    &-action {
+      display: grid;
+      // grid-template-columns: auto 1fr;
+      gap: 1rem;
+
+      &-title {
+        font-family: 'Johnnie Walker Sans Headline';
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+        text-transform: uppercase;
+        grid-column: 1/-1;
+      }
+    }
+
     &-header {
       display: grid;
       grid-template-columns: 1fr auto;
