@@ -26,29 +26,34 @@ $howManyCheckboxes: 10;
       // grid-template-columns: auto 1fr;
       gap: 1rem;
 
-      #toggle-accessible-filter:checked {
-        & ~ label.accessible-filter__side-action--title {
-          &::before {
-            transform: rotate(-90deg);
+      #toggle-accessible-filter {
+        &:focus-visible ~ label.accessible-filter__side-action--title {
+          outline: 0.5rem solid $blaze-orange;
+        }
+
+        &:checked {
+          & ~ label.accessible-filter__side-action--title {
+            &::before {
+              transform: rotate(-90deg);
+            }
+          }
+
+          & ~ .accessible-filter__hero-filter-label--selectable,
+          & ~ .accessible-filter__hero-filter-label--locked {
+            display: none;
+          }
+
+          &
+            ~ .accessible-filter__side-action--title:not(
+              [for='toggle-accessible-filter']
+            ),
+          & ~ .accessible-filter__hero-filter-label--selectable,
+          & ~ .accessible-sort-by__hero-sort-label--selectable,
+          & ~ .accessible-filter__hero-filter-label--locked {
+            display: none;
           }
         }
-
-        & ~ .accessible-filter__hero-filter-label--selectable,
-        & ~ .accessible-filter__hero-filter-label--locked {
-          display: none;
-        }
-
-        &
-          ~ .accessible-filter__side-action--title:not(
-            [for='toggle-accessible-filter']
-          ),
-        & ~ .accessible-filter__hero-filter-label--selectable,
-        & ~ .accessible-sort-by__hero-sort-label--selectable,
-        & ~ .accessible-filter__hero-filter-label--locked {
-          display: none;
-        }
       }
-
       &--title {
         font-family: 'Johnnie Walker Sans Headline';
         font-size: 1.25rem;
