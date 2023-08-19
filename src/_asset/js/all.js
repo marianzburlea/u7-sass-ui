@@ -6,73 +6,116 @@ var characteristicsGrid = document.querySelector('#characteristics-grid')
 var heroFormPostURL = '/rpc/filter/BuildProfile/'
 
 if (characteristicsGrid || heroForm) {
-  var currentForm = characteristicsGrid || heroForm
-  currentForm
-    .querySelectorAll(
+  // multi-selector__nav
+  var currentCharacteristicOrProfileForm = characteristicsGrid || heroForm
+  var navLinkList
+
+  if (heroForm) {
+    navLinkList = heroForm.querySelectorAll(
       '.hero-form__link--next :first-child, .hero-form__link--previous :first-child'
     )
-    .forEach(function (el) {
-      el.addEventListener('click', function (e) {
-        e.preventDefault()
-        var formData = new FormData(currentForm)
-        var data = {}
-        formData.forEach(function (value, key) {
-          data[key] = value
+  }
+
+  if (characteristicsGrid) {
+    navLinkList = document
+      .querySelector('.multi-selector__nav')
+      .querySelectorAll(
+        '.hero-form__link--next :first-child, .hero-form__link--previous :first-child'
+      )
+  }
+
+  navLinkList.forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault()
+      var characteristicsOrProfileFormData = new FormData(
+        currentCharacteristicOrProfileForm
+      )
+      var characteristicsOrProfileMap = {}
+      var validFieldPrefixList = ['multi-selector', 'hero-carousel']
+      characteristicsOrProfileFormData.forEach(function (value, key) {
+        if (validFieldPrefixList.includes(key.slice(0, key.lastIndexOf('-')))) {
+          characteristicsOrProfileMap[key] = value
+        }
+      })
+
+      var taxonomyValuesIdMap = {}
+
+      Object.keys(characteristicsOrProfileMap).forEach(function (key) {
+        taxonomyValuesIdMap[document.getElementById(key).dataset.id] =
+          characteristicsOrProfileMap[key]
+      })
+
+      var taxonomyValues = Object.keys(taxonomyValuesIdMap).map(function (
+        objectKey
+      ) {
+        return {
+          id: objectKey,
+          label: taxonomyValuesIdMap[objectKey],
+        }
+      })
+
+      var postData = {
+        taxonomyProfile:
+          currentCharacteristicOrProfileForm.getAttribute('data-profile'),
+        taxonomyName:
+          currentCharacteristicOrProfileForm.getAttribute('data-taxonomy'),
+        saveData:
+          currentCharacteristicOrProfileForm.getAttribute('data-savedata'),
+        taxonomyValues: JSON.stringify(taxonomyValues),
+        nextPage: e.target.getAttribute('href'),
+      }
+
+      fetch(heroFormPostURL, {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(postData),
+      })
+        .then(function (res) {
+          return res.json()
         })
-
-        var taxonomyValuesIdMap = {}
-
-        Object.keys(data).forEach(function (key) {
-          taxonomyValuesIdMap[document.getElementById(key).dataset.id] =
-            data[key]
-        })
-
-        var taxonomyValues = Object.keys(taxonomyValuesIdMap).map(function (
-          objectKey
-        ) {
-          return {
-            id: objectKey,
-            label: taxonomyValuesIdMap[objectKey],
+        .then(function (res) {
+          if (res.result) {
+            window.location.assign(res.nextPage)
           }
         })
-
-        var postData = {
-          taxonomyProfile: currentForm.getAttribute('data-profile'),
-          taxonomyName: currentForm.getAttribute('data-taxonomy'),
-          saveData: currentForm.getAttribute('data-savedata'),
-          taxonomyValues: taxonomyValues,
-          nextPage: e.target.getAttribute('href'),
-        }
-
-        fetch(heroFormPostURL, {
-          method: 'post',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(postData),
+        .catch(function (error) {
+          console.log('Failed request: ' + error.message)
         })
-          .then(function (res) {
-            return res.json()
-          })
-          .then(function (res) {
-            if (res.result) {
-              window.location.assign(res.nextPage)
-            }
-          })
-          .catch(function (error) {
-            console.log('Failed request: ' + error.message)
-          })
-      })
     })
+  })
 }
 
 // check if hero form exists
 if (heroForm) {
   heroForm.addEventListener('click', function (e) {
     if (e.target.type === 'checkbox') {
-      var howManySelected = heroForm.querySelectorAll(
-        '.hero-carousel__item-selector:checked'
-      ).length
+      var inputCheckboxList = heroForm.querySelectorAll(
+        '.hero-carousel__item-selector'
+      )
+      var selectedCheckboxMap = {}
+
+      Array.from(inputCheckboxList).forEach(function (element) {
+        if (element.checked) {
+          selectedCheckboxMap[element.getAttribute('data-id')] = true
+        }
+      })
+
+      inputCheckboxList.forEach(function (element) {
+        if (
+          element.getAttribute('data-id') ===
+            e.target.getAttribute('data-id') &&
+          element.id !== e.target.id
+        ) {
+          element.checked = e.target.checked
+        }
+      })
+
+      var howManySelected = Object.keys(selectedCheckboxMap).length
+      document
+        .querySelector('.hero-carousel__selected')
+        .setAttribute('data-howmany', howManySelected)
       var maxItems = +heroForm.dataset.maxitems
 
       e.target.focus()
@@ -179,20 +222,6 @@ if (heroForm) {
       newCheckbox.setAttribute('value', checkboxList[key].getAttribute('value'))
       heroForm.insertBefore(newCheckbox, backgroundContainer)
 
-      // new selected item
-      var newSelectedLabel = document.createElement('label')
-      newSelectedLabel.setAttribute(
-        'for',
-        'hero-carousel-' + (checkboxList.length + k + 1)
-      )
-      newSelectedLabel.innerHTML = selectedLabelList[key].innerHTML
-      newSelectedLabel.className = 'hero-carousel__item-remove'
-      // newSelectedLabel.setAttribute(
-      //   'style',
-      //   selectedLabelList[key].getAttribute('style')
-      // )
-      selectedLabelContainer.insertBefore(newSelectedLabel, selectedLabelSpacer)
-
       // new clickable label item
       var newSelectableLabel = document.createElement('label')
       newSelectableLabel.setAttribute(
@@ -202,12 +231,6 @@ if (heroForm) {
       newSelectableLabel.innerHTML = itemList[key].innerHTML
       newSelectableLabel.className = 'hero-carousel__item'
       itemListContainer.appendChild(newSelectableLabel)
-
-      // new description items
-      // var newDescription = document.createElement('p')
-      // newDescription.textContent = descriptionList[key].textContent
-      // newDescription.className = 'hero-carousel__item-description'
-      // descriptionContainer.appendChild(newDescription)
 
       // new background items
       var newBackground = document.createElement('img')

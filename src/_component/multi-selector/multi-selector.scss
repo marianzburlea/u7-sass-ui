@@ -7,6 +7,13 @@
     &,
     &-text {
       font-family: 'Johnnie Walker Sans Headline', serif;
+      font-size: 2.5rem;
+      line-height: 2rem;
+      text-transform: uppercase;
+    }
+
+    &-line {
+      pointer-events: none;
     }
 
     &:nth-of-type(2n + 1) .multi-selector__label-line {
@@ -35,9 +42,6 @@
       inset: 0 0 25% 25%;
     }
 
-    font-size: 2.5rem;
-    line-height: 2rem;
-    text-transform: uppercase;
     transition: 250ms;
     cursor: pointer;
     padding: 1.8rem;
@@ -109,8 +113,11 @@
   .multi-selector {
     &__label {
       aspect-ratio: 26/15.25;
-      font-size: 5rem;
-      line-height: 4.5rem;
+
+      &-text {
+        font-size: 5rem;
+        line-height: 4.5rem;
+      }
     }
   }
 }
@@ -119,7 +126,7 @@
   .multi-selector {
     grid-template-columns: repeat(3, 1fr);
 
-    &__label {
+    .multi-selector__label {
       aspect-ratio: 30/17.6;
 
       &:nth-of-type(3n + 1) .multi-selector__label-line,

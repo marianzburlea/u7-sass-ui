@@ -8,7 +8,6 @@
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  counter-set: selected;
   position: relative;
   padding-top: 3rem;
   overflow: hidden;
@@ -17,7 +16,7 @@
 
   &__current {
     font-family: 'Johnnie Walker Sans Headline', serif;
-    font-size: 2rem;
+    font-size: 1.875rem;
     position: relative;
 
     &::before {
@@ -37,7 +36,7 @@
     transition: 250ms;
 
     &::before {
-      content: '(' counter(selected);
+      content: '(' attr(data-howmany);
     }
   }
 
@@ -48,7 +47,7 @@
     &--left,
     &--right {
       position: absolute;
-      bottom: 35rem;
+      bottom: 28rem;
       font-size: 1.5rem;
       width: 3.2rem;
       aspect-ratio: 1;
@@ -65,12 +64,6 @@
 
       // fix bleeding css
       padding: 0;
-
-      &:hover {
-        background-color: $orange;
-        color: $black;
-      }
-
       cursor: pointer;
 
       &:focus-visible {
@@ -278,6 +271,12 @@
       & .jw-icon-cross {
         font-size: 0.75rem;
       }
+
+      & span {
+        font-family: 'Johnnie Walker Sans Headline';
+        font-size: 20px;
+        line-height: 20px;
+      }
     }
 
     &-selected-list {
@@ -346,6 +345,8 @@
       & > span {
         padding: 0 !important;
         line-height: 2rem !important;
+        font-size: 20px;
+        font-family: 'Johnnie Walker Sans Headline';
       }
     }
 
@@ -364,14 +365,19 @@
       pointer-events: none;
 
       &ed {
-        padding: 0 1rem;
-
         & .hero-carousel__item-checked--on {
           opacity: 0;
           margin: 0;
           transition: 150ms;
           margin-left: -1rem;
+          font-family: 'Johnnie Walker Sans Headline';
         }
+      }
+
+      & span {
+        font-family: 'Johnnie Walker Sans Headline';
+        font-size: 20px;
+        line-height: 20px;
       }
 
       &::before {
@@ -507,8 +513,6 @@
       }
 
       &:checked {
-        counter-increment: selected;
-
         &
           ~ .hero-carousel__item-selected-list
           .hero-carousel__item-remove:nth-child(#{$i}) {
@@ -561,6 +565,7 @@
     &--previous :first-child {
       color: $black;
       border: 0.125rem solid $black;
+      background: transparent;
     }
 
     &--skip :first-child {
