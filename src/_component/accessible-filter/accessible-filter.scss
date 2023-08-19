@@ -1,0 +1,342 @@
+// Change this to accomodate the max number of labels
+$howManyCheckboxes: 10;
+
+// Mobile first
+.accessible-filter {
+  display: flex;
+  flex-direction: column;
+  // gap: 3.75rem;
+  align-items: center;
+
+  main {
+    width: 100%;
+    max-width: 90rem;
+    padding: 2.5rem 1.5rem;
+  }
+
+  // SIDE
+  &__side {
+    width: 17.5rem;
+
+    &-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 0.5rem;
+      row-gap: 1rem;
+
+      &-title {
+        font-family: 'Johnnie Walker Sans Headline';
+        font-size: 1.25rem;
+        line-height: 1.25rem;
+        text-transform: uppercase;
+      }
+
+      &-toggle {
+        border-radius: 2rem;
+        width: 2rem;
+        height: 1.25rem;
+        background-color: $dusty-gray;
+        position: relative;
+        transition: 250ms;
+
+        &::before {
+          content: '';
+          transition: 250ms;
+          top: 0.25rem;
+          left: 0.25rem;
+          position: absolute;
+          width: 0.75rem;
+          aspect-ratio: 1;
+          border-radius: 50%;
+          background-color: $white;
+        }
+      }
+
+      &-info {
+        font-style: italic;
+        grid-column: 1/-1;
+      }
+    }
+  }
+
+  // HERO
+  input[type='checkbox'],
+  input[type='radio'] {
+    @include hide-visually();
+  }
+
+  .accessible-filter__hero-checkbox-input--selectable:last-of-type {
+    transform: scale(2);
+  }
+
+  @for $i from 0 through $howManyCheckboxes {
+    #selectable-input-#{$i} {
+      &:focus-visible ~ .accessible-filter__hero {
+        &
+          .accessible-filter__hero-checkbox-list--selectable
+          label.accessible-filter__hero-checkbox-item[for='selectable-input-#{$i}'] {
+          outline: 0.5rem solid $blaze-orange;
+        }
+      }
+
+      &:checked ~ .accessible-filter__hero {
+        &
+          .accessible-filter__hero-image-wrapper
+          img.accessible-filter__hero-image[data-for='selectable-input-#{$i}'] {
+          opacity: 1;
+        }
+
+        &
+          .accessible-filter__hero-checkbox-list--selectable
+          label.accessible-filter__hero-checkbox-item[for='selectable-input-#{$i}'] {
+          background-color: var(--input-color);
+          color: $black;
+        }
+      }
+    }
+  }
+
+  @for $i from 0 through $howManyCheckboxes {
+    #toggle-input-type {
+      &:checked
+        ~ main
+        .accessible-filter__side
+        .accessible-filter__side-header-toggle {
+        background-color: $black;
+
+        &::before {
+          left: 1rem;
+        }
+      }
+
+      &:focus-visible
+        ~ main
+        .accessible-filter__side
+        .accessible-filter__side-header-toggle {
+        outline: 0.5rem solid $blaze-orange;
+      }
+
+      &:checked ~ #locked-input-#{$i}:focus-visible ~ .accessible-filter__hero {
+        &
+          .accessible-filter__hero-checkbox-list--locked
+          label.accessible-filter__hero-checkbox-item:nth-child(#{$i + 2}) {
+          outline: 0.5rem solid $blaze-orange;
+        }
+      }
+
+      &:checked ~ #locked-input-#{$i}:checked ~ .accessible-filter__hero {
+        &
+          .accessible-filter__hero-image-wrapper
+          img.accessible-filter__hero-image[data-for='selectable-input-#{$i}'] {
+          opacity: 1;
+        }
+
+        &
+          .accessible-filter__hero-checkbox-list--locked
+          label.accessible-filter__hero-checkbox-item:nth-child(#{$i + 2}) {
+          background-color: var(--input-color);
+          color: $black;
+        }
+      }
+    }
+  }
+
+  #toggle-input-type {
+    & ~ input[data-type='locked'],
+    &
+      ~ .accessible-filter__hero
+      .accessible-filter__hero-checkbox-list--locked {
+      display: none;
+    }
+
+    &:checked {
+      & ~ input[data-type='locked'],
+      &
+        ~ .accessible-filter__hero
+        .accessible-filter__hero-checkbox-list--locked {
+        display: flex;
+      }
+
+      & ~ input[data-type='selectable'],
+      &
+        ~ .accessible-filter__hero
+        .accessible-filter__hero-checkbox-list--selectable {
+        display: none;
+      }
+    }
+  }
+
+  // when two or more are checked
+  #toggle-input-type:not(:checked)
+    ~ .accessible-filter__hero-checkbox-input--selectable:checked
+    ~ .accessible-filter__hero-checkbox-input--selectable:checked
+    ~ .accessible-filter__hero
+    img.accessible-filter__hero-image:not(:first-child),
+  #toggle-input-type:checked
+    ~ .accessible-filter__hero-checkbox-input--locked:checked
+    ~ .accessible-filter__hero-checkbox-input--locked:checked
+    ~ .accessible-filter__hero
+    img.accessible-filter__hero-image:not(:first-child) {
+    opacity: 0 !important;
+  }
+
+  &__hero {
+    --input-color: #{$black};
+    --outer-color: #{$white};
+    width: 100%;
+    max-width: 90rem;
+    height: 37.5rem;
+    position: relative;
+    padding: 2.5rem 1.5rem;
+    transition: 250ms;
+
+    &-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+
+      position: absolute;
+      inset: 0;
+
+      &:not(:first-child) {
+        opacity: 0;
+      }
+
+      &-wrapper {
+        position: absolute;
+        inset: 0;
+      }
+    }
+
+    &-checkbox {
+      #toggle-input-type:not(:checked) ~ &-input--selectable {
+        &:checked ~ .accessible-filter__hero {
+          --input-color: #{$white};
+          --outer-color: #{$black};
+
+          & .accessible-filter__hero-checkbox-item:first-of-type {
+            background-color: transparent;
+            color: var(--input-color);
+          }
+        }
+      }
+
+      &-input--locked {
+        #toggle-input-type:checked ~ &:checked ~ .accessible-filter__hero {
+          --input-color: #{$white};
+          --outer-color: #{$black};
+
+          & .accessible-filter__hero-checkbox-item:first-of-type {
+            background-color: transparent;
+            color: var(--input-color);
+          }
+        }
+      }
+
+      &-item {
+        font-family: 'Johnnie Walker Sans Headline';
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 9.5rem;
+        height: 3.75rem;
+        color: var(--input-color);
+        border: 0.125rem solid var(--input-color);
+        cursor: pointer;
+        transition: 250ms;
+
+        &:first-of-type {
+          background: var(--input-color);
+          color: var(--outer-color);
+        }
+      }
+
+      &-list {
+        &--selectable,
+        &--locked {
+          display: flex;
+          gap: 1rem;
+          position: absolute;
+          width: 73.75rem;
+          overflow-y: auto;
+          height: 4.75rem;
+          bottom: 0;
+          align-items: center;
+        }
+
+        &-title {
+          font-family: 'Johnnie Walker Sans Headline';
+          color: var(--input-color);
+          font-size: 4rem;
+          line-height: 3.5rem;
+          text-shadow: 0 0 0.125rem var(--outer-color);
+          transition: 250ms;
+        }
+
+        &-wrapper {
+          overflow-y: auto;
+          height: 4.75rem;
+          position: relative;
+          width: 100%;
+
+          // hide scrollbar
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+      }
+
+      &-hero-wrapper {
+        height: 100%;
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+// Tablet
+@media screen and (min-width: 48rem) {
+  .accessible-filter {
+    &__hero,
+    main {
+      padding: 6.25rem 4.75rem;
+
+      &-checkbox {
+        &-list,
+        &-list {
+          &-title {
+            font-size: 6.5rem;
+            line-height: 5.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Desktop
+@media screen and (min-width: 64rem) {
+  .accessible-filter {
+    &__hero,
+    main {
+      padding: 6.125rem 8.125rem;
+
+      &-checkbox {
+        &-list {
+          &-title {
+            font-size: 7.5rem;
+            line-height: 6.26rem;
+          }
+        }
+      }
+    }
+  }
+}

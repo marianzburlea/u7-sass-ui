@@ -1,0 +1,90 @@
+-
+  var heroDefault = { dataId: 11111, label: 'all', image: 'https://picsum.photos/id/200/800/600.webp' }
+  var heroCheckboxList = [
+    { lockedChecked: false, dataId: 12345, label: 'fresh',    image: 'https://picsum.photos/id/520/800/600.webp' },
+    { lockedChecked: false, dataId: 23444, label: 'tropical', image: 'https://picsum.photos/id/521/800/600.webp' },
+    { lockedChecked: false, dataId: 34555, label: 'fruity',   image: 'https://picsum.photos/id/522/800/600.webp' },
+    { lockedChecked: true, dataId: 45666, label: 'spicy',    image: 'https://picsum.photos/id/523/800/600.webp' },
+    { lockedChecked: false, dataId: 56777, label: 'smoky',    image: 'https://picsum.photos/id/524/800/600.webp' },
+    { lockedChecked: false, dataId: 67888, label: 'creamy',   image: 'https://picsum.photos/id/525/800/600.webp' },
+  ]
+
+.accessible-filter
+  // show ALL items
+  input.accessible-filter__hero-checkbox-input(
+    type="checkbox"
+    data-id=0
+    id=`toggle-input-type`
+  )
+
+  // show ALL items
+  input.accessible-filter__hero-checkbox-input(
+    type="checkbox"
+    data-id=0
+    id=`selectable-input-default`
+  )
+
+  // selectable item list
+  each heroCheckbox, key in heroCheckboxList
+    input.accessible-filter__hero-checkbox-input--selectable(
+      type="checkbox"
+      data-id=heroCheckbox.dataId
+      data-type="selectable"
+      id=`selectable-input-${key}`
+    )
+
+  // locked item list
+  each heroCheckbox, key in heroCheckboxList
+    input.accessible-filter__hero-checkbox-input--locked(
+      type="checkbox"
+      data-id=heroCheckbox.dataId
+      data-type="locked"
+      onclick="return false"
+      id=`locked-input-${key}`
+      checked=heroCheckbox.lockedChecked
+    )
+  .accessible-filter__hero
+    .accessible-filter__hero-image-wrapper
+      img.accessible-filter__hero-image(
+        src=heroDefault.image
+      )
+      each heroCheckbox, key in heroCheckboxList
+        img.accessible-filter__hero-image(
+          src=heroCheckbox.image
+          data-for=`selectable-input-${key}`
+          loading="lazy"
+        )
+
+    .accessible-filter__hero-checkbox-hero-wrapper
+      h1.accessible-filter__hero-checkbox-list-title FRESH cocktails
+
+      .accessible-filter__hero-checkbox-list-wrapper
+        .accessible-filter__hero-checkbox-list--selectable
+          label.accessible-filter__hero-checkbox-item(
+            for="selectable-input-default"
+          )= heroDefault.label
+
+          each heroCheckbox, key in heroCheckboxList
+            label.accessible-filter__hero-checkbox-item(
+              for=`selectable-input-${key}`
+            )= heroCheckbox.label
+        .accessible-filter__hero-checkbox-list--locked
+          label.accessible-filter__hero-checkbox-item(
+            for="toggle-input-type"
+          )= heroDefault.label
+
+          each heroCheckbox, key in heroCheckboxList
+            label.accessible-filter__hero-checkbox-item(
+              for="toggle-input-type"
+            )= heroCheckbox.label
+
+  main
+    .accessible-filter__side 
+      .accessible-filter__side-header
+        .accessible-filter__side-header-title my Flavour Profile 
+        .accessible-filter__side-header-toggle
+        .accessible-filter__side-header-info
+          | Based on your #{' '}
+          span Flavor Profile
+          | , we'll display cocktails that are a good match for you.
+    .accessible-filter__main rezultate

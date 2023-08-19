@@ -3,7 +3,41 @@
 
 var heroForm = document.querySelector('.hero-carousel')
 var characteristicsGrid = document.querySelector('#characteristics-grid')
+var accessibleFilter = document.querySelector('.accessible-filter')
+
 var heroFormPostURL = '/rpc/filter/BuildProfile/'
+
+if (accessibleFilter) {
+  accessibleFilter.addEventListener('focusin', function (event) {
+    console.log(event.target)
+    if (event.target.tagName === 'INPUT') {
+      var label = accessibleFilter.querySelector(
+        '[for="' + event.target.id + '"]'
+      )
+
+      if (label) {
+        label.scrollIntoView()
+      }
+    }
+  })
+
+  accessibleFilter.addEventListener('click', function (event) {
+    if (event.target.tagName === 'LABEL') {
+      event.target.scrollIntoView()
+    }
+
+    if (event.target.id === 'selectable-input-default') {
+      console.log('show all cocktails')
+      accessibleFilter
+        .querySelectorAll(
+          '.accessible-filter__hero-checkbox-input--selectable, #toggle-input-type'
+        )
+        .forEach(function (element) {
+          element.checked = false
+        })
+    }
+  })
+}
 
 if (characteristicsGrid || heroForm) {
   // multi-selector__nav
