@@ -207,6 +207,7 @@ $howManyCheckboxes: 10;
 
       position: absolute;
       inset: 0;
+      transition: 500ms ease-out;
 
       &:not(:first-child) {
         opacity: 0;
