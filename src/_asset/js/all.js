@@ -9,7 +9,6 @@ var heroFormPostURL = '/rpc/filter/BuildProfile/'
 
 if (accessibleFilter) {
   accessibleFilter.addEventListener('focusin', function (event) {
-    console.log(event.target)
     if (event.target.tagName === 'INPUT') {
       var label = accessibleFilter.querySelector(
         '[for="' + event.target.id + '"]'
@@ -22,12 +21,49 @@ if (accessibleFilter) {
   })
 
   accessibleFilter.addEventListener('click', function (event) {
+    var isLocked = accessibleFilter.querySelector('#toggle-input-type').checked
+
+    var filterFormData = new FormData(accessibleFilter)
+    var dataMap = {
+      pageId: accessibleFilter.getAttribute('data-pageid'),
+      source: accessibleFilter.getAttribute('data-source'),
+      taxonomyProfile: accessibleFilter.getAttribute('data-profile'),
+      documentTypes: accessibleFilter.getAttribute('data-type'),
+      filters: [],
+    }
+    var sortByElement = accessibleFilter.querySelector(
+      'input[name="sort-by"]:checked'
+    )
+    dataMap.sortBy =
+      (sortByElement && sortByElement.getAttribute('data-id')) || ''
+
+    var filterMap = {}
+    filterFormData.forEach(function (value, key) {
+      var id = '#' + key
+      var element = accessibleFilter.querySelector(id)
+      if (element) {
+        const dataType = element.getAttribute('data-type')
+        var partList = key.split('-')
+        var whom = partList[1]
+        if (isLocked && dataType === 'locked') {
+          filterMap[whom] = Array.isArray(filterMap[whom])
+            ? filterMap[whom].concat(element.getAttribute('data-id'))
+            : [element.getAttribute('data-id')]
+        } else if (!isLocked && dataType === 'selectable') {
+          filterMap[whom] = Array.isArray(filterMap[whom])
+            ? filterMap[whom].concat(element.getAttribute('data-id'))
+            : [element.getAttribute('data-id')]
+        }
+      }
+      dataMap.filters = JSON.stringify(filterMap)
+    })
+
+    console.log(dataMap)
     if (event.target.tagName === 'LABEL') {
       event.target.scrollIntoView()
     }
 
     if (event.target.id === 'selectable-input-default') {
-      console.log('show all cocktails')
       accessibleFilter
         .querySelectorAll(
           '.accessible-filter__hero-checkbox-input--selectable, #toggle-input-type'

@@ -23,7 +23,10 @@
   ]
 
 form.accessible-filter(
-  asdasd="adsdas"
+  data-pageid="data-pageid-111"
+  data-source="data-source-222"
+  data-profile="data-profile-333"
+  data-type="data-type-444"
 )
   // show ALL items
   input.accessible-filter__hero-checkbox-input(
@@ -46,6 +49,7 @@ form.accessible-filter(
       data-id=heroCheckbox.dataId
       data-type="selectable"
       id=`selectable-input-${key}`
+      name=`selectable-input-${key}`
     )
 
   // locked item list of flavours
@@ -56,6 +60,7 @@ form.accessible-filter(
       data-type="locked"
       onclick="return false"
       id=`locked-input-${key}`
+      name=`locked-input-${key}`
       checked=heroCheckbox.lockedChecked
     )
 
@@ -66,6 +71,7 @@ form.accessible-filter(
       data-id=heroFilter.dataId
       data-type="selectable"
       id=`selectable-filter-${key}`
+      name=`selectable-filter-${key}`
     )
 
   // locked item list of characteristics
@@ -76,6 +82,7 @@ form.accessible-filter(
       data-type="locked"
       onclick="return false"
       id=`locked-filter-${key}`
+      name=`locked-filter-${key}`
       checked=heroFilter.lockedChecked
     )
 
@@ -85,7 +92,6 @@ form.accessible-filter(
       type="radio"
       name="sort-by"
       data-id=heroSortBy.dataId
-      data-type="selectable"
       id=`selectable-sort-${key}`
     )
 
@@ -171,7 +177,6 @@ form.accessible-filter(
         each heroSortBy, key in heroSortList
           label.accessible-sort-by__hero-sort-label--selectable(
             data-id=heroSortBy.dataId
-            data-type="selectable"
             for=`selectable-sort-${key}`
           )= heroSortBy.label
 
