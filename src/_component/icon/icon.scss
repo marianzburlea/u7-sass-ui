@@ -1,0 +1,33 @@
+.favourite-icon {
+  font-family: '#{$jw-icon-font-family}' !important;
+  display: inline-block;
+  width: 2rem;
+  aspect-ratio: 1;
+  position: relative;
+
+  &:before,
+  &::after {
+    transition: 250ms;
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:before {
+    color: $black-35;
+    content: $jw-icon-heart-fill;
+  }
+
+  &:hover::before {
+    color: $alizarin-crimson;
+  }
+
+  &:after {
+    color: $white;
+    content: $jw-icon-heart-outline;
+    font-size: 1.1rem;
+  }
+}

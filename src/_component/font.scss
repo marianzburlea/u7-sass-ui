@@ -68,6 +68,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.jw-icon-heart-fill {
+  &:before {
+    content: $jw-icon-heart-fill;
+  }
+}
+.jw-icon-heart-outline {
+  &:before {
+    content: $jw-icon-heart-outline;
+  }
+}
+
 .jw-icon-chevron-left {
   &:before {
     content: $jw-icon-chevron-left;
