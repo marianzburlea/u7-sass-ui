@@ -133,7 +133,16 @@ form.accessible-filter(
               for="toggle-input-type"
             )= heroCheckbox.label
 
-  main
+  main.accessible-filter__main(
+    data-pageid="some-pageid"
+    data-source="some-source"
+    data-profile="some-profile"
+    data-type="some-type"
+    data-no-filter-textcolor="some-no-filter-textcolor"
+    data-no-filter-backgroundcolor="some-no-filter-backgroundcolor"
+    data-many-filter-textcolor="some-many-filter-textcolor"
+    data-many-filter-backgroundcolor="some-many-filter-backgroundcolo"
+  )
     .accessible-filter__side 
       .accessible-filter__side-header
         .accessible-filter__side-header-title my Flavour Profile 
@@ -180,5 +189,5 @@ form.accessible-filter(
             for=`selectable-sort-${key}`
           )= heroSortBy.label
 
-    .accessible-filter__main
+    .accessible-filter__grid-list
       div RESULTS

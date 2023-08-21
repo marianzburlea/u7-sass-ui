@@ -1,11 +1,9 @@
-// flavour profile
-// https://jwt-u7dev-alb.analogfolk.com/rpc/filter/BuildProfile/?taxonomyProfile=Cocktail&taxonomyName=Flavour&taxonomyValues=Fruity,Fresh&nextPage=/en-jwt/whisky-cocktails/profile-characteristic/&saveData=false
-
 var heroForm = document.querySelector('.hero-carousel')
 var characteristicsGrid = document.querySelector('#characteristics-grid')
 var accessibleFilter = document.querySelector('.accessible-filter')
 
 var heroFormPostURL = '/rpc/filter/BuildProfile/'
+var heroFormGetURL = '/rpc/filter/GetFilteredContent/'
 
 if (accessibleFilter) {
   accessibleFilter.addEventListener('focusin', function (event) {
@@ -22,8 +20,6 @@ if (accessibleFilter) {
 
   accessibleFilter.addEventListener('click', function (event) {
     var isLocked = accessibleFilter.querySelector('#toggle-input-type').checked
-
-    var filterFormData = new FormData(accessibleFilter)
     var dataMap = {
       pageId: accessibleFilter.getAttribute('data-pageid'),
       source: accessibleFilter.getAttribute('data-source'),
@@ -31,34 +27,102 @@ if (accessibleFilter) {
       documentTypes: accessibleFilter.getAttribute('data-type'),
       filters: [],
     }
+
     var sortByElement = accessibleFilter.querySelector(
       'input[name="sort-by"]:checked'
     )
+
     dataMap.sortBy =
       (sortByElement && sortByElement.getAttribute('data-id')) || ''
 
     var filterMap = {}
-    filterFormData.forEach(function (value, key) {
-      var id = '#' + key
-      var element = accessibleFilter.querySelector(id)
-      if (element) {
-        const dataType = element.getAttribute('data-type')
-        var partList = key.split('-')
-        var whom = partList[1]
-        if (isLocked && dataType === 'locked') {
-          filterMap[whom] = Array.isArray(filterMap[whom])
-            ? filterMap[whom].concat(element.getAttribute('data-id'))
-            : [element.getAttribute('data-id')]
-        } else if (!isLocked && dataType === 'selectable') {
-          filterMap[whom] = Array.isArray(filterMap[whom])
-            ? filterMap[whom].concat(element.getAttribute('data-id'))
-            : [element.getAttribute('data-id')]
-        }
-      }
-      dataMap.filters = JSON.stringify(filterMap)
-    })
+    accessibleFilter
+      .querySelectorAll(
+        'input[data-type="' +
+          (isLocked ? 'locked' : 'selectable') +
+          '"]:checked'
+      )
+      .forEach(function (element) {
+        var whom = element.getAttribute('data-groupid')
+        filterMap[whom] = Array.isArray(filterMap[whom])
+          ? filterMap[whom].concat(element.getAttribute('data-id'))
+          : [element.getAttribute('data-id')]
+      })
 
-    console.log(dataMap)
+    dataMap.filters = JSON.stringify(
+      Object.keys(filterMap).map(function (key) {
+        return {
+          taxonomy: key,
+          values: filterMap[key],
+        }
+      })
+    )
+
+    if (event.target.tagName === 'INPUT') {
+      try {
+        fetch(heroFormGetURL, {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(dataMap),
+        })
+          .then(function (res) {
+            return res.text()
+          })
+          .then(function (htmlResponse) {
+            document.querySelector('.accessible-filter__grid-list').innerHTML =
+              htmlResponse
+          })
+      } catch (error) {
+        console.log('Error: ', error.message)
+      }
+    }
+
+    var loadMoreElement = document.querySelector(
+      '.grid-list__wrapper .button-ghost.item-paging'
+    )
+
+    var resultsSummary = document.querySelector(
+      '.grid-list__wrapper .results-summary'
+    )
+
+    var pageContainer = document.querySelector(
+      '.grid-list__wrapper .paging-container'
+    )
+
+    var fetchNextPage = function () {
+      dataMap.nextPage =
+        document.querySelectorAll('.grid-list__wrapper').length + 1
+      try {
+        fetch(heroFormGetURL, {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(dataMap),
+        })
+          .then(function (res) {
+            return res.text()
+          })
+          .then(function (htmlResponse) {
+            resultsSummary.remove()
+            pageContainer.remove()
+
+            document.querySelector(
+              '.accessible-filter__grid-list'
+            ).insertAdjacentHTML = htmlResponse
+          })
+      } catch (error) {
+        console.log('Error: ', error.message)
+      }
+    }
+
+    if (loadMoreElement) {
+      loadMoreElement.removeEventListener('click', fetchNextPage)
+      loadMoreElement.addEventListener('click', fetchNextPage)
+    }
+
     if (event.target.tagName === 'LABEL') {
       event.target.scrollIntoView()
     }
@@ -97,32 +161,26 @@ if (characteristicsGrid || heroForm) {
   navLinkList.forEach(function (el) {
     el.addEventListener('click', function (e) {
       e.preventDefault()
-      var characteristicsOrProfileFormData = new FormData(
-        currentCharacteristicOrProfileForm
+      // id="hero-carousel-
+      // id="multi-selector-
+      var characteristicsOrProfileFormData = document.querySelectorAll(
+        'input[id^="hero-carousel-"]:checked, input[id^="multi-selector-"]:checked'
       )
       var characteristicsOrProfileMap = {}
-      var validFieldPrefixList = ['multi-selector', 'hero-carousel']
-      characteristicsOrProfileFormData.forEach(function (value, key) {
-        if (validFieldPrefixList.includes(key.slice(0, key.lastIndexOf('-')))) {
-          characteristicsOrProfileMap[key] = value
+
+      characteristicsOrProfileFormData.forEach(function (element) {
+        characteristicsOrProfileMap[element.getAttribute('data-id')] =
+          element.value
+      })
+
+      var taxonomyValues = Object.keys(characteristicsOrProfileMap).map(
+        function (objectKey) {
+          return {
+            id: objectKey,
+            label: characteristicsOrProfileMap[objectKey],
+          }
         }
-      })
-
-      var taxonomyValuesIdMap = {}
-
-      Object.keys(characteristicsOrProfileMap).forEach(function (key) {
-        taxonomyValuesIdMap[document.getElementById(key).dataset.id] =
-          characteristicsOrProfileMap[key]
-      })
-
-      var taxonomyValues = Object.keys(taxonomyValuesIdMap).map(function (
-        objectKey
-      ) {
-        return {
-          id: objectKey,
-          label: taxonomyValuesIdMap[objectKey],
-        }
-      })
+      )
 
       var postData = {
         taxonomyProfile:
@@ -387,39 +445,3 @@ if (heroForm) {
       heroForm.querySelectorAll('.hero-carousel__item-selector').length
     )
 }
-
-// filter
-// const smartMainFilterProfileList = document.querySelectorAll(
-//   '.smart-filter__main-filter[data-type="profile"]'
-// )
-
-// const smartMainFilterAnonymousList = document.querySelectorAll(
-//   '.smart-filter__main-filter[data-type="anonymous"]'
-// )
-
-// document.querySelector('.smart-filter').addEventListener(
-//   'change',
-//   (ev) => {
-//     console.log(ev.target)
-//     console.log('merge')
-
-//     const isChecked = ev.target.checked
-
-//     if (ev.target.id === 'select-all-anonymous') {
-//       console.log('select ALL anonymous')
-//       smartMainFilterAnonymousList.forEach((element) => {
-//         element.checked = isChecked
-//       })
-//     } else if (ev.target.id === 'select-all-profile') {
-//       console.log('select ALL profile')
-//       smartMainFilterProfileList.forEach((element) => {
-//         element.checked = isChecked
-//       })
-//     }
-//   },
-//   false
-// )
-
-// window.onerror = (message, source, lineNumber, columnNumber, error) => {
-//   console.error('An error is present: ', error)
-// }
