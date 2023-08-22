@@ -162,32 +162,34 @@ form.accessible-filter(
         label.accessible-filter__side-action--title(
           for="toggle-accessible-filter"
         ) filter
-        h3.accessible-filter__side-action--title characteristics
-        // selectable item list of characteristics
-        each heroFilter, key in heroFilterList
-          label.accessible-filter__hero-filter-label--selectable(
-            data-id=heroFilter.dataId
-            data-type="selectable"
-            for=`selectable-filter-${key}`
-          )= heroFilter.label
 
-        // locked item list of characteristics
-        each heroFilter, key in heroFilterList
-          label.accessible-filter__hero-filter-label--locked(
-            data-id=heroFilter.dataId
-            data-type="locked"
-            onclick="return false"
-            for=`locked-filter-${key}`
-          )= heroFilter.label
+        .accessible-filter__side-action--wrapper
+          h3.accessible-filter__side-action--title characteristics
+          // selectable item list of characteristics
+          each heroFilter, key in heroFilterList
+            label.accessible-filter__hero-filter-label--selectable(
+              data-id=heroFilter.dataId
+              data-type="selectable"
+              for=`selectable-filter-${key}`
+            )= heroFilter.label
 
-        h3.accessible-filter__side-action--title sort by
+          // locked item list of characteristics
+          each heroFilter, key in heroFilterList
+            label.accessible-filter__hero-filter-label--locked(
+              data-id=heroFilter.dataId
+              data-type="locked"
+              onclick="return false"
+              for=`locked-filter-${key}`
+            )= heroFilter.label
 
-        // selectable item list of sorting
-        each heroSortBy, key in heroSortList
-          label.accessible-sort-by__hero-sort-label--selectable(
-            data-id=heroSortBy.dataId
-            for=`selectable-sort-${key}`
-          )= heroSortBy.label
+          h3.accessible-filter__side-action--title sort by
+
+          // selectable item list of sorting
+          each heroSortBy, key in heroSortList
+            label.accessible-sort-by__hero-sort-label--selectable(
+              data-id=heroSortBy.dataId
+              for=`selectable-sort-${key}`
+            )= heroSortBy.label
 
     .accessible-filter__grid-list
       div RESULTS

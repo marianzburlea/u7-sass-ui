@@ -8,10 +8,13 @@ $howManyCheckboxes: 10;
   // gap: 3.75rem;
   align-items: center;
 
-  main {
+  &__main {
     width: 100%;
     max-width: 90rem;
     padding: 2.5rem 1.5rem;
+
+    display: grid;
+    gap: 1rem;
   }
 
   // SIDE
@@ -26,6 +29,12 @@ $howManyCheckboxes: 10;
       // grid-template-columns: auto 1fr;
       gap: 1rem;
 
+      &--wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
       #toggle-accessible-filter {
         &:focus-visible ~ label.accessible-filter__side-action--title {
           outline: 0.5rem solid $blaze-orange;
@@ -38,20 +47,19 @@ $howManyCheckboxes: 10;
             }
           }
 
-          & ~ .accessible-filter__hero-filter-label--selectable,
-          & ~ .accessible-filter__hero-filter-label--locked {
+          & ~ .accessible-filter__side-action--wrapper {
             display: none;
           }
 
-          &
-            ~ .accessible-filter__side-action--title:not(
-              [for='toggle-accessible-filter']
-            ),
-          & ~ .accessible-filter__hero-filter-label--selectable,
-          & ~ .accessible-sort-by__hero-sort-label--selectable,
-          & ~ .accessible-filter__hero-filter-label--locked {
-            display: none;
-          }
+          // &
+          //   ~ .accessible-filter__side-action--title:not(
+          //     [for='toggle-accessible-filter']
+          //   ),
+          // & ~ .accessible-filter__hero-filter-label--selectable,
+          // & ~ .accessible-sort-by__hero-sort-label--selectable,
+          // & ~ .accessible-filter__hero-filter-label--locked {
+          //   display: none;
+          // }
         }
       }
       &--title {
@@ -64,10 +72,15 @@ $howManyCheckboxes: 10;
         position: relative;
         cursor: pointer;
 
-        &:first-child {
+        &:first-of-type {
           border-bottom: 0.125rem solid $black;
           padding-block: 1rem;
           cursor: pointer;
+        }
+
+        .accessible-filter__side-action--wrapper &:first-of-type {
+          border: 0;
+          cursor: initial;
         }
 
         &[for='toggle-accessible-filter'] {
@@ -120,7 +133,6 @@ $howManyCheckboxes: 10;
       }
 
       &-info {
-        font-style: italic;
         grid-column: 1/-1;
       }
     }
@@ -218,8 +230,8 @@ $howManyCheckboxes: 10;
   }
 
   #toggle-input-type {
-    & ~ input[data-type='locked'],
-    & ~ main .accessible-filter__hero-filter-label--locked,
+    & ~ input[data-type="locked"],
+    // & ~ main .accessible-filter__hero-filter-label--locked,
     &
       ~ .accessible-filter__hero
       .accessible-filter__hero-checkbox-list--locked {
@@ -348,7 +360,8 @@ $howManyCheckboxes: 10;
           display: flex;
           gap: 1rem;
           position: absolute;
-          width: 73.75rem;
+          // width: 73.75rem;
+          width: max-content;
           padding-inline: 0.5rem;
           overflow-y: auto;
           height: 4.75rem;
@@ -515,8 +528,12 @@ $howManyCheckboxes: 10;
 // Tablet
 @media screen and (min-width: 48rem) {
   .accessible-filter {
+    &__main {
+      grid-template-columns: 17.5rem 1fr;
+    }
+
     &__hero,
-    main {
+    &__main {
       padding: 6.25rem 4.75rem;
 
       &-checkbox {
@@ -536,7 +553,7 @@ $howManyCheckboxes: 10;
 @media screen and (min-width: 64rem) {
   .accessible-filter {
     &__hero,
-    main {
+    &__main {
       padding: 6.125rem 8.125rem;
 
       &-checkbox {
