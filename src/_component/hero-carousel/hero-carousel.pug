@@ -4,9 +4,9 @@
     { id: 2, dataId: 112, label: 'Peaty', description: 'Distinctive earthy and organic character, reminiscent of a wet mossy terrain or recently turned soil.' },
     { id: 3, dataId: 113, label: 'Sweet', description: 'Evokes flavors of honey, vanilla, or caramel, reminiscent of a sugary treat or dessert.' },
     { id: 4, dataId: 114, label: 'Spicy', description: 'Hints of pepper, cloves, or cinnamon that tingle the palate, offering warmth and complexity.' },
-    //- { id: 5, dataId: 115, label: 'Malty', description: 'Brings forward the rich, grainy flavors typical of malted barley, like toasted bread or cereal.' },
-    //- { id: 6, dataId: 116, label: 'Nutty', description: 'Emulates flavors of almonds, walnuts, or hazelnuts, giving a deep, earthy profile.' },
-    //- { id: 7, dataId: 117, label: 'Smokey', description: 'Characterized by a lingering aroma and flavor of wood smoke, as if from a campfire or burning embers.' }
+    { id: 5, dataId: 115, label: 'Malty', description: 'Brings forward the rich, grainy flavors typical of malted barley, like toasted bread or cereal.' },
+    { id: 6, dataId: 116, label: 'Nutty', description: 'Emulates flavors of almonds, walnuts, or hazelnuts, giving a deep, earthy profile.' },
+    { id: 7, dataId: 117, label: 'Smokey', description: 'Characterized by a lingering aroma and flavor of wood smoke, as if from a campfire or burning embers.' }
   ]
 
 
@@ -14,7 +14,7 @@ form.hero-carousel(
   data-savedata="False"
   data-profile="Cocktail"
   data-taxonomy="Flavour"
-  data-maxitems="2"
+  data-maxitems="3"
 )
   h1.hero-carousel__title WHAT FLAVOURS ARE YOU FEELING?
 
@@ -44,8 +44,13 @@ form.hero-carousel(
   // list of background images - END
 
   .hero-carousel__info-wrapper
-    p.hero-carousel__info Please select up to 2 flavours
-    .hero-carousel__selected /2#{')'}
+    p.hero-carousel__info
+      | Please select up to 
+      span.hero-carousel__info-how-many 2 
+      | flavours
+    .hero-carousel__selected(
+      data-howmany="0"
+    ) /2#{')'}
 
 
 

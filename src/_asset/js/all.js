@@ -281,19 +281,20 @@ if (characteristicsGrid || heroForm) {
 
 // check if hero form exists
 if (heroForm) {
+  var carouselCount = 24
+  var carouselCurrentRotation = 0
+  var carouselItemGrid = document.querySelector('.hero-carousel__item-grid')
+  var maxItems = +heroForm.dataset.maxitems
+  document.querySelector('.hero-carousel__info-how-many').textContent =
+    maxItems + ' '
+  document.querySelector('.hero-carousel__selected').textContent =
+    '/' + maxItems + ')'
+
   heroForm.addEventListener('click', function (e) {
     if (e.target.type === 'checkbox') {
       var inputCheckboxList = heroForm.querySelectorAll(
         '.hero-carousel__item-selector'
       )
-      var selectedCheckboxMap = {}
-
-      Array.from(inputCheckboxList).forEach(function (element) {
-        if (element.checked) {
-          selectedCheckboxMap[element.getAttribute('data-id')] = true
-        }
-      })
-
       inputCheckboxList.forEach(function (element) {
         if (
           element.getAttribute('data-id') ===
@@ -303,14 +304,33 @@ if (heroForm) {
           element.checked = e.target.checked
         }
       })
+      var selectedCheckboxMap = {}
+
+      Array.from(inputCheckboxList).forEach(function (element) {
+        if (element.checked) {
+          selectedCheckboxMap[element.getAttribute('data-id')] = true
+        }
+      })
 
       var howManySelected = Object.keys(selectedCheckboxMap).length
       document
         .querySelector('.hero-carousel__selected')
         .setAttribute('data-howmany', howManySelected)
-      var maxItems = +heroForm.dataset.maxitems
 
       e.target.focus()
+      if (howManySelected === maxItems) {
+        heroForm
+          .querySelectorAll('.hero-carousel__item-selector:not(:checked)')
+          .forEach(function (element) {
+            element.disabled = true
+          })
+      } else if (howManySelected < maxItems) {
+        heroForm
+          .querySelectorAll('.hero-carousel__item-selector:disabled')
+          .forEach(function (element) {
+            element.disabled = false
+          })
+      }
       if (howManySelected > maxItems && e.target.checked) {
         e.preventDefault()
       }
@@ -328,18 +348,25 @@ if (heroForm) {
       })
 
       if (direction === 'left') {
+        carouselCurrentRotation--
         // If the first checkbox is currently focused, go to the last checkbox. Otherwise, go to the previous checkbox.
         var newFocusedIndex =
           currentFocusedIndex === 0
             ? checkboxList.length - 1
             : currentFocusedIndex - 1
       } else if (direction === 'right') {
+        carouselCurrentRotation++
         // If the last checkbox is currently focused, go to the first checkbox. Otherwise, go to the next checkbox.
         var newFocusedIndex =
           currentFocusedIndex === checkboxList.length - 1
             ? 0
             : currentFocusedIndex + 1
       }
+
+      carouselItemGrid.style.setProperty(
+        '--add-rotation',
+        carouselCurrentRotation * -15 + 'deg'
+      )
 
       // checkboxList[newFocusedIndex].focus()
       checkboxList[newFocusedIndex] &&
@@ -359,6 +386,12 @@ if (heroForm) {
     if (e.target.type === 'checkbox') {
       lastFocusedElem && lastFocusedElem.removeAttribute('data-last-focused')
       e.target.setAttribute('data-last-focused', true)
+
+      carouselCurrentRotation = Number(e.target.id.split('-')[2]) - 1
+      carouselItemGrid.style.setProperty(
+        '--add-rotation',
+        carouselCurrentRotation * -15 + 'deg'
+      )
     }
   })
 
@@ -377,7 +410,7 @@ if (heroForm) {
     '.hero-carousel__background-list > img'
   )
 
-  if (checkboxList.length < 7) {
+  if (checkboxList.length < carouselCount) {
     var selectedLabelContainer = heroForm.querySelector(
       '.hero-carousel__item-selected-list'
     )
@@ -398,109 +431,116 @@ if (heroForm) {
       '.hero-carousel__item-list > .hero-carousel__item'
     )
 
-    Array.from({ length: 7 - checkboxList.length }, function (_, k) {
-      var key = k % checkboxList.length
+    Array.from(
+      { length: carouselCount - checkboxList.length },
+      function (_, k) {
+        var key = k % checkboxList.length
 
-      // newCheckbox
-      var newCheckbox = document.createElement('input')
-      newCheckbox.type = 'checkbox'
-      newCheckbox.id = 'hero-carousel-' + (checkboxList.length + k + 1)
-      newCheckbox.name = 'hero-carousel-' + (checkboxList.length + k + 1)
-      newCheckbox.className = 'hero-carousel__item-selector'
-      newCheckbox.setAttribute(
-        'data-id',
-        checkboxList[key].getAttribute('data-id')
-      )
-      newCheckbox.setAttribute('value', checkboxList[key].getAttribute('value'))
-      heroForm.insertBefore(newCheckbox, backgroundContainer)
+        // newCheckbox
+        var newCheckbox = document.createElement('input')
+        newCheckbox.type = 'checkbox'
+        newCheckbox.id = 'hero-carousel-' + (checkboxList.length + k + 1)
+        newCheckbox.name = 'hero-carousel-' + (checkboxList.length + k + 1)
+        newCheckbox.className = 'hero-carousel__item-selector'
+        newCheckbox.setAttribute(
+          'data-id',
+          checkboxList[key].getAttribute('data-id')
+        )
+        newCheckbox.setAttribute(
+          'value',
+          checkboxList[key].getAttribute('value')
+        )
+        heroForm.insertBefore(newCheckbox, backgroundContainer)
 
-      // new clickable label item
-      var newSelectableLabel = document.createElement('label')
-      newSelectableLabel.setAttribute(
-        'for',
-        'hero-carousel-' + (checkboxList.length + k + 1)
-      )
-      newSelectableLabel.innerHTML = itemList[key].innerHTML
-      newSelectableLabel.className = 'hero-carousel__item'
-      itemListContainer.appendChild(newSelectableLabel)
+        // new clickable label item
+        var newSelectableLabel = document.createElement('label')
+        newSelectableLabel.setAttribute(
+          'for',
+          'hero-carousel-' + (checkboxList.length + k + 1)
+        )
+        newSelectableLabel.innerHTML = itemList[key].innerHTML
+        newSelectableLabel.className = 'hero-carousel__item'
+        itemListContainer.appendChild(newSelectableLabel)
 
-      // new background items
-      var newBackground = document.createElement('img')
-      newBackground.alt = backgroundList[key].getAttribute('alt')
-      newBackground.src = backgroundList[key].src
-      newBackground.className = 'hero-carousel__background'
-      backgroundContainer.insertBefore(
-        newBackground,
-        backgroundContainerLastChild
-      )
-    })
+        // new background items
+        var newBackground = document.createElement('img')
+        newBackground.alt = backgroundList[key].getAttribute('alt')
+        newBackground.src = backgroundList[key].src
+        newBackground.loading = 'lazy'
+        newBackground.className = 'hero-carousel__background'
+        backgroundContainer.insertBefore(
+          newBackground,
+          backgroundContainerLastChild
+        )
+      }
+    )
   }
 
   var startX
   var dist
   var threshold = 100 // Minimum distance swiped for action
 
-  heroForm
-    .querySelectorAll('label.hero-carousel__item')
-    .forEach(function (label) {
-      label.addEventListener(
-        'touchstart',
-        function (e) {
-          var touchObj = e.changedTouches[0]
-          startX = touchObj.pageX
-          e.preventDefault()
-        },
-        false
-      )
+  // heroForm
+  //   .querySelectorAll('label.hero-carousel__item')
+  //   .forEach(function (label) {
+  //     label.addEventListener(
+  //       'touchstart',
+  //       function (e) {
+  //         var touchObj = e.changedTouches[0]
+  //         startX = touchObj.pageX
+  //         e.preventDefault()
+  //       },
+  //       false
+  //     )
 
-      label.addEventListener(
-        'touchmove',
-        function (e) {
-          e.preventDefault() // Prevent scrolling while swiping
-        },
-        false
-      )
+  //     label.addEventListener(
+  //       'touchmove',
+  //       function (e) {
+  //         e.preventDefault() // Prevent scrolling while swiping
+  //       },
+  //       false
+  //     )
 
-      label.addEventListener(
-        'touchend',
-        function (e) {
-          var touchObj = e.changedTouches[0]
-          dist = touchObj.pageX - startX
+  //     label.addEventListener(
+  //       'touchend',
+  //       function (e) {
+  //         var touchObj = e.changedTouches[0]
+  //         dist = touchObj.pageX - startX
 
-          if (Math.abs(dist) >= threshold) {
-            e.preventDefault()
-            var direction = dist > 0 ? 'left' : 'right'
+  //         if (Math.abs(dist) >= threshold) {
+  //           e.preventDefault()
+  //           var direction = dist > 0 ? 'left' : 'right'
 
-            var navigationButton = heroForm.querySelector(
-              'button[data-direction="' + direction + '"]'
-            )
-            navigationButton && navigationButton.click()
-          } else {
-            var selectedCheboxList = Array.from(
-              heroForm.querySelectorAll('.hero-carousel__item-selector:checked')
-            )
-            var selectedCheboxForList = selectedCheboxList.map(function (el) {
-              return el.getAttribute('id')
-            })
-            var howManySelected = selectedCheboxList.length
-            var maxItems = +heroForm.dataset.maxitems
-            // e.target.focus()
+  //           var navigationButton = heroForm.querySelector(
+  //             'button[data-direction="' + direction + '"]'
+  //           )
+  //           navigationButton && navigationButton.click()
+  //         } else {
+  //           var selectedCheboxList = Array.from(
+  //             heroForm.querySelectorAll('.hero-carousel__item-selector:checked')
+  //           )
+  //           var selectedCheboxForList = selectedCheboxList.map(function (el) {
+  //             return el.getAttribute('id')
+  //           })
+  //           var howManySelected = selectedCheboxList.length
+  //           var maxItems = +heroForm.dataset.maxitems
+  //           // e.target.focus()
 
-            var forValue = label.getAttribute('for')
+  //           var forValue = label.getAttribute('for')
 
-            if (
-              howManySelected < maxItems ||
-              selectedCheboxForList.includes(forValue)
-            ) {
-              var checkbox = heroForm.querySelector('#' + forValue)
-              checkbox.checked = !checkbox.checked
-              document.getElementById(forValue).focus()
-            }
-          }
-        },
-        false
-      )
-    })
+  //           if (
+  //             howManySelected < maxItems ||
+  //             selectedCheboxForList.includes(forValue)
+  //           ) {
+  //             var checkbox = heroForm.querySelector('#' + forValue)
+  //             checkbox.checked = !checkbox.checked
+  //             document.getElementById(forValue).focus()
+  //           }
+  //         }
+  //       },
+  //       false
+  //     )
+  //   })
 
   document
     .querySelector('.hero-carousel__current')

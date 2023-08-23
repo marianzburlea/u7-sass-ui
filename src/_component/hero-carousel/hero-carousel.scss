@@ -10,7 +10,7 @@
   gap: 0.75rem;
   position: relative;
   padding-top: 3rem;
-  overflow: hidden;
+  // overflow: hidden;
   height: 57.5rem;
   font-family: 'Johnnie Walker Sans Headline', serif;
 
@@ -47,7 +47,8 @@
     &--left,
     &--right {
       position: absolute;
-      bottom: 28rem;
+      // bottom: 28rem;
+      bottom: 35rem;
       font-size: 1.5rem;
       width: 3.2rem;
       aspect-ratio: 1;
@@ -146,7 +147,73 @@
     }
   }
 
+  --add-rotation: 0deg;
+
+  @for $i from 1 through 24 {
+    #hero-carousel-#{$i} {
+      left: #{$i}rem;
+      z-index: 999;
+
+      &:checked {
+        &
+          ~ .hero-carousel__item-selected-list
+          .hero-carousel__item-remove:nth-child(#{$i}) {
+          display: flex;
+        }
+
+        & ~ .hero-carousel__item-grid [for='hero-carousel-#{$i}'] {
+          border-width: 0;
+
+          & .hero-carousel__item-check {
+            background-color: $black;
+            border-color: $black;
+
+            &::before {
+              transform: scale(1);
+              color: $white;
+            }
+
+            &ed .hero-carousel__item-checked--on {
+              opacity: 1;
+              margin: 0;
+            }
+          }
+        }
+      }
+
+      &:focus-visible,
+      &[data-last-focused] {
+        & ~ .hero-carousel__current::before {
+          content: '#{$i} ';
+        }
+
+        transform: scale(2);
+        &
+          ~ .hero-carousel__background-list
+          .hero-carousel__background:nth-child(#{$i}) {
+          left: 0;
+          opacity: 1;
+        }
+
+        & ~ .hero-carousel__item-grid {
+          .hero-carousel__item:nth-child(#{$i}) {
+            & .hero-carousel__item-description {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+
+    .hero-carousel__item:nth-child(#{$i}) {
+      & {
+        transform: rotate(calc(#{($i - 1) * 15}deg + var(--add-rotation)));
+      }
+    }
+  }
+
   &__item {
+    transform-origin: 50% 360%;
     border: 0;
 
     transition: 150ms ease-out;
@@ -170,62 +237,6 @@
       background-size: cover;
       background-position: center;
       box-shadow: 1px 0 0.75rem #000;
-    }
-
-    &:nth-child(7n + 1) {
-      left: calc(
-        (var(--item-width) * 0) + var(--list-gap) * 0 - var(--item-width) / 2
-      );
-      top: calc(var(--list-gap) * 0);
-      transform: rotate(calc(var(--item-rotation) * 0));
-    }
-
-    &:nth-child(7n + 2) {
-      left: calc(
-        (var(--item-width) * 1) + var(--list-gap) * 1 - var(--item-width) / 2
-      );
-      top: calc(var(--list-gap) * var(--multiplier-next-prev));
-      transform: rotate(calc(var(--item-rotation) * 1)) scale(0.8);
-    }
-
-    &:nth-child(7n + 3) {
-      left: calc(
-        (var(--item-width) * 2) + var(--list-gap) * 2 - var(--item-width) / 2
-      );
-      top: calc(var(--list-gap) * 1.8);
-      transform: rotate(calc(var(--item-rotation) * 2)) scale(0.8);
-    }
-
-    &:nth-child(7n + 4) {
-      left: calc(
-        (var(--item-width) * 3) + var(--list-gap) * 3 - var(--item-width) / 2
-      );
-      top: calc(var(--list-gap) * 4);
-      transform: rotate(calc(var(--item-rotation) * 3)) scale(0.8);
-    }
-
-    &:nth-child(7n + 5) {
-      left: calc(
-        (var(--item-width) * -3) + var(--list-gap) * -3 - var(--item-width) / 2
-      );
-      top: calc(var(--list-gap) * 4);
-      transform: rotate(calc(var(--item-rotation) * -3)) scale(0.8);
-    }
-
-    &:nth-child(7n + 6) {
-      left: calc(
-        (var(--item-width) * -2) + var(--list-gap) * -2 - var(--item-width) / 2
-      );
-      top: calc(var(--list-gap) * 1.8);
-      transform: rotate(calc(var(--item-rotation) * -2)) scale(0.8);
-    }
-
-    &:nth-child(7n + 7) {
-      left: calc(
-        (var(--item-width) * -1) + var(--list-gap) * -1 - var(--item-width) / 2
-      );
-      top: calc(var(--list-gap) * var(--multiplier-next-prev));
-      transform: rotate(calc(var(--item-rotation) * -1)) scale(0.8);
     }
 
     &:hover {
@@ -310,6 +321,7 @@
       position: relative;
       // height: var(--item-height);
       height: 30.3125rem;
+      transform: translateX(-8.75rem);
     }
 
     &-title {
@@ -325,6 +337,9 @@
 
     &-selector {
       @include hide-visually();
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
 
       &:checked ~ .hero-carousel__info-wrapper .hero-carousel__selected {
         display: inline-block;
@@ -388,155 +403,6 @@
         display: inline-block;
         transform: scale(0);
         transition: 250ms;
-      }
-    }
-  }
-
-  @for $i from 1 through 10 {
-    #hero-carousel-#{$i} {
-      &[data-last-focused],
-      &:focus-visible {
-        & ~ .hero-carousel__current::before {
-          content: '#{$i} ';
-        }
-
-        // &
-        //   ~ .hero-carousel__item-description-list
-        //   .hero-carousel__item-description:nth-child(#{$i}) {
-        //   display: inline-block;
-        //   max-width: 280px;
-        //   width: 100%;
-        // }
-
-        &
-          ~ .hero-carousel__background-list
-          .hero-carousel__background:nth-child(#{$i}) {
-          left: 0;
-          opacity: 1;
-        }
-
-        & ~ .hero-carousel__item-grid {
-          & [for='hero-carousel-#{$i}'] {
-            border-width: 0;
-
-            .hero-carousel__item-description {
-              opacity: 1;
-            }
-          }
-
-          & .hero-carousel__item {
-            &:nth-child(7n + #{($i + 0) % 7}) {
-              left: calc(
-                (var(--item-width) * 0) +
-                  var(--list-gap) *
-                  0 -
-                  var(--item-width) /
-                  2
-              );
-              top: calc(var(--list-gap) * 0);
-              transform: rotate(calc(var(--item-rotation) * 0));
-            }
-
-            &:nth-child(7n + #{($i + 1) % 7}) {
-              left: calc(
-                (var(--item-width) * 1) +
-                  var(--list-gap) *
-                  1 -
-                  var(--item-width) /
-                  2
-              );
-              top: calc(var(--list-gap) * var(--multiplier-next-prev));
-              transform: rotate(calc(var(--item-rotation) * 1)) scale(0.8);
-            }
-
-            &:nth-child(7n + #{($i + 2) % 7}) {
-              left: calc(
-                (var(--item-width) * 2) +
-                  var(--list-gap) *
-                  2 -
-                  var(--item-width) /
-                  2
-              );
-              top: calc(var(--list-gap) * 1.8);
-              transform: rotate(calc(var(--item-rotation) * 2)) scale(0.8);
-            }
-
-            &:nth-child(7n + #{($i + 3) % 7}) {
-              left: calc(
-                (var(--item-width) * 3) +
-                  var(--list-gap) *
-                  3 -
-                  var(--item-width) /
-                  2
-              );
-              top: calc(var(--list-gap) * 4);
-              transform: rotate(calc(var(--item-rotation) * 3)) scale(0.8);
-            }
-
-            &:nth-child(7n + #{($i + 4) % 7}) {
-              left: calc(
-                (var(--item-width) * -3) +
-                  var(--list-gap) *
-                  -3 -
-                  var(--item-width) /
-                  2
-              );
-              top: calc(var(--list-gap) * 4);
-              transform: rotate(calc(var(--item-rotation) * -3)) scale(0.8);
-            }
-
-            &:nth-child(7n + #{($i + 5) % 7}) {
-              left: calc(
-                (var(--item-width) * -2) +
-                  var(--list-gap) *
-                  -2 -
-                  var(--item-width) /
-                  2
-              );
-              top: calc(var(--list-gap) * 1.8);
-              transform: rotate(calc(var(--item-rotation) * -2)) scale(0.8);
-            }
-
-            &:nth-child(7n + #{($i + 6) % 7}) {
-              left: calc(
-                (var(--item-width) * -1) +
-                  var(--list-gap) *
-                  -1 -
-                  var(--item-width) /
-                  2
-              );
-              top: calc(var(--list-gap) * var(--multiplier-next-prev));
-              transform: rotate(calc(var(--item-rotation) * -1)) scale(0.8);
-            }
-          }
-        }
-      }
-
-      &:checked {
-        &
-          ~ .hero-carousel__item-selected-list
-          .hero-carousel__item-remove:nth-child(#{$i}) {
-          display: flex;
-        }
-
-        & ~ .hero-carousel__item-grid [for='hero-carousel-#{$i}'] {
-          border-width: 0;
-
-          & .hero-carousel__item-check {
-            background-color: $black;
-            border-color: $black;
-
-            &::before {
-              transform: scale(1);
-              color: $white;
-            }
-
-            &ed .hero-carousel__item-checked--on {
-              opacity: 1;
-              margin: 0;
-            }
-          }
-        }
       }
     }
   }
