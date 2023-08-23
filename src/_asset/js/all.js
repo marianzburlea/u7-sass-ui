@@ -480,67 +480,67 @@ if (heroForm) {
   var dist
   var threshold = 100 // Minimum distance swiped for action
 
-  // heroForm
-  //   .querySelectorAll('label.hero-carousel__item')
-  //   .forEach(function (label) {
-  //     label.addEventListener(
-  //       'touchstart',
-  //       function (e) {
-  //         var touchObj = e.changedTouches[0]
-  //         startX = touchObj.pageX
-  //         e.preventDefault()
-  //       },
-  //       false
-  //     )
+  heroForm
+    .querySelectorAll('label.hero-carousel__item')
+    .forEach(function (label) {
+      label.addEventListener(
+        'touchstart',
+        function (e) {
+          var touchObj = e.changedTouches[0]
+          startX = touchObj.pageX
+          e.preventDefault()
+        },
+        false
+      )
 
-  //     label.addEventListener(
-  //       'touchmove',
-  //       function (e) {
-  //         e.preventDefault() // Prevent scrolling while swiping
-  //       },
-  //       false
-  //     )
+      label.addEventListener(
+        'touchmove',
+        function (e) {
+          e.preventDefault() // Prevent scrolling while swiping
+        },
+        false
+      )
 
-  //     label.addEventListener(
-  //       'touchend',
-  //       function (e) {
-  //         var touchObj = e.changedTouches[0]
-  //         dist = touchObj.pageX - startX
+      label.addEventListener(
+        'touchend',
+        function (e) {
+          var touchObj = e.changedTouches[0]
+          dist = touchObj.pageX - startX
 
-  //         if (Math.abs(dist) >= threshold) {
-  //           e.preventDefault()
-  //           var direction = dist > 0 ? 'left' : 'right'
+          if (Math.abs(dist) >= threshold) {
+            e.preventDefault()
+            var direction = dist > 0 ? 'left' : 'right'
 
-  //           var navigationButton = heroForm.querySelector(
-  //             'button[data-direction="' + direction + '"]'
-  //           )
-  //           navigationButton && navigationButton.click()
-  //         } else {
-  //           var selectedCheboxList = Array.from(
-  //             heroForm.querySelectorAll('.hero-carousel__item-selector:checked')
-  //           )
-  //           var selectedCheboxForList = selectedCheboxList.map(function (el) {
-  //             return el.getAttribute('id')
-  //           })
-  //           var howManySelected = selectedCheboxList.length
-  //           var maxItems = +heroForm.dataset.maxitems
-  //           // e.target.focus()
+            var navigationButton = heroForm.querySelector(
+              'button[data-direction="' + direction + '"]'
+            )
+            navigationButton && navigationButton.click()
+          } else {
+            var selectedCheboxList = Array.from(
+              heroForm.querySelectorAll('.hero-carousel__item-selector:checked')
+            )
+            var selectedCheboxForList = selectedCheboxList.map(function (el) {
+              return el.getAttribute('id')
+            })
+            var howManySelected = selectedCheboxList.length
+            var maxItems = +heroForm.dataset.maxitems
+            // e.target.focus()
 
-  //           var forValue = label.getAttribute('for')
+            var forValue = label.getAttribute('for')
 
-  //           if (
-  //             howManySelected < maxItems ||
-  //             selectedCheboxForList.includes(forValue)
-  //           ) {
-  //             var checkbox = heroForm.querySelector('#' + forValue)
-  //             checkbox.checked = !checkbox.checked
-  //             document.getElementById(forValue).focus()
-  //           }
-  //         }
-  //       },
-  //       false
-  //     )
-  //   })
+            if (
+              howManySelected < maxItems ||
+              selectedCheboxForList.includes(forValue)
+            ) {
+              var checkbox = heroForm.querySelector('#' + forValue)
+              checkbox.checked = !checkbox.checked
+              document.getElementById(forValue).focus()
+            }
+          }
+        },
+        false
+      )
+    })
 
   document
     .querySelector('.hero-carousel__current')
