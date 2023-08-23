@@ -4,15 +4,53 @@ var accessibleFilter = document.querySelector('.accessible-filter')
 
 var heroFormPostURL = '/rpc/filter/BuildProfile/'
 var heroFormGetURL = '/rpc/filter/GetFilteredContent/'
+var heroToggleFavouriteURL = '/rpc/filter/ToggleFavourite/?id='
+
+var chengeHeroColor = function (text /*, bg*/) {
+  var isLocked = accessibleFilter.querySelector('#toggle-input-type').checked
+  var howManySelected = isLocked
+    ? accessibleFilter.querySelectorAll(
+        'input.accessible-filter__hero-checkbox-input--locked[data-type="locked"]:checked'
+      ).length
+    : accessibleFilter.querySelectorAll(
+        'input.accessible-filter__hero-checkbox-input--selectable[data-type="selectable"]:checked'
+      ).length
+  var hero = document.querySelector('.accessible-filter__hero')
+  text =
+    howManySelected === 0
+      ? accessibleFilter.getAttribute('data-no-filter-textcolor')
+      : howManySelected === 1
+      ? text
+      : accessibleFilter.getAttribute('data-many-filter-textcolor')
+  // bg =
+  //   howManySelected === 0
+  //     ? accessibleFilter.getAttribute("data-no-filter-backgroundcolor")
+  //     : howManySelected === 1
+  //     ? bg
+  //     : accessibleFilter.getAttribute("data-many-filter-backgroundcolor");
+
+  if (hero) {
+    hero.style.setProperty('--input-color', text)
+    // hero.style.setProperty("--bg-color", bg);
+  }
+}
 
 if (accessibleFilter) {
   accessibleFilter.addEventListener('focusin', function (event) {
-    if (event.target.tagName === 'INPUT') {
+    if (
+      event.target.tagName === 'INPUT' &&
+      event.target.id !== 'toggle-accessible-filter'
+    ) {
       var label = accessibleFilter.querySelector(
         '[for="' + event.target.id + '"]'
       )
 
-      if (label) {
+      if (
+        label &&
+        event.target.getAttribute('data-type') !== 'locked' &&
+        event.target.id !== 'toggle-accessible-filter' &&
+        event.className === 'accessible-filter__hero-checkbox-item'
+      ) {
         label.scrollIntoView({ block: 'center' })
       }
     }
@@ -32,7 +70,7 @@ if (accessibleFilter) {
       'input[name="sort-by"]:checked'
     )
 
-    dataMap.sortBy =
+    dataMap.sort =
       (sortByElement && sortByElement.getAttribute('data-id')) || ''
 
     var filterMap = {}
@@ -58,7 +96,72 @@ if (accessibleFilter) {
       })
     )
 
-    if (event.target.tagName === 'INPUT') {
+    // toggle favourite
+    if (
+      event.target.tagName === 'BUTTON' &&
+      (event.target.className === 'cocktail-favorite-selected' ||
+        event.target.className === 'cocktail-favorite')
+    ) {
+      event.preventDefault()
+
+      fetch(
+        heroToggleFavouriteURL + event.target.getAttribute('data-cocktail-id'),
+        { method: 'post' }
+      ).then(function (r) {
+        event.target.className =
+          'cocktail-favorite' +
+          (event.target.className === 'cocktail-favorite-selected'
+            ? ''
+            : '-selected')
+      })
+    }
+
+    if (
+      event.target.tagName === 'A' &&
+      event.target.className.includes('button-ghost') &&
+      event.target.className.includes('item-paging')
+    ) {
+      // load more
+
+      var resultsSummary = document.querySelector(
+        '.grid-list__wrapper .results-summary'
+      )
+
+      var pageContainer = document.querySelector(
+        '.grid-list__wrapper .paging-container'
+      )
+
+      dataMap.pageNumber =
+        document.querySelectorAll('.grid-list__wrapper').length + 1
+      try {
+        fetch(heroFormGetURL, {
+          method: 'post',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(dataMap),
+        })
+          .then(function (res) {
+            return res.text()
+          })
+          .then(function (htmlResponse) {
+            resultsSummary.remove()
+            pageContainer.remove()
+
+            document
+              .querySelector('.accessible-filter__grid-list')
+              .insertAdjacentHTML('beforeend', htmlResponse)
+          })
+      } catch (error) {
+        console.log('Error: ', error.message)
+      }
+    }
+
+    if (
+      event.target.tagName === 'INPUT' &&
+      event.target.id !== 'toggle-accessible-filter'
+    ) {
+      chengeHeroColor(event.target.getAttribute('data-title-color'))
       try {
         fetch(heroFormGetURL, {
           method: 'post',
@@ -79,51 +182,12 @@ if (accessibleFilter) {
       }
     }
 
-    var loadMoreElement = document.querySelector(
-      '.grid-list__wrapper .button-ghost.item-paging'
-    )
-
-    var resultsSummary = document.querySelector(
-      '.grid-list__wrapper .results-summary'
-    )
-
-    var pageContainer = document.querySelector(
-      '.grid-list__wrapper .paging-container'
-    )
-
-    var fetchNextPage = function () {
-      dataMap.nextPage =
-        document.querySelectorAll('.grid-list__wrapper').length + 1
-      try {
-        fetch(heroFormGetURL, {
-          method: 'post',
-          headers: {
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify(dataMap),
-        })
-          .then(function (res) {
-            return res.text()
-          })
-          .then(function (htmlResponse) {
-            resultsSummary.remove()
-            pageContainer.remove()
-
-            document.querySelector(
-              '.accessible-filter__grid-list'
-            ).insertAdjacentHTML = htmlResponse
-          })
-      } catch (error) {
-        console.log('Error: ', error.message)
-      }
-    }
-
-    if (loadMoreElement) {
-      loadMoreElement.removeEventListener('click', fetchNextPage)
-      loadMoreElement.addEventListener('click', fetchNextPage)
-    }
-
-    if (event.target.tagName === 'LABEL') {
+    if (
+      event.target.tagName === 'LABEL' &&
+      event.target.getAttribute('data-type') !== 'locked' &&
+      event.target.id !== 'toggle-accessible-filter' &&
+      event.className === 'accessible-filter__hero-checkbox-item'
+    ) {
       event.target.scrollIntoView()
     }
 
