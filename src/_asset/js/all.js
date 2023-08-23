@@ -6,11 +6,40 @@ var heroFormPostURL = '/rpc/filter/BuildProfile/'
 var heroFormGetURL = '/rpc/filter/GetFilteredContent/'
 var heroToggleFavouriteURL = '/rpc/filter/ToggleFavourite/?id='
 
+var chengeHeroColor = function (text /*, bg*/) {
+  var isLocked = accessibleFilter.querySelector('#toggle-input-type').checked
+  var howManySelected = isLocked
+    ? accessibleFilter.querySelectorAll(
+        'input.accessible-filter__hero-checkbox-input--locked[data-type="locked"]:checked'
+      ).length
+    : accessibleFilter.querySelectorAll(
+        'input.accessible-filter__hero-checkbox-input--selectable[data-type="selectable"]:checked'
+      ).length
+  var hero = document.querySelector('.accessible-filter__hero')
+  text =
+    howManySelected === 0
+      ? accessibleFilter.getAttribute('data-no-filter-textcolor')
+      : howManySelected === 1
+      ? text
+      : accessibleFilter.getAttribute('data-many-filter-textcolor')
+  // bg =
+  //   howManySelected === 0
+  //     ? accessibleFilter.getAttribute("data-no-filter-backgroundcolor")
+  //     : howManySelected === 1
+  //     ? bg
+  //     : accessibleFilter.getAttribute("data-many-filter-backgroundcolor");
+
+  if (hero) {
+    hero.style.setProperty('--input-color', text)
+    // hero.style.setProperty("--bg-color", bg);
+  }
+}
+
 if (accessibleFilter) {
   accessibleFilter.addEventListener('focusin', function (event) {
     if (
       event.target.tagName === 'INPUT' &&
-      e.target.id !== 'toggle-accessible-filter'
+      event.target.id !== 'toggle-accessible-filter'
     ) {
       var label = accessibleFilter.querySelector(
         '[for="' + event.target.id + '"]'
@@ -18,8 +47,9 @@ if (accessibleFilter) {
 
       if (
         label &&
-        (event.target.getAttribute('data-type') !== 'locked' ||
-          event.target.id !== 'toggle-accessible-filter')
+        event.target.getAttribute('data-type') !== 'locked' &&
+        event.target.id !== 'toggle-accessible-filter' &&
+        event.className === 'accessible-filter__hero-checkbox-item'
       ) {
         label.scrollIntoView({ block: 'center' })
       }
@@ -131,6 +161,7 @@ if (accessibleFilter) {
       event.target.tagName === 'INPUT' &&
       event.target.id !== 'toggle-accessible-filter'
     ) {
+      chengeHeroColor(event.target.getAttribute('data-title-color'))
       try {
         fetch(heroFormGetURL, {
           method: 'post',
@@ -151,7 +182,12 @@ if (accessibleFilter) {
       }
     }
 
-    if (event.target.tagName === 'LABEL') {
+    if (
+      event.target.tagName === 'LABEL' &&
+      event.target.getAttribute('data-type') !== 'locked' &&
+      event.target.id !== 'toggle-accessible-filter' &&
+      event.className === 'accessible-filter__hero-checkbox-item'
+    ) {
       event.target.scrollIntoView()
     }
 
