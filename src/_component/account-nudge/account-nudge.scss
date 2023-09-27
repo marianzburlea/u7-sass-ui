@@ -1,0 +1,61 @@
+.account-nudge {
+  position: relative;
+  padding: 2rem 2.5rem 4rem; // 32px
+  background-color: var(--orange);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+
+  &__input {
+    display: none;
+
+    &:checked + .account-nudge {
+      display: none;
+    }
+  }
+
+  &__title {
+    font-size: 2rem; // 32px
+    line-height: 2rem; // 32px
+    font-family: 'Johnnie Walker Sans Headline';
+    margin: 0;
+  }
+
+  &__description {
+    font-family: 'Johnnie Walker Serif Book';
+    margin: 0;
+    line-height: 1.375rem; // 22px
+    max-width: 34.75rem; // 556px
+  }
+
+  &__action {
+    font-family: 'Johnnie Walker Sans Headline';
+    width: 12.5rem; // 200px
+    height: 3.75rem; // 20px
+    border: 0.125rem solid var(--black);
+    background: transparent;
+    font-size: 1.25rem; // 20px
+    line-height: 1.25rem; // 20px
+    cursor: pointer;
+  }
+
+  &__close {
+    cursor: pointer;
+    font-family: 'Johnnie Walker Sans Headline';
+    line-height: 1.375rem; // 22px
+
+    display: flex;
+    gap: 0.75rem; // 12px
+
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+
+    &::after {
+      content: var(--jw-custom-font-cross);
+      font-family: 'jw-custom-font';
+      font-size: 0.75rem;
+    }
+  }
+}

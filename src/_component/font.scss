@@ -68,52 +68,40 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.jw-icon-heart-fill {
+.jw-custom-font-small-heart-fill {
   &:before {
-    content: $jw-icon-heart-fill;
+    content: $jw-custom-font-small-heart-fill;
   }
 }
-.jw-icon-heart-outline {
+.jw-custom-font-small-heart-outline {
   &:before {
-    content: $jw-icon-heart-outline;
-  }
-}
-
-.jw-icon-chevron-left {
-  &:before {
-    content: $jw-icon-chevron-left;
+    content: $jw-custom-font-small-heart-outline;
   }
 }
 
-.jw-icon-chevron-right {
+.jw-custom-font-checkmark {
   &:before {
-    content: $jw-icon-chevron-right;
+    content: $jw-custom-font-checkmark;
+  }
+}
+.jw-custom-font-circle-left {
+  &:before {
+    content: $jw-custom-font-circle-left;
+  }
+}
+.jw-custom-font-circle-right {
+  &:before {
+    content: $jw-custom-font-circle-right;
+  }
+}
+.jw-custom-font-info {
+  &:before {
+    content: $jw-custom-font-info;
   }
 }
 
-.jw-icon-checkmark {
+.jw-custom-font-cross {
   &:before {
-    content: $jw-icon-checkmark;
-  }
-}
-.jw-icon-circle-left {
-  &:before {
-    content: $jw-icon-circle-left;
-  }
-}
-.jw-icon-circle-right {
-  &:before {
-    content: $jw-icon-circle-right;
-  }
-}
-.jw-icon-info {
-  &:before {
-    content: $jw-icon-info;
-  }
-}
-
-.jw-icon-cross {
-  &:before {
-    content: $jw-icon-cross;
+    content: $jw-custom-font-cross;
   }
 }

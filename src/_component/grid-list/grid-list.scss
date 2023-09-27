@@ -192,7 +192,7 @@
     &-selected {
       background: transparent;
 
-      font-family: '#{$jw-icon-font-family}' !important;
+      font-family: '#{$jw-custom-font-font-family}' !important;
       display: inline-block;
       width: 2rem;
       aspect-ratio: 1;
@@ -215,7 +215,7 @@
 
       &:before {
         color: $black-35;
-        content: $jw-icon-heart-fill;
+        content: $jw-custom-font-heart-fill;
       }
 
       &:hover::before {
@@ -224,7 +224,7 @@
 
       &:after {
         color: $white;
-        content: $jw-icon-heart-outline;
+        content: $jw-custom-font-heart-outline;
         font-size: 1.5rem;
       }
     }

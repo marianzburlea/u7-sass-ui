@@ -3,6 +3,15 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
+  &[data-hide-unselected='true'] .multi-selector__checkbox:not(:checked) {
+    display: none;
+
+    & + label.multi-selector__label {
+      cursor: no-drop;
+      pointer-events: none;
+    }
+  }
+
   &__label {
     &,
     &-text {
@@ -10,6 +19,7 @@
       font-size: 2.5rem;
       line-height: 2rem;
       text-transform: uppercase;
+      // word-break: break-all;
     }
 
     &-line {
@@ -42,6 +52,9 @@
       inset: 0 0 25% 25%;
     }
 
+    font-size: 2.5rem;
+    line-height: 2rem;
+    text-transform: uppercase;
     transition: 250ms;
     cursor: pointer;
     padding: 1.8rem;
@@ -69,8 +82,8 @@
 
     &::before {
       opacity: 0;
-      font-family: #{$jw-icon-font-family};
-      content: $jw-icon-checkmark;
+      font-family: #{$jw-custom-font-font-family};
+      content: $jw-custom-font-checkmark;
       width: 2rem;
       aspect-ratio: 1;
       display: inline-block;
@@ -176,6 +189,14 @@
   padding: 6.375rem 1rem;
   column-gap: 0.75rem;
   row-gap: 1rem;
+
+  .hero-form__link--previous,
+  .hero-form__link--skip,
+  .hero-form__link--next {
+    &:first-child {
+      width: 100%;
+    }
+  }
 
   .hero-form__link--previous {
     justify-self: flex-end;

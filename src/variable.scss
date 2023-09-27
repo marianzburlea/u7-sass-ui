@@ -16,15 +16,47 @@ $white: #fff;
 $black: #000;
 
 // font
-$jw-icon-font-family: 'jw-icon' !default;
+$jw-icon-font-family: 'jw-custom-font' !default;
 $jw-icon-font-path: 'asset/font' !default;
 
-$jw-icon-heart-fill: '\e907';
-$jw-icon-heart-outline: '\e908';
-$jw-icon-chevron-left: '\e905';
-$jw-icon-chevron-right: '\e906';
-$jw-icon-checkmark: '\e900';
-$jw-icon-circle-left: '\e901';
-$jw-icon-circle-right: '\e902';
-$jw-icon-info: '\e903';
-$jw-icon-cross: '\e904';
+$jw-custom-font-small-heart-fill: '\e909';
+$jw-custom-font-small-heart-outline: '\e90a';
+$jw-custom-font-heart-fill: '\e907';
+$jw-custom-font-heart-outline: '\e908';
+$jw-custom-font-chevron-left: '\e905';
+$jw-custom-font-chevron-right: '\e906';
+$jw-custom-font-checkmark: '\e900';
+$jw-custom-font-circle-left: '\e901';
+$jw-custom-font-circle-right: '\e902';
+$jw-custom-font-info: '\e903';
+$jw-custom-font-cross: '\e904';
+
+:root {
+  /* colours */
+  --orange: #fcb913;
+  --blaze-orange: #ff6b00;
+  --science-blue: #0957c3;
+  --thunderbird: #d91a17;
+  --alizarin-crimson: #e02a29;
+  --black-35: hsl(0, 0%, 0%, 0.35);
+  --dusty-gray: #999;
+  --pearl-lusta-transparent: hsla(46, 83%, 93%, 0%);
+  --pearl-lusta: #fcf5df;
+  --light-gray: #d8d8d8;
+  --white: #fff;
+  --black: #000;
+
+  /* font */
+  --jw-custom-font-font-family: 'jw-custom-font';
+  --jw-custom-font-font-path: 'inc/fonts/jw';
+
+  --jw-custom-font-heart-fill: '\e907';
+  --jw-custom-font-heart-outline: '\e908';
+  --jw-custom-font-chevron-left: '\e905';
+  --jw-custom-font-chevron-right: '\e906';
+  --jw-custom-font-checkmark: '\e900';
+  --jw-custom-font-circle-left: '\e901';
+  --jw-custom-font-circle-right: '\e902';
+  --jw-custom-font-info: '\e903';
+  --jw-custom-font-cross: '\e904';
+}
