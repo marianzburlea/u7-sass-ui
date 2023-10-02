@@ -68,6 +68,36 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.jw-custom-font-social-email {
+  &:before {
+    content: $jw-custom-font-social-email;
+  }
+}
+.jw-custom-font-social-facebook {
+  &:before {
+    content: $jw-custom-font-social-facebook;
+  }
+}
+.jw-custom-font-social-instagram {
+  &:before {
+    content: $jw-custom-font-social-instagram;
+  }
+}
+.jw-custom-font-social-link {
+  &:before {
+    content: $jw-custom-font-social-link;
+  }
+}
+.jw-custom-font-social-share {
+  &:before {
+    content: $jw-custom-font-social-share;
+  }
+}
+.jw-custom-font-social-x {
+  &:before {
+    content: $jw-custom-font-social-x;
+  }
+}
 .jw-custom-font-small-heart-fill {
   &:before {
     content: $jw-custom-font-small-heart-fill;

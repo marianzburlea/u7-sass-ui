@@ -1,0 +1,73 @@
+-
+  var shareList = ['email', 'facebook', 'x', 'link']
+section(
+  role="region"
+  aria-describedby="share-drop-down__info"
+).share-drop-down 
+  input.share-drop-down__toggle(
+    type="checkbox"
+    aria-label="Toggle share panel"
+    id="share-drop-down__toggle"
+  )
+  label.share-drop-down__bg(for="share-drop-down__toggle")
+
+  label.share-drop-down__label(
+    for="share-drop-down__toggle"
+  ) Share this cocktail
+
+  .share-drop-down__panel
+    .share-drop-down__list
+      each social, key in shareList
+        if key < shareList.length - 1
+          a.share-drop-down__link(
+            title=`Share to ${social}`
+            href=`http://${social}.com`
+            target="_blank"
+          )
+            span(
+              class=`jw-custom-font-social-${social}`
+            )
+        else
+          label.share-drop-down__link(
+            title=`Share to ${social}`
+            href=`http://${social}.com`
+            target="_blank"
+            for="share-drop-down__message-toggle"
+          )
+            span(
+              class=`jw-custom-font-social-${social}`
+            )
+
+    input.share-drop-down__message-toggle(
+      type="radio"
+      id="share-drop-down__message-toggle"
+    )
+    p.share-drop-down__message Copied to Clipboard
+
+    p#share-drop-down__info.share-drop-down__info Please only share with people over 21
+    img.share-drop-down__message-link(
+      src="gigi.jpg"
+      alt="http://wowjob.dev"
+    )
+
+  script.
+    var shareDropDownMessageToggle = document.querySelector('#share-drop-down__message-toggle')
+    var shareDropDownMessageLink = document.querySelector('.share-drop-down__message-link')
+    if (shareDropDownMessageToggle && shareDropDownMessageLink) {
+      shareDropDownMessageToggle.addEventListener('change', function (e) {
+        console.log(shareDropDownMessageLink.alt)
+        var selectable = document.createElement('input')
+        selectable.style.position = 'fixed'
+        selectable.style.top = '-99999px'
+        selectable.setAttribute('value', shareDropDownMessageLink.alt)
+        document.body.appendChild(selectable)
+
+        selectable.select()
+        document.execCommand('copy')
+        document.body.removeChild(selectable)
+
+        setTimeout(function () {
+          e.target.checked = false
+        }, 2000)
+      })
+    }

@@ -19,6 +19,13 @@ $black: #000;
 $jw-icon-font-family: 'jw-custom-font' !default;
 $jw-icon-font-path: 'asset/font' !default;
 
+$jw-custom-font-social-email: '\e90b';
+$jw-custom-font-social-facebook: '\e90c';
+$jw-custom-font-social-instagram: '\e90d';
+$jw-custom-font-social-link: '\e90e';
+$jw-custom-font-social-share: '\e90f';
+$jw-custom-font-social-x: '\e910';
+
 $jw-custom-font-small-heart-fill: '\e909';
 $jw-custom-font-small-heart-outline: '\e90a';
 $jw-custom-font-heart-fill: '\e907';
@@ -50,6 +57,12 @@ $jw-custom-font-cross: '\e904';
   --jw-custom-font-font-family: 'jw-custom-font';
   --jw-custom-font-font-path: 'inc/fonts/jw';
 
+  --jw-custom-font-social-email: '\e90b';
+  --jw-custom-font-social-facebook: '\e90c';
+  --jw-custom-font-social-instagram: '\e90d';
+  --jw-custom-font-social-link: '\e90e';
+  --jw-custom-font-social-share: '\e90f';
+  --jw-custom-font-social-x: '\e910';
   --jw-custom-font-heart-fill: '\e907';
   --jw-custom-font-heart-outline: '\e908';
   --jw-custom-font-chevron-left: '\e905';
