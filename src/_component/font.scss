@@ -109,6 +109,17 @@
   }
 }
 
+.jw-custom-font-heart-fill {
+  &:before {
+    content: $jw-custom-font-heart-fill;
+  }
+}
+.jw-custom-font-heart-outline {
+  &:before {
+    content: $jw-custom-font-heart-outline;
+  }
+}
+
 .jw-custom-font-checkmark {
   &:before {
     content: $jw-custom-font-checkmark;

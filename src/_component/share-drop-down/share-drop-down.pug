@@ -1,73 +1,97 @@
 -
   var shareList = ['email', 'facebook', 'x', 'link']
-section(
-  role="region"
-  aria-describedby="share-drop-down__info"
-).share-drop-down 
-  input.share-drop-down__toggle(
-    type="checkbox"
-    aria-label="Toggle share panel"
-    id="share-drop-down__toggle"
-  )
-  label.share-drop-down__bg(for="share-drop-down__toggle")
 
-  label.share-drop-down__label(
-    for="share-drop-down__toggle"
-  ) Share this cocktail
-
-  .share-drop-down__panel
-    .share-drop-down__list
-      each social, key in shareList
-        if key < shareList.length - 1
-          a.share-drop-down__link(
-            title=`Share to ${social}`
-            href=`http://${social}.com`
-            target="_blank"
-          )
-            span(
-              class=`jw-custom-font-social-${social}`
-            )
-        else
-          label.share-drop-down__link(
-            title=`Share to ${social}`
-            href=`http://${social}.com`
-            target="_blank"
-            for="share-drop-down__message-toggle"
-          )
-            span(
-              class=`jw-custom-font-social-${social}`
-            )
-
-    input.share-drop-down__message-toggle(
-      type="radio"
-      id="share-drop-down__message-toggle"
-    )
-    p.share-drop-down__message Copied to Clipboard
-
-    p#share-drop-down__info.share-drop-down__info Please only share with people over 21
-    img.share-drop-down__message-link(
-      src="gigi.jpg"
-      alt="http://wowjob.dev"
+.share-drop-down__wrapper
+  .share-drop-down__title The salted toffee piña colada
+  section(
+    role="region"
+    aria-describedby="share-drop-down__info"
+  ).share-drop-down 
+    input.share-drop-down__toggle(
+      type="checkbox"
+      aria-label="Toggle share panel"
+      data-url="https://wowjob.dev/"
+      id="share-drop-down__toggle"
     )
 
-  script.
-    var shareDropDownMessageToggle = document.querySelector('#share-drop-down__message-toggle')
-    var shareDropDownMessageLink = document.querySelector('.share-drop-down__message-link')
-    if (shareDropDownMessageToggle && shareDropDownMessageLink) {
-      shareDropDownMessageToggle.addEventListener('change', function (e) {
-        console.log(shareDropDownMessageLink.alt)
-        var selectable = document.createElement('input')
-        selectable.style.position = 'fixed'
-        selectable.style.top = '-99999px'
-        selectable.setAttribute('value', shareDropDownMessageLink.alt)
-        document.body.appendChild(selectable)
+    label.share-drop-down__action
+      label.share-drop-down__label(
+        for="share-drop-down__toggle"
+      ) 
+        span.share-drop-down__action-text Share this cocktail
+        span.jw-custom-font-social-share
 
-        selectable.select()
-        document.execCommand('copy')
-        document.body.removeChild(selectable)
+      a.share-drop-down__favourite(
+        for="share-drop-down__toggle"
+      ) 
+        span.share-drop-down__action-text Add to my favourites
+        span.jw-custom-font-heart-outline
 
-        setTimeout(function () {
-          e.target.checked = false
-        }, 2000)
-      })
-    }
+    label.share-drop-down__bg(for="share-drop-down__toggle")
+
+    .share-drop-down__panel
+      .share-drop-down__list
+        each social, key in shareList
+          if key < shareList.length - 1
+            a.share-drop-down__link(
+              title=`Share to ${social}`
+              href=`http://${social}.com`
+              target="_blank"
+            )
+              span(
+                class=`jw-custom-font-social-${social}`
+              )
+          else
+            input.share-drop-down__message-toggle(
+              type="radio"
+              id="share-drop-down__message-toggle"
+            )
+
+            label.share-drop-down__link(
+              title=`Share to ${social}`
+              href=`http://${social}.com`
+              target="_blank"
+              for="share-drop-down__message-toggle"
+            )
+              span(
+                class=`jw-custom-font-social-${social}`
+              )
+            p.share-drop-down__message Copied to Clipboard
+
+
+      p#share-drop-down__info.share-drop-down__info Please only share with people over 21
+      img.share-drop-down__message-link(
+        src="gigi.jpg"
+        alt="http://wowjob.dev"
+      )
+
+script.
+  var shareDropDownMessageToggle = document.querySelector('#share-drop-down__message-toggle')
+  var shareDropDownToggle = document.querySelector('#share-drop-down__toggle')
+  var shareDropDownMessageLink = document.querySelector('.share-drop-down__message-link')
+
+  if (shareDropDownToggle) {
+    shareDropDownToggle.addEventListener('change', function (e) {
+      if (window.innerWidth <= 480) {
+        shareDropDownToggle.checked = false
+      }
+    })
+  }
+
+  if (shareDropDownMessageToggle && shareDropDownMessageLink) {
+    shareDropDownMessageToggle.addEventListener('change', function (e) {
+      var selectable = document.createElement('input')
+      selectable.style.position = 'fixed'
+      selectable.style.top = '-99999px'
+      selectable.setAttribute('value', shareDropDownMessageLink.alt)
+      document.body.appendChild(selectable)
+
+      selectable.select()
+      document.execCommand('copy')
+      document.body.removeChild(selectable)
+
+      setTimeout(function () {
+        e.target.checked = false
+      }, 2000)
+    })
+  }

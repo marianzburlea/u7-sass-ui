@@ -1,24 +1,52 @@
-.share-drop-down {
-  padding: 3rem;
+@keyframes swing {
+  20% {
+    transform: rotate3d(0, 0, 1, 20deg);
+  }
 
+  40% {
+    transform: rotate3d(0, 0, 1, -15deg);
+  }
+
+  60% {
+    transform: rotate3d(0, 0, 1, 10deg) scale(1.5);
+  }
+
+  80% {
+    transform: rotate3d(0, 0, 1, -5deg);
+  }
+
+  to {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+
+.share-drop-down {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 
+  &__wrapper {
+    width: 100%;
+    height: 31.75rem; // 508px
+    background-image: url(/asset/image/share-bg.jpg);
+    background-size: cover;
+    padding: 1.25rem 1.25rem 3.75rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__title {
+    font-family: 'Johnnie Walker Sans Headline', serif;
+    font-size: 3.5rem; // 56px
+    line-height: 3rem; // 48px
+    order: 2;
+    padding-inline: 1rem;
+  }
+
   &__toggle {
-    @include hide-visually();
-
-    &:focus-visible + .share-drop-down__bg + .share-drop-down__label {
-      outline: 0.5rem solid var(--blaze-orange);
-    }
-
-    &:checked + .share-drop-down__bg {
-      display: block;
-
-      & + .share-drop-down__label + .share-drop-down__panel {
-        display: flex;
-      }
-    }
+    display: none;
   }
 
   &__link {
@@ -29,6 +57,11 @@
     justify-content: center;
     align-items: center;
     transition: 250ms;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 0.5rem solid var(--blaze-orange);
+    }
 
     &,
     &:active,
@@ -44,30 +77,58 @@
   }
 
   &__bg {
-    background-color: hsla(225, 15%, 65%, 0.25);
+    background-color: hsla(225, 15%, 65%, 0.5);
     position: fixed;
     inset: 0;
     display: none;
   }
 
+  &__action {
+    display: flex;
+    gap: 1.125rem;
+    justify-content: space-between;
+
+    &-text {
+      display: none;
+    }
+  }
+
   &__label {
+    background-color: hsla(255, 0%, 0%, 0.5);
+    color: var(--pearl-lusta);
+  }
+
+  &__favourite {
+    color: var(--black);
+    background-color: var(--pearl-lusta);
+  }
+
+  &__label,
+  &__favourite {
     font-family: 'Johnnie Walker Sans Headline', serif;
     transition: 250ms;
-    min-width: 15rem; // 240px
-    height: 3.75rem; // 60px
-    width: fit-content;
+    height: 3rem; // 48px
+    width: 3rem; // 48px
+    border-radius: 3rem; // 48px
     white-space: nowrap;
-    background-color: var(--black);
-    color: var(--pearl-lusta);
     text-transform: uppercase;
     font-size: 1.25rem; // 20px
     cursor: pointer;
     position: relative;
+    transition: 250ms;
 
     display: flex;
-    gap: 0.25rem;
+    gap: 1rem;
     justify-content: center;
     align-items: center;
+
+    &:hover {
+      transform: scale(1.05);
+
+      & [class*='jw-custom-font-'] {
+        animation: swing 0.5s linear;
+      }
+    }
   }
 
   &__info {
@@ -85,6 +146,9 @@
     color: var(--pearl-lusta);
     width: fit-content;
     transition: 250ms;
+
+    position: absolute;
+    bottom: 9rem;
 
     flex-direction: column;
     gap: 0.5rem;
@@ -109,14 +173,6 @@
     width: 100%;
   }
 
-  &__message-toggle {
-    @include hide-visually();
-
-    &:checked + .share-drop-down__message {
-      display: flex;
-    }
-  }
-
   &__message-link {
     display: none;
   }
@@ -134,5 +190,80 @@
 
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media screen and (min-width: 48rem) {
+  .share-drop-down {
+    &__title {
+      font-size: 7.5rem; // 120px
+      line-height: 6.25rem; // 100px
+    }
+  }
+}
+
+// @media screen and (min-width: 30rem) {
+@media screen and (min-width: 35rem) {
+  .share-drop-down {
+    &__wrapper {
+      height: 37.5rem; // 600px
+      padding: 7.125rem 5rem 4.375rem;
+    }
+
+    &__action {
+      display: flex;
+      gap: 1.125rem;
+
+      &-text {
+        display: inline;
+      }
+    }
+
+    &__title {
+      order: 0;
+      padding-inline: 0;
+    }
+
+    &__label {
+      background-color: var(--black);
+    }
+
+    &__label,
+    &__favourite {
+      min-width: 15rem; // 240px
+      height: 3.75rem; // 60px
+      border-radius: 0;
+    }
+
+    &__toggle {
+      @include hide-visually();
+      display: initial;
+
+      &:focus-visible ~ .share-drop-down__action .share-drop-down__label {
+        outline: 0.5rem solid var(--blaze-orange);
+      }
+
+      &:checked {
+        & ~ .share-drop-down__panel {
+          display: flex;
+        }
+
+        & ~ .share-drop-down__bg {
+          display: block;
+        }
+      }
+    }
+
+    &__message-toggle {
+      @include hide-visually();
+
+      &:focus-visible ~ .share-drop-down__link {
+        outline: 0.5rem solid var(--blaze-orange);
+      }
+
+      &:checked ~ .share-drop-down__message {
+        display: flex;
+      }
+    }
   }
 }
