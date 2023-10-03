@@ -24,6 +24,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: relative;
 
   &__wrapper {
     width: 100%;
@@ -35,6 +36,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: absolute;
+    inset: 0;
   }
 
   &__title {
@@ -148,7 +151,7 @@
     transition: 250ms;
 
     position: absolute;
-    bottom: 9rem;
+    bottom: -7rem;
 
     flex-direction: column;
     gap: 0.5rem;
@@ -213,6 +216,7 @@
     &__action {
       display: flex;
       gap: 1.125rem;
+      justify-content: flex-start;
 
       &-text {
         display: inline;
