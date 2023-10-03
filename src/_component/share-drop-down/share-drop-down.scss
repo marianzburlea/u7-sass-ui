@@ -21,10 +21,10 @@
 }
 
 .share-drop-down {
-  display: flex;
   flex-direction: column;
   gap: 1.5rem;
   position: relative;
+  display: none;
 
   &__wrapper {
     width: 100%;
@@ -55,7 +55,7 @@
   &__link {
     text-decoration: none;
     display: inline-flex;
-    width: 2rem;
+    width: 3rem;
     height: 2rem;
     justify-content: center;
     align-items: center;
@@ -139,6 +139,7 @@
     font-size: 0.9375rem; // 15px
     text-align: center;
     margin: 0;
+    width: 100%;
   }
 
   &__panel {
@@ -147,11 +148,11 @@
     position: relative;
     background-color: var(--black);
     color: var(--pearl-lusta);
-    width: fit-content;
+    width: min-content;
     transition: 250ms;
 
     position: absolute;
-    bottom: -7rem;
+    top: 5rem;
 
     flex-direction: column;
     gap: 0.5rem;
@@ -171,7 +172,7 @@
 
   &__list {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     justify-content: space-around;
     width: 100%;
   }
@@ -208,6 +209,8 @@
 // @media screen and (min-width: 30rem) {
 @media screen and (min-width: 35rem) {
   .share-drop-down {
+    display: flex;
+
     &__wrapper {
       height: 37.5rem; // 600px
       padding: 7.125rem 5rem 4.375rem;
@@ -220,6 +223,8 @@
 
       &-text {
         display: inline;
+        font-family: 'Johnnie Walker Sans Headline', serif;
+        font-size: 1.25rem;
       }
     }
 
