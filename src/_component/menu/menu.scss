@@ -1,0 +1,211 @@
+.top-menu {
+  padding: 1.5rem 2rem;
+
+  &__drop-down-icon--close,
+  &__drop-down-icon {
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    right: 0;
+    transform: rotate(-90deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 250ms;
+  }
+
+  &__drop-down-icon {
+    &::before {
+      // width: 3rem;
+      // height: 3rem;
+      font-family: var(--jw-custom-font-font-family);
+      content: var(--jw-custom-font-chevron-left);
+      font-size: 1rem;
+    }
+  }
+
+  &__drop-down-icon--close {
+    display: none;
+  }
+
+  &__icon-list {
+    display: flex;
+  }
+
+  &__logo {
+    min-width: 3rem;
+    height: 3rem;
+    flex-grow: 1;
+    text-decoration: none;
+    color: var(--black);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 0.5rem solid transparent;
+
+    &::before {
+      font-family: var(--jw-custom-font-font-family);
+      content: var(--jw-custom-font-jw-logo);
+      font-size: 2rem;
+    }
+  }
+
+  &__toggle,
+  &__news,
+  &__search {
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 250ms;
+    outline: 0.5rem solid transparent;
+
+    position: relative;
+
+    &:hover {
+      color: var(--pearl-lusta);
+      background-color: var(--black);
+    }
+
+    &::after,
+    &::before {
+      font-family: var(--jw-custom-font-font-family);
+      font-size: 2rem;
+      position: absolute;
+      pointer-events: none;
+      transition: 250ms;
+    }
+  }
+
+  &__search {
+    &::before {
+      content: var(--jw-custom-font-search-large);
+      font-size: 3rem;
+    }
+  }
+
+  &__news {
+    &::before {
+      content: var(--jw-custom-font-social-email);
+      font-size: 1.25rem;
+    }
+  }
+
+  &__toggle {
+    &::after {
+      content: var(--jw-custom-font-close);
+      opacity: 0;
+    }
+
+    &::before {
+      content: var(--jw-custom-font-hamburger);
+    }
+  }
+
+  &__sub-nav {
+    display: flex;
+    flex-direction: column;
+    display: none;
+
+    &-toggle {
+      @include hide-visually();
+
+      &:checked + a.top-menu__main-link {
+        & > .top-menu__drop-down-icon {
+          &--close {
+            display: flex;
+          }
+
+          & {
+            transform: rotate(90deg);
+          }
+        }
+
+        & + .top-menu__sub-nav {
+          display: flex;
+        }
+      }
+
+      &:focus-visible + a.top-menu__main-link {
+        outline: 0.5rem solid var(--blaze-orange);
+      }
+    }
+
+    &-link {
+      font-family: 'Johnnie Walker Sans Headline', serif;
+      min-height: 2.75rem; // 44px
+      padding-inline: 1rem;
+      font-size: 1.25rem; // 20px
+      text-decoration: none;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      outline: 0.5rem solid transparent;
+      transition: 250ms;
+
+      &:focus-visible {
+        outline: 0.5rem solid var(--blaze-orange);
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    // gap: 1rem;
+    flex-direction: column;
+    display: none;
+  }
+
+  &__main-link {
+    border-bottom: 0.125rem solid var(--black);
+    color: var(--black);
+    font-size: 2rem;
+    min-height: 3.5rem; // 56px
+    line-height: 1.5;
+    text-decoration: none;
+    font-family: 'Johnnie Walker Sans Headline', serif;
+
+    display: flex;
+    align-items: center;
+    padding-inline: 1rem 2.5rem;
+    transition: 250ms;
+    position: relative;
+    word-break: break-word;
+
+    &:hover {
+      color: var(--pearl-lusta);
+      background-color: var(--black);
+    }
+  }
+}
+
+#top-menu__toggle {
+  @include hide-visually();
+
+  &:focus-visible ~ .top-menu__icon-list > .top-menu__toggle {
+    outline: 0.5rem solid var(--blaze-orange);
+  }
+
+  &:checked ~ .top-menu {
+    &__nav {
+      display: flex;
+    }
+
+    &__icon-list {
+      & > .top-menu__toggle {
+        &::before {
+          opacity: 0;
+        }
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

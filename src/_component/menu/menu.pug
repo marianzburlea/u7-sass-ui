@@ -1,0 +1,56 @@
+.top-menu
+
+  input#top-menu__toggle(
+    type="checkbox"
+  )
+
+  .top-menu__icon-list
+    label.top-menu__toggle(
+      for="top-menu__toggle"
+    )
+
+    a.top-menu__logo(
+      href="/"
+      title="take me home"
+    )
+
+    label.top-menu__news(
+      for="top-menu__news"
+    )
+
+    label.top-menu__search(
+      for="top-menu__search"
+    )
+
+  nav.top-menu__nav
+    input.top-menu__sub-nav-toggle(
+      type="radio"
+      id="sub-menu-reset"
+      name="sub-menu"
+    )
+    each mainNavItem, key in data.menu.list
+      if mainNavItem.list
+        input.top-menu__sub-nav-toggle(
+          type="radio"
+          id=`sub-menu-${key}`
+          name="sub-menu"
+        )
+      a.top-menu__main-link(
+        href=mainNavItem.href
+        title=mainNavItem.title
+      )
+        | #{mainNavItem.label}
+        if mainNavItem.list
+          label.top-menu__drop-down-icon(
+            for=`sub-menu-${key}`
+          )
+          label.top-menu__drop-down-icon--close(
+            for=`sub-menu-reset`
+          )
+      if mainNavItem.list
+        nav.top-menu__sub-nav 
+          each subNavItem, subKey in mainNavItem.list 
+            a.top-menu__sub-nav-link(
+              href=subNavItem.href
+              title=subNavItem.title
+            ) #{subNavItem.label} #{subKey + 1 + (key - 1) * 4}

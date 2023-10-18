@@ -1,0 +1,95 @@
+{
+  "logo": {
+    "small": "jw-small",
+    "large": "jw-large"
+  },
+  "list": [
+    {
+      "href": "#home",
+      "label": "home",
+      "title": "home"
+    },
+    {
+      "href": "#our-whisky",
+      "label": "our whisky",
+      "title": "our whisky",
+      "list": [
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" }
+      ]
+    },
+    {
+      "href": "#whisky-cocktails",
+      "label": "whisky cocktails",
+      "title": "whisky cocktails",
+      "list": [
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" }
+      ]
+    },
+    {
+      "href": "#whisky-guide",
+      "label": "whisky guide",
+      "title": "whisky guide",
+      "list": [
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" }
+      ]
+    },
+    {
+      "href": "#our-whisky-gifts",
+      "label": "our whisky gifts",
+      "title": "our whisky gifts",
+      "list": [
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" }
+      ]
+    },
+    {
+      "href": "#sustainability",
+      "label": "sustainability",
+      "title": "sustainability",
+      "list": [
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" }
+      ]
+    },
+    {
+      "href": "#visit-johnnie-walker-princess-street",
+      "label": "visit johnnie walker princess street",
+      "title": "visit johnnie walker princess street",
+      "list": [
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" }
+      ]
+    },
+    {
+      "href": "#keep-walking",
+      "label": "keep walking",
+      "title": "keep walking",
+      "list": [
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" },
+        { "href": "#123", "title": "test", "label": "test" }
+      ]
+    },
+    {
+      "href": "#newsletter",
+      "label": "newsletter",
+      "title": "newsletter"
+    }
+  ]
+}
