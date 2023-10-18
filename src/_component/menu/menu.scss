@@ -31,12 +31,12 @@
 
   &__icon-list {
     display: flex;
+    gap: 0.5rem;
   }
 
   &__logo {
     min-width: 3rem;
     height: 3rem;
-    flex-grow: 1;
     text-decoration: none;
     color: var(--black);
 
@@ -49,6 +49,11 @@
       font-family: var(--jw-custom-font-font-family);
       content: var(--jw-custom-font-jw-logo);
       font-size: 2rem;
+    }
+
+    &-wrapper {
+      flex-grow: 1;
+      position: relative;
     }
   }
 
@@ -85,7 +90,7 @@
   &__search {
     &::before {
       content: var(--jw-custom-font-search-large);
-      font-size: 3rem;
+      font-size: 2rem;
     }
   }
 
@@ -181,6 +186,30 @@
       color: var(--pearl-lusta);
       background-color: var(--black);
     }
+  }
+
+  &__search-input {
+    position: absolute;
+    inset: 0;
+    max-height: 2.5rem;
+    margin: auto 0;
+    padding-inline: 0.5rem;
+    opacity: 0;
+    transition: 250ms;
+    pointer-events: none;
+
+    &:focus-visible {
+      outline: 0.5rem solid var(--blaze-orange);
+    }
+  }
+}
+
+#top-menu__search-toggle {
+  @include hide-visually();
+
+  &:checked + .top-menu__search-input {
+    opacity: 1;
+    pointer-events: all;
   }
 }
 

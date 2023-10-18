@@ -9,17 +9,26 @@
       for="top-menu__toggle"
     )
 
-    a.top-menu__logo(
-      href="/"
-      title="take me home"
-    )
+    .top-menu__logo-wrapper
+      a.top-menu__logo(
+        href="/"
+        title="take me home"
+      )
+      input(
+        type="checkbox"
+        id="top-menu__search-toggle"
+      )
+      input.top-menu__search-input(
+        type="text"
+        disabled
+      )
 
     label.top-menu__news(
       for="top-menu__news"
     )
 
     label.top-menu__search(
-      for="top-menu__search"
+      for="top-menu__search-toggle"
     )
 
   nav.top-menu__nav
@@ -54,3 +63,18 @@
               href=subNavItem.href
               title=subNavItem.title
             ) #{subNavItem.label} #{subKey + 1 + (key - 1) * 4}
+
+script.
+  //- toggle input focus and disabled attribute
+  var searchInput = document.querySelector('.top-menu__search-input')
+  var searchInputToggle = document.querySelector('#top-menu__search-toggle')
+  if (searchInput && searchInputToggle) {
+    searchInputToggle.addEventListener('change', function(e) {
+      if (e.target.checked) {
+        searchInput.removeAttribute('disabled')
+        searchInput.focus()
+      } else {
+        searchInput.setAttribute('disabled', true)
+      }
+    })
+  }
