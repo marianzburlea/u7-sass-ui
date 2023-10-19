@@ -1,0 +1,59 @@
+// tablet
+@media screen and (min-width: 48rem) {
+  .top-menu {
+    &__sub-nav--simple {
+      position: absolute;
+      top: 3.5rem;
+      z-index: 1;
+    }
+
+    &__logo {
+      &::before {
+        position: absolute;
+        font-size: 4rem;
+      }
+
+      &::after {
+        font-family: var(--jw-custom-font-font-family);
+        content: var(--jw-custom-font-jw-text);
+        font-size: 4rem;
+        padding-right: 0.8rem;
+      }
+
+      &-wrapper {
+        overflow: hidden;
+      }
+    }
+
+    &__toggle,
+    &__news,
+    #top-menu__news-toggle,
+    #top-menu__toggle {
+      display: none;
+    }
+
+    &__nav {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    &__sub-nav-link {
+      white-space: nowrap;
+    }
+
+    &__main-link {
+      border: 0;
+      font-size: 1.125rem;
+    }
+
+    &__item {
+      &[data-change-location] {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+}

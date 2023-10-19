@@ -50,6 +50,13 @@
       outline: 0.5rem solid var(--blaze-orange);
     }
 
+    &::after,
+    &::before {
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     &::before {
       font-family: var(--jw-custom-font-font-family);
       content: var(--jw-custom-font-jw-logo);
@@ -128,10 +135,15 @@
     }
   }
 
+  &__item {
+    position: relative;
+  }
+
   &__sub-nav {
     &--simple,
     &--columns {
       display: none;
+      background-color: var(--pearl-lusta);
     }
 
     &--columns {
@@ -141,7 +153,7 @@
     &-toggle {
       @include hide-visually();
 
-      &:checked + a.top-menu__main-link {
+      &:checked + .top-menu__item a.top-menu__main-link {
         & > .top-menu__drop-down-icon {
           &--close {
             display: flex;

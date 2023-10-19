@@ -53,38 +53,41 @@
           id=`sub-menu-${key}`
           name="sub-menu"
         )
-      a.top-menu__main-link(
-        href=mainNavItem.href
-        title=mainNavItem.title
+      .top-menu__item(
+        data-change-location=mainNavItem.columns
       )
-        | #{mainNavItem.label}
-        if mainNavItem.list
-          label.top-menu__drop-down-icon(
-            for=`sub-menu-${key}`
-          )
-          label.top-menu__drop-down-icon--close(
-            for=`sub-menu-reset`
-          )
-      if mainNavItem.list
-        nav(
-          class=`top-menu__sub-nav--${mainNavItem.columns ? 'columns' : 'simple'}`
+        a.top-menu__main-link(
+          href=mainNavItem.href
+          title=mainNavItem.title
         )
-          each subNavItem, subKey in mainNavItem.list
-            if subNavItem.list && Array.isArray(subNavItem.list)
-              section.top-menu__sub-nav-link(
-                title=subNavItem.title
-              )
-                span= subNavItem.label
-                each subNavSecondartItem in subNavItem.list
-                  a.top-menu__sub-nav-link(
-                    href=subNavSecondartItem.href
-                    title=subNavSecondartItem.title
-                  )= subNavSecondartItem.label
-            else
-              a.top-menu__sub-nav-link(
-                href=subNavItem.href
-                title=subNavItem.title
-              )= subNavItem.label
+          | #{mainNavItem.label}
+          if mainNavItem.list
+            label.top-menu__drop-down-icon(
+              for=`sub-menu-${key}`
+            )
+            label.top-menu__drop-down-icon--close(
+              for=`sub-menu-reset`
+            )
+        if mainNavItem.list
+          nav(
+            class=`top-menu__sub-nav--${mainNavItem.columns ? 'columns' : 'simple'}`
+          )
+            each subNavItem, subKey in mainNavItem.list
+              if subNavItem.list && Array.isArray(subNavItem.list)
+                section.top-menu__sub-nav-link(
+                  title=subNavItem.title
+                )
+                  span= subNavItem.label
+                  each subNavSecondartItem in subNavItem.list
+                    a.top-menu__sub-nav-link(
+                      href=subNavSecondartItem.href
+                      title=subNavSecondartItem.title
+                    )= subNavSecondartItem.label
+              else
+                a.top-menu__sub-nav-link(
+                  href=subNavItem.href
+                  title=subNavItem.title
+                )= subNavItem.label
 
 dialog#newsletter__dialog.newsletter__dialog(
 
