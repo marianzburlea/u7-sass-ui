@@ -9,36 +9,45 @@
       for="top-menu__toggle"
     )
 
+    input(
+      type="checkbox"
+      id="top-menu__news-toggle"
+    )
+
+    input(
+      type="checkbox"
+      id="top-menu__search-toggle"
+    )
+
     .top-menu__logo-wrapper
       a.top-menu__logo(
         href="/"
         title="take me home"
-      )
-      input(
-        type="checkbox"
-        id="top-menu__search-toggle"
       )
       input.top-menu__search-input(
         type="text"
         disabled
       )
 
+
     label.top-menu__news(
-      for="top-menu__news"
+      for="top-menu__news-toggle"
     )
+
 
     label.top-menu__search(
       for="top-menu__search-toggle"
     )
 
   nav.top-menu__nav
-    input.top-menu__sub-nav-toggle(
-      type="radio"
-      id="sub-menu-reset"
-      name="sub-menu"
-    )
     each mainNavItem, key in data.menu.list
       if mainNavItem.list
+        if key === 1
+          input.top-menu__sub-nav-toggle(
+            type="radio"
+            id="sub-menu-reset"
+            name="sub-menu"
+          )
         input.top-menu__sub-nav-toggle(
           type="radio"
           id=`sub-menu-${key}`
@@ -57,14 +66,146 @@
             for=`sub-menu-reset`
           )
       if mainNavItem.list
-        nav.top-menu__sub-nav 
-          each subNavItem, subKey in mainNavItem.list 
-            a.top-menu__sub-nav-link(
-              href=subNavItem.href
-              title=subNavItem.title
-            ) #{subNavItem.label} #{subKey + 1 + (key - 1) * 4}
+        nav(
+          class=`top-menu__sub-nav--${mainNavItem.columns ? 'columns' : 'simple'}`
+        )
+          each subNavItem, subKey in mainNavItem.list
+            if subNavItem.list && Array.isArray(subNavItem.list)
+              section.top-menu__sub-nav-link(
+                title=subNavItem.title
+              )
+                span= subNavItem.label
+                each subNavSecondartItem in subNavItem.list
+                  a.top-menu__sub-nav-link(
+                    href=subNavSecondartItem.href
+                    title=subNavSecondartItem.title
+                  )= subNavSecondartItem.label
+            else
+              a.top-menu__sub-nav-link(
+                href=subNavItem.href
+                title=subNavItem.title
+              )= subNavItem.label
+
+dialog#newsletter__dialog.newsletter__dialog(
+
+)
+  .newsletter__modal
+    .newsletter__header
+      h1 hi
+
+    .newsletter__body
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+      div 
+        div 
+          label some text
+        input(type="text")
+
+    .newsletter__footer
+      div 
+        input(type="submit")
+        button.newsletter__close-button(
+          type="button"
+        ) &times;
+
 
 script.
+  //- newsletter dialog
+  var newsletterDialog = document.querySelector('#newsletter__dialog')
+  var topMenuNews = document.querySelector('.top-menu__news')
+  var topMenuNewsToggle = document.querySelector('#top-menu__news-toggle')
+  var newsletterCloseButton = document.querySelector('.newsletter__close-button')
+
+  if (newsletterDialog && topMenuNews && topMenuNewsToggle) {
+    newsletterCloseButton.addEventListener('click', function() {
+      topMenuNewsToggle.checked = false
+      newsletterDialog.close()
+    })
+
+    newsletterDialog.addEventListener('close', function() {
+      topMenuNewsToggle.checked = false
+    })
+
+    topMenuNewsToggle.addEventListener('change', function (e) {
+      console.log(newsletterDialog)
+      if (e.target.checked) {
+        newsletterDialog.showModal()
+      } else {
+        newsletterDialog.close()
+      }
+    })
+  }
+
   //- toggle input focus and disabled attribute
   var searchInput = document.querySelector('.top-menu__search-input')
   var searchInputToggle = document.querySelector('#top-menu__search-toggle')
