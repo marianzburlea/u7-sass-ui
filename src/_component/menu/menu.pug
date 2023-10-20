@@ -110,12 +110,12 @@
                         alt=subNavItem.alt
                       )
                     | #{subNavItem.label}
-    label.top-menu__left-icon(
-      for=`top-menu__left-icon`
+    button.top-menu__left-icon(
+      type="button"
     )
 
-    label.top-menu__right-icon(
-      for=`top-menu__right-icon`
+    button.top-menu__right-icon(
+      type="button"
     )
 
 include newsletter
@@ -126,38 +126,39 @@ script.
   var linkList = document.querySelectorAll('.top-menu__nav-content .top-menu__main-link-simple:not([data-change-location]), .top-menu__nav-content .top-menu__main-link-toggle:not([data-change-location])');
 
   // Initialize a variable to keep track of the cumulative width
-  var cumulativeWidth = 0;
   var currentSlideBy = 0;
+  var widthList = [0]
+  var currentWidthIndex = 1
+
+  const sumWidth = (list, index) => list.slice(0, index + 1).reduce((a, c) => a + c, 0)
 
   // Iterate over the linkList
-  linkList.forEach(function(link) {
+  linkList.forEach(function(link, index) {
     // Get the width of the current link
-    var width = link.offsetWidth;
-
-    // Set the transform translateX property of the current link based on the cumulativeWidth
-    link.style.setProperty('--left', cumulativeWidth + 'px');
-
-    // Add the current width to the cumulativeWidth for the next iteration
-    cumulativeWidth += width + 68;
+    var width = link.offsetWidth + (link.classList.contains('top-menu__main-link-simple') ? 32 : 68);
+    widthList.push(width);
+    link.style.setProperty('--left', sumWidth(widthList, index) + 'px');
   });
 
   var topMenuRightIcon = document.querySelector('.top-menu__right-icon');
   var topMenuLeftIcon = document.querySelector('.top-menu__left-icon');
 
   if (topMenuRightIcon) {
-    topMenuRightIcon.addEventListener('click', function () {
-      if (cumulativeWidth - window.innerWidth + 100 > Math.abs(currentSlideBy)) {
-        currentSlideBy -= 100
+    topMenuRightIcon.addEventListener('click',  () => {
+      if (sumWidth(widthList,  widthList.length) - window.innerWidth + 100 > Math.abs(currentSlideBy)) {
+        currentSlideBy = -sumWidth(widthList, currentWidthIndex)
         document.documentElement.style.setProperty('--slide-by', currentSlideBy + 'px')
+        currentWidthIndex++
       }
     })
   }
 
   if (topMenuLeftIcon) {
-    topMenuLeftIcon.addEventListener('click', function () {
+    topMenuLeftIcon.addEventListener('click', () => {
       if (currentSlideBy < 0) {
-        currentSlideBy += 100
-        document.documentElement.style.setProperty('--slide-by', currentSlideBy + 'px')
+        currentSlideBy = 0
+        document.documentElement.style.setProperty('--slide-by', 0 + 'px')
+        currentWidthIndex = 1
       }
     })
   }
@@ -169,17 +170,16 @@ script.
   var newsletterCloseButton = document.querySelector('.newsletter__close-button')
 
   if (newsletterDialog && topMenuNews && topMenuNewsToggle) {
-    newsletterCloseButton.addEventListener('click', function() {
+    newsletterCloseButton.addEventListener('click', () => {
       topMenuNewsToggle.checked = false
       newsletterDialog.close()
     })
 
-    newsletterDialog.addEventListener('close', function() {
+    newsletterDialog.addEventListener('close', () => {
       topMenuNewsToggle.checked = false
     })
 
-    topMenuNewsToggle.addEventListener('change', function (e) {
-      console.log(newsletterDialog)
+    topMenuNewsToggle.addEventListener('change', (e) => {
       if (e.target.checked) {
         newsletterDialog.showModal()
       } else {

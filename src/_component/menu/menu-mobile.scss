@@ -39,6 +39,7 @@
     border-radius: 0;
     z-index: 1;
     display: none;
+    border: 0;
 
     &::before {
       content: var(--jw-custom-font-chevron-left);
@@ -221,6 +222,13 @@
       justify-content: center;
       flex-direction: column;
       gap: 1.25rem;
+      transform: scale(0.9);
+
+      &:hover {
+        background-color: var(--black);
+        color: var(--pearl-lusta);
+        transform: scale(1);
+      }
 
       &:focus-visible {
         outline: 0.5rem solid var(--blaze-orange);
