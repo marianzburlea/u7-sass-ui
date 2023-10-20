@@ -1,3 +1,30 @@
 // desktop
 @media screen and (min-width: 73.75rem) {
+  .top-menu {
+    &__sub-nav {
+      &--columns {
+        grid-template-columns: repeat(4, 1fr);
+        position: absolute;
+      }
+
+      &--simple {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      &-link {
+        &[data-has-image] {
+          grid-column: 4/5;
+        }
+
+        &:hover {
+          background-color: var(--black);
+          color: var(--pearl-lusta);
+        }
+
+        & & {
+          white-space: nowrap;
+        }
+      }
+    }
+  }
 }

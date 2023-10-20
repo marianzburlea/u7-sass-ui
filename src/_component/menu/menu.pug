@@ -40,149 +40,128 @@
     )
 
   nav.top-menu__nav
-    each mainNavItem, key in data.menu.list
-      if mainNavItem.list
-        if key === 1
-          input.top-menu__sub-nav-toggle(
-            type="radio"
-            id="sub-menu-reset"
-            name="sub-menu"
-          )
-        input.top-menu__sub-nav-toggle(
-          type="radio"
-          id=`sub-menu-${key}`
-          name="sub-menu"
-        )
-      .top-menu__item(
-        data-change-location=mainNavItem.columns
-      )
-        a.top-menu__main-link(
-          href=mainNavItem.href
-          title=mainNavItem.title
-        )
-          | #{mainNavItem.label}
+    //- input(
+    //-   type="radio"
+    //-   name="horizontal-navigation"
+    //-   id="top-menu__left-icon"
+    //-   checked
+    //- )
+    //- input(
+    //-   type="radio"
+    //-   name="horizontal-navigation"
+    //-   id="top-menu__right-icon"
+    //- )
+
+
+    .top-menu__nav-content-wrapper
+      .top-menu__nav-content
+        each mainNavItem, key in data.menu.list
           if mainNavItem.list
-            label.top-menu__drop-down-icon(
-              for=`sub-menu-${key}`
+            if key === 1
+              input.top-menu__sub-nav-toggle(
+                type="radio"
+                id="sub-menu-reset"
+                name="sub-menu"
+              )
+            input.top-menu__sub-nav-toggle(
+              type="radio"
+              id=`sub-menu-${key}`
+              name="sub-menu"
             )
-            label.top-menu__drop-down-icon--close(
-              for=`sub-menu-reset`
-            )
-        if mainNavItem.list
-          nav(
-            class=`top-menu__sub-nav--${mainNavItem.columns ? 'columns' : 'simple'}`
+
+          a(
+            class=`top-menu__main-link${mainNavItem.list ? '-toggle' : '-simple'}`
+            href=mainNavItem.href
+            title=mainNavItem.title
+            data-change-location=mainNavItem.columns
           )
-            each subNavItem, subKey in mainNavItem.list
-              if subNavItem.list && Array.isArray(subNavItem.list)
-                section.top-menu__sub-nav-link(
-                  title=subNavItem.title
-                )
-                  span= subNavItem.label
-                  each subNavSecondartItem in subNavItem.list
-                    a.top-menu__sub-nav-link(
-                      href=subNavSecondartItem.href
-                      title=subNavSecondartItem.title
-                    )= subNavSecondartItem.label
-              else
-                a.top-menu__sub-nav-link(
-                  href=subNavItem.href
-                  title=subNavItem.title
-                )= subNavItem.label
+            | #{mainNavItem.label}
+            if mainNavItem.list
+              label.top-menu__drop-down-icon(
+                for=`sub-menu-${key}`
+              )
+              label.top-menu__drop-down-icon--close(
+                for=`sub-menu-reset`
+              )
+          if mainNavItem.list
+            nav(
+              class=`top-menu__sub-nav--${mainNavItem.columns ? 'columns' : 'simple'}`
+            )
+              each subNavItem, subKey in mainNavItem.list
+                if subNavItem.list && Array.isArray(subNavItem.list)
+                  section.top-menu__sub-nav-link(
+                    title=subNavItem.title
+                  )
+                    span= subNavItem.label
+                    each subNavSecondartItem in subNavItem.list
+                      a.top-menu__sub-nav-link(
+                        href=subNavSecondartItem.href
+                        title=subNavSecondartItem.title
+                      )= subNavSecondartItem.label
+                else
+                  a.top-menu__sub-nav-link(
+                    href=subNavItem.href
+                    data-has-image=!!subNavItem.src
+                    title=subNavItem.title
+                  )
+                    if subNavItem.src 
+                      img.top-menu__sub-nav-image(
+                        src=subNavItem.src 
+                        alt=subNavItem.alt
+                      )
+                    | #{subNavItem.label}
+    label.top-menu__left-icon(
+      for=`top-menu__left-icon`
+    )
 
-dialog#newsletter__dialog.newsletter__dialog(
+    label.top-menu__right-icon(
+      for=`top-menu__right-icon`
+    )
 
-)
-  .newsletter__modal
-    .newsletter__header
-      h1 hi
-
-    .newsletter__body
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-      div 
-        div 
-          label some text
-        input(type="text")
-
-    .newsletter__footer
-      div 
-        input(type="submit")
-        button.newsletter__close-button(
-          type="button"
-        ) &times;
+include newsletter
 
 
 script.
+  // Select all the top-menu__main-link elements inside top-menu__nav-content
+  var linkList = document.querySelectorAll('.top-menu__nav-content .top-menu__main-link-simple:not([data-change-location]), .top-menu__nav-content .top-menu__main-link-toggle:not([data-change-location])');
+
+  // Initialize a variable to keep track of the cumulative width
+  var cumulativeWidth = 0;
+  var currentSlideBy = 0;
+
+  // Iterate over the linkList
+  linkList.forEach(function(link) {
+    // Get the width of the current link
+    var width = link.offsetWidth;
+
+    // Set the transform translateX property of the current link based on the cumulativeWidth
+    link.style.setProperty('--left', cumulativeWidth + 'px');
+
+    // Add the current width to the cumulativeWidth for the next iteration
+    cumulativeWidth += width + 68;
+  });
+
+  var topMenuRightIcon = document.querySelector('.top-menu__right-icon');
+  var topMenuLeftIcon = document.querySelector('.top-menu__left-icon');
+
+  if (topMenuRightIcon) {
+    topMenuRightIcon.addEventListener('click', function () {
+      if (cumulativeWidth - window.innerWidth + 100 > Math.abs(currentSlideBy)) {
+        currentSlideBy -= 100
+        document.documentElement.style.setProperty('--slide-by', currentSlideBy + 'px')
+      }
+    })
+  }
+
+  if (topMenuLeftIcon) {
+    topMenuLeftIcon.addEventListener('click', function () {
+      if (currentSlideBy < 0) {
+        currentSlideBy += 100
+        document.documentElement.style.setProperty('--slide-by', currentSlideBy + 'px')
+      }
+    })
+  }
+
   //- newsletter dialog
   var newsletterDialog = document.querySelector('#newsletter__dialog')
   var topMenuNews = document.querySelector('.top-menu__news')
