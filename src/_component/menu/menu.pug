@@ -129,6 +129,10 @@ script.
   var currentSlideBy = 0;
   var widthList = [0]
   var currentWidthIndex = 1
+  var topMenuNav = document.querySelector('.top-menu__nav');
+  var topMenuRightIcon = document.querySelector('.top-menu__right-icon');
+  var topMenuLeftIcon = document.querySelector('.top-menu__left-icon');
+
 
   const sumWidth = (list, index) => list.slice(0, index + 1).reduce((a, c) => a + c, 0)
 
@@ -140,12 +144,9 @@ script.
     link.style.setProperty('--left', sumWidth(widthList, index) + 'px');
   });
 
-  var topMenuRightIcon = document.querySelector('.top-menu__right-icon');
-  var topMenuLeftIcon = document.querySelector('.top-menu__left-icon');
-
   if (topMenuRightIcon) {
     topMenuRightIcon.addEventListener('click',  () => {
-      if (sumWidth(widthList,  widthList.length) - window.innerWidth + 100 > Math.abs(currentSlideBy)) {
+      if (sumWidth(widthList,  widthList.length) + currentSlideBy > topMenuNav.offsetWidth) {
         currentSlideBy = -sumWidth(widthList, currentWidthIndex)
         document.documentElement.style.setProperty('--slide-by', currentSlideBy + 'px')
         currentWidthIndex++
