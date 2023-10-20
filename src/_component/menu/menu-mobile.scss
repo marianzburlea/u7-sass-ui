@@ -41,6 +41,11 @@
     display: none;
     border: 0;
 
+    &:focus-visible {
+      outline: 0.5rem solid var(--blaze-orange);
+      outline-offset: -0.5rem;
+    }
+
     &::before {
       content: var(--jw-custom-font-chevron-left);
     }

@@ -129,17 +129,36 @@
       }
     }
 
+    &__logo {
+      outline-offset: -0.5rem;
+    }
+
+    &__search {
+      outline-offset: -0.5rem;
+
+      &-input {
+        inset: 0 0.5rem;
+        outline-offset: -0.25rem;
+      }
+    }
+
     &__main-link-toggle {
       padding-inline: 1rem 3.25rem;
     }
 
     &__logo-wrapper {
-      max-width: calc(100% - 13rem);
+      max-width: calc(100% - 18rem);
       // margin: auto;
+      padding-inline: 0.5rem;
+
+      &::after {
+        right: 0.5rem;
+      }
     }
 
     &__icon-list {
       justify-content: end;
+      margin: 0 auto;
     }
 
     &__sub-nav-link {

@@ -1,6 +1,12 @@
 // desktop
 @media screen and (min-width: 73.75rem) {
   .top-menu {
+    &__icon-list {
+      justify-content: end;
+      max-width: 73.75rem;
+      margin: 0 auto;
+    }
+
     &__nav-content {
       & [data-change-location] {
         left: calc((100vw - 73.75rem) / 2 + 3.5rem);
