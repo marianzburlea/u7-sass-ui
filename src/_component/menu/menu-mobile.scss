@@ -1,5 +1,6 @@
 .top-menu {
   padding: 1.5rem 1rem;
+
   &__left-icon {
     order: -1;
   }
@@ -76,7 +77,7 @@
 
   &__logo {
     min-width: 3rem;
-    height: 3rem;
+    height: 2.25rem;
     text-decoration: none;
     color: var(--black);
 
@@ -84,6 +85,7 @@
     justify-content: center;
     align-items: center;
     outline: 0.5rem solid transparent;
+    overflow: hidden;
 
     &:focus-visible {
       outline: 0.5rem solid var(--blaze-orange);
@@ -94,6 +96,15 @@
       /* Better Font Rendering =========== */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &::after {
+      font-family: var(--jw-custom-font-font-family);
+      content: var(--jw-custom-font-jw-text);
+      font-size: 2.75rem;
+      padding-right: 0.5rem;
     }
 
     &::before {
@@ -105,11 +116,13 @@
     &-wrapper {
       flex-grow: 1;
       position: relative;
+      overflow: hidden;
+      padding: 0.5rem;
 
       &::after {
         position: absolute;
         top: 0.5rem;
-        right: 0.25rem;
+        right: 0.75rem;
         font-family: var(--jw-custom-font-font-family);
         content: var(--jw-custom-font-search-large);
         font-size: 2rem;
@@ -122,6 +135,7 @@
   &__toggle,
   &__news,
   &__search {
+    box-sizing: border-box;
     width: 3rem;
     height: 3rem;
     cursor: pointer;
@@ -131,12 +145,12 @@
     align-items: center;
     transition: 250ms;
     outline: 0.5rem solid transparent;
+    outline-offset: -0.5rem;
 
     position: relative;
 
     &:hover {
-      color: var(--pearl-lusta);
-      background-color: var(--black);
+      border-bottom: 0.125rem var(--orange);
     }
 
     &::after,
@@ -227,11 +241,9 @@
       justify-content: center;
       flex-direction: column;
       gap: 1.25rem;
-      transform: scale(0.9);
 
       &:hover {
-        background-color: var(--black);
-        color: var(--pearl-lusta);
+        border-color: var(--orange);
         transform: scale(1);
       }
 
@@ -257,6 +269,10 @@
     display: none;
   }
 
+  &__main-link-simple {
+    padding-inline: 1rem;
+  }
+
   &__main-link-toggle {
     padding-inline: 1rem 2.5rem;
   }
@@ -277,11 +293,6 @@
     position: relative;
     word-break: break-word;
 
-    &:hover {
-      color: var(--pearl-lusta);
-      background-color: var(--black);
-    }
-
     &:focus-visible {
       outline: 0.5rem solid var(--blaze-orange);
     }
@@ -289,7 +300,7 @@
 
   &__search-input {
     position: absolute;
-    inset: 0;
+    inset: 0.5rem;
     max-height: 2.5rem;
     margin: auto 0;
     padding-inline: 0.5rem 2rem;

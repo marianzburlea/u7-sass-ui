@@ -11,6 +11,38 @@
     right: 0;
     left: 0;
 
+    &__main-link-toggle,
+    &__main-link-simple {
+      border-bottom: 0.125rem solid transparent;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 0.25rem;
+        background-color: transparent;
+        transform: scale(0);
+        transition: 250ms;
+      }
+
+      &:hover {
+        &::before {
+          background-color: var(--orange);
+          transform: scale(1);
+        }
+      }
+
+      &[data-current-link] {
+        &::before {
+          background-color: var(--black);
+          transform: scale(1);
+        }
+      }
+    }
+
     &__sub-nav {
       &--columns {
         grid-template-columns: repeat(3, 1fr);
@@ -116,7 +148,6 @@
 
     &__main-link-simple,
     &__main-link-toggle {
-      border: 0;
       font-size: 1.125rem;
       white-space: nowrap;
       outline-offset: -0.5rem;
@@ -163,6 +194,7 @@
 
     &__sub-nav-link {
       gap: 0;
+      transform: scale(0.9);
 
       &[data-has-image] {
         grid-column: 3/4;
@@ -191,8 +223,7 @@
     display: flex;
 
     &:hover {
-      background-color: var(--black);
-      color: var(--pearl-lusta);
+      border-bottom: 0.125rem solid var(--orange);
     }
   }
 

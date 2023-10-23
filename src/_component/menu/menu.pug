@@ -69,10 +69,12 @@
               name="sub-menu"
             )
 
+
           a(
             class=`top-menu__main-link${mainNavItem.list ? '-toggle' : '-simple'}`
             href=mainNavItem.href
             title=mainNavItem.title
+            data-current-link=key === 3
             data-change-location=mainNavItem.columns
           )
             | #{mainNavItem.label}
